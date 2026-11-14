@@ -1,0 +1,113 @@
+<%- include('partials/head') %>
+
+<header class="hero">
+  <div class="hero__top">
+    <div>
+      <p class="hero__hello">Hola,</p>
+      <h1 class="hero__name"><%= usuario.nombre %></h1>
+    </div>
+    <button type="button" class="icon-btn icon-btn--light" data-toggle-saldos aria-label="Mostrar u ocultar saldos">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+  </div>
+
+  <p class="hero__label">Tienes disponible</p>
+  <p class="hero__amount money"><%= soles(r.disponible) %></p>
+
+  <div class="semaforo semaforo--<%= r.semaforo.nivel %>">
+    <span class="semaforo__dot" aria-hidden="true"></span>
+    <span><strong><%= r.semaforo.texto %></strong> · el <%= r.cierreMes %> te quedarían unos <span class="money"><%= soles(Math.round(r.proyeccion.saldo)) %></span></span>
+  </div>
+</header>
+
+<main class="content">
+
+  <%# 1. Avisos de Boot (antes: banner "Mío" + tarjeta de duplicado) %>
+  <% if (r.alertas.length) { %>
+  <section aria-labelledby="avisosTitle">
+    <h2 class="section-title" id="avisosTitle"><%- include('partials/boot-avatar') %> Boot encontró <%= r.alertas.length %> aviso<%= r.alertas.length > 1 ? 's' : '' %></h2>
+    <div class="alerts">
+      <% r.alertas.forEach(a => { %>
+        <article class="alert alert--<%= a.tipo %>">
+          <h3><%= a.titulo %></h3>
+          <p><%= a.texto %></p>
+          <button type="button" class="link-btn" data-ask="<%= a.pregunta %>">Revisar con Boot →</button>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+  <% } %>
+
+  <%# 2. Ingresos vs gastos del mes %>
+  <section class="card">
+    <div class="card__head">
+      <h2>Este mes</h2>
+      <a class="link-btn" href="/operaciones#movimientos">Ver movimientos</a>
+    </div>
+    <div class="flow">
+      <div class="flow__row"><span>Ingresos</span><strong class="money"><%= soles(r.ingresos) %></strong></div>
+      <div class="bar"><span class="bar__fill bar__fill--in" style="width:100%"></span></div>
+      <div class="flow__row"><span>Gastos</span><strong class="money"><%= soles(r.gastos) %></strong></div>
+      <div class="bar"><span class="bar__fill bar__fill--out" style="width:<%= r.pctGasto %>%"></span></div>
+      <p class="muted small">Gastaste el <%= r.pctGasto %>% de lo que ingresó este mes.</p>
+    </div>
+  </section>
+
+  <%# 3. Cuentas %>
+  <section class="card">
+    <div class="card__head">
+      <h2>Cuentas</h2>
+      <strong class="money"><%= soles(r.disponible) %></strong>
+    </div>
+    <ul class="list">
+      <% r.cuentas.forEach(c => { %>
+        <li class="list__item">
+          <div><span><%= c.tipo %></span><small class="muted">•<%= c.numero %></small></div>
+          <span class="money"><%= soles(c.saldo) %></span>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <%# 4. Gasto por categoría %>
+  <section class="card">
+    <div class="card__head"><h2>¿En qué se va tu plata?</h2></div>
+    <ul class="cats">
+      <% r.categorias.forEach(c => { %>
+        <li>
+          <div class="flow__row"><span><%= c.nombre %></span><span class="money"><%= soles(c.monto) %></span></div>
+          <div class="bar"><span class="bar__fill<%= c.alerta ? ' bar__fill--warn' : '' %>" style="width:<%= c.pct %>%"></span></div>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <%# 5. Próximos cobros %>
+  <section class="card">
+    <div class="card__head"><h2>Próximos cobros</h2><span class="muted small">hasta el <%= r.cierreMes %></span></div>
+    <ul class="list">
+      <% r.proximosCobros.forEach(c => { %>
+        <li class="list__item">
+          <div><span><%= c.nombre %></span><small class="muted">día <%= c.dia %></small></div>
+          <span class="money"><%= soles(-c.monto) %></span>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <%# 6. Acceso directo a Boot %>
+  <section class="card card--boot">
+    <div class="card__head">
+      <h2>Pregúntale a Boot</h2>
+    </div>
+    <p class="muted small">Simula un gasto antes de hacerlo. El cálculo lo hace el código; Boot solo te lo explica.</p>
+    <div class="chips">
+      <button type="button" class="chip" data-ask="¿Puedo gastar S/ 200 en unas zapatillas?">¿Puedo gastar S/ 200?</button>
+      <button type="button" class="chip" data-ask="¿Me alcanza para un préstamo de S/ 3,000?">¿Préstamo de S/ 3,000?</button>
+      <button type="button" class="chip" data-ask="Fondo de emergencia">Fondo de emergencia</button>
+    </div>
+  </section>
+
+</main>
+
+<%- include('partials/foot', { saludo: r.duplicados.length ? 'Encontré un cobro duplicado. ¿Lo revisamos?' : '' }) %>

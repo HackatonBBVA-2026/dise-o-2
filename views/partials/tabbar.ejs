@@ -1,0 +1,18 @@
+<%
+  const tabs = [
+    { id: 'inicio', href: '/', label: 'Inicio',
+      icon: '<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>' },
+    { id: 'operaciones', href: '/operaciones', label: 'Operaciones',
+      icon: '<path d="M7 7h13m0 0-4-4m4 4-4 4M17 17H4m0 0 4-4m-4 4 4 4"/>' },
+    { id: 'perfil', href: '/perfil', label: 'Perfil',
+      icon: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>' },
+  ];
+%>
+<nav class="tabbar" aria-label="Navegación principal">
+  <% tabs.forEach(t => { const activa = tab === t.id; %>
+    <a href="<%= t.href %>" class="tabbar__item<%= activa ? ' is-active' : '' %>" <%- activa ? 'aria-current="page"' : '' %>>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><%- t.icon %></svg>
+      <span><%= t.label %></span>
+    </a>
+  <% }) %>
+</nav>

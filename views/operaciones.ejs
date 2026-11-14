@@ -1,0 +1,112 @@
+<%- include('partials/head') %>
+
+<header class="topbar">
+  <h1>Operaciones</h1>
+  <p>Disponible <strong class="money"><%= soles(r.disponible) %></strong></p>
+</header>
+
+<main class="content">
+  <div class="actions" role="tablist" aria-label="Tipo de operación">
+    <button class="action" role="tab" id="tab-movimientos" aria-controls="movimientos" data-panel="movimientos">
+      <span class="action__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+      Movimientos
+    </button>
+    <button class="action" role="tab" id="tab-transferir" aria-controls="transferir" data-panel="transferir">
+      <span class="action__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13m0 0-4-4m4 4-4 4M17 17H4m0 0 4-4m-4 4 4 4"/></svg></span>
+      Transferir
+    </button>
+    <button class="action" role="tab" id="tab-qr" aria-controls="qr" data-panel="qr">
+      <span class="action__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></span>
+      Pagos QR
+    </button>
+    <button class="action" role="tab" id="tab-cambio" aria-controls="cambio" data-panel="cambio">
+      <span class="action__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v18M16 7c0-1.7-1.8-3-4-3s-4 1.3-4 3 1.8 2.6 4 3 4 1.3 4 3-1.8 3-4 3-4-1.3-4-3"/></svg></span>
+      T-Cambio
+    </button>
+  </div>
+
+  <%# Movimientos / transacciones %>
+  <section class="card panel" id="movimientos" role="tabpanel" aria-labelledby="tab-movimientos">
+    <div class="card__head"><h2>Movimientos</h2><span class="muted small">Noviembre</span></div>
+    <label class="sr-only" for="buscarMov">Buscar movimiento</label>
+    <input class="input" id="buscarMov" type="search" placeholder="Buscar comercio o categoría">
+    <div class="chips chips--filter" role="group" aria-label="Filtrar">
+      <button type="button" class="chip is-active" data-filtro="todos">Todos</button>
+      <button type="button" class="chip" data-filtro="in">Ingresos</button>
+      <button type="button" class="chip" data-filtro="out">Gastos</button>
+    </div>
+    <ul class="list" id="listaMov">
+      <% const dup = new Set(r.duplicados.map(d => d.comercio)); %>
+      <% r.movimientos.forEach(m => { %>
+        <li class="list__item mov" data-tipo="<%= m.monto > 0 ? 'in' : 'out' %>" data-texto="<%= (m.descripcion + ' ' + m.categoria).toLowerCase() %>">
+          <div>
+            <span><%= m.descripcion %>
+              <% if (dup.has(m.descripcion)) { %><em class="badge badge--warn">Posible duplicado</em><% } %>
+            </span>
+            <small class="muted"><%= m.categoria %> · <%= m.dia %> nov</small>
+          </div>
+          <span class="money <%= m.monto > 0 ? 'pos' : '' %>"><%= m.monto > 0 ? '+ ' : '' %><%= soles(m.monto) %></span>
+        </li>
+      <% }) %>
+    </ul>
+    <p class="muted small empty" id="movVacio" hidden>No hay movimientos que coincidan.</p>
+  </section>
+
+  <%# Transferir %>
+  <section class="card panel" id="transferir" role="tabpanel" aria-labelledby="tab-transferir" hidden>
+    <div class="card__head"><h2>Transferir</h2></div>
+    <form id="formTransfer" class="form" novalidate>
+      <label>Desde
+        <select class="input" name="cuentaId">
+          <% cuentas.forEach(c => { %>
+            <option value="<%= c.id %>"><%= c.tipo %> •<%= c.numero %> · <%= soles(c.saldo) %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label>Cuenta destino o CCI
+        <input class="input" name="destino" inputmode="numeric" placeholder="0011 0123 0200123456" required>
+      </label>
+      <label>Monto (S/)
+        <input class="input" name="monto" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+      </label>
+      <label>Descripción (opcional)
+        <input class="input" name="descripcion" maxlength="40" placeholder="Ej. Alquiler">
+      </label>
+      <p class="form__error" id="transferError" role="alert" hidden></p>
+      <button class="btn" type="submit">Continuar</button>
+      <button class="btn btn--ghost" type="button" data-ask-monto>Preguntar a Boot si me alcanza</button>
+    </form>
+  </section>
+
+  <%# Pagos QR %>
+  <section class="card panel" id="qr" role="tabpanel" aria-labelledby="tab-qr" hidden>
+    <div class="card__head"><h2>Pagos QR</h2></div>
+    <div class="qr-box" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="96" height="96" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+    </div>
+    <button class="btn" type="button" data-demo="Abrir la cámara para escanear">Escanear QR para pagar</button>
+    <button class="btn btn--ghost" type="button" data-demo="Mostrar mi QR de cobro">Mostrar mi QR para cobrar</button>
+  </section>
+
+  <%# Tipo de cambio %>
+  <section class="card panel" id="cambio" role="tabpanel" aria-labelledby="tab-cambio" hidden>
+    <div class="card__head"><h2>Tipo de cambio</h2><span class="muted small">referencial</span></div>
+    <div class="fx">
+      <div><small class="muted">Compra</small><strong>S/ <%= tipoCambio.compra.toFixed(3) %></strong></div>
+      <div><small class="muted">Venta</small><strong>S/ <%= tipoCambio.venta.toFixed(3) %></strong></div>
+    </div>
+    <form class="form" id="formCambio" data-compra="<%= tipoCambio.compra %>" data-venta="<%= tipoCambio.venta %>">
+      <div class="seg" role="group" aria-label="Operación">
+        <button type="button" class="seg__btn is-active" data-modo="comprar">Quiero dólares</button>
+        <button type="button" class="seg__btn" data-modo="vender">Quiero soles</button>
+      </div>
+      <label><span id="fxLabelIn">Envías (S/)</span>
+        <input class="input" id="fxIn" type="number" min="0" step="0.01" value="100">
+      </label>
+      <p class="fx__out">Recibes <strong id="fxOut">—</strong></p>
+      <button class="btn" type="button" data-demo="Cambio de moneda">Cambiar</button>
+    </form>
+  </section>
+</main>
+
+<%- include('partials/foot', { scripts: ['/js/operaciones.js'] }) %>

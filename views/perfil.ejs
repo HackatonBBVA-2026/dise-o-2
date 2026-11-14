@@ -1,0 +1,62 @@
+<%- include('partials/head') %>
+
+<header class="topbar topbar--profile">
+  <span class="avatar" aria-hidden="true"><%= usuario.nombre[0] %><%= usuario.apellido[0] %></span>
+  <div>
+    <h1><%= usuario.nombre %> <%= usuario.apellido %></h1>
+    <p>Cliente desde <%= usuario.clienteDesde %></p>
+  </div>
+</header>
+
+<main class="content">
+  <section class="card">
+    <div class="card__head"><h2>Mi cuenta</h2></div>
+    <ul class="list">
+      <li class="list__item"><span>Correo</span><span class="muted"><%= usuario.email %></span></li>
+      <li class="list__item"><span>Celular</span><span class="muted"><%= usuario.telefono %></span></li>
+      <li><button type="button" class="row-btn" data-demo="Editar datos personales">Datos personales <span aria-hidden="true">›</span></button></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <div class="card__head"><h2>Ajustes</h2></div>
+    <ul class="list">
+      <li class="list__item">
+        <label for="optSaldos">Ocultar saldos<small class="muted">Difumina los montos en pantalla</small></label>
+        <input type="checkbox" class="switch" id="optSaldos" data-pref="ocultarSaldos">
+      </li>
+      <li class="list__item">
+        <label for="optAvisos">Avisos de Boot en Inicio<small class="muted">Duplicados, fin de mes y más</small></label>
+        <input type="checkbox" class="switch" id="optAvisos" data-pref="avisosBoot" checked>
+      </li>
+      <li class="list__item">
+        <label for="optPush">Notificaciones push<small class="muted">Movimientos y cobros</small></label>
+        <input type="checkbox" class="switch" id="optPush" data-pref="push" checked>
+      </li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <div class="card__head"><h2>Seguridad</h2></div>
+    <ul class="list">
+      <li><button type="button" class="row-btn" data-demo="Cambiar clave">Cambiar clave <span aria-hidden="true">›</span></button></li>
+      <li><button type="button" class="row-btn" data-demo="Dispositivos vinculados">Dispositivos vinculados <span aria-hidden="true">›</span></button></li>
+      <li><button type="button" class="row-btn" data-demo="Límites de operaciones">Límites de operaciones <span aria-hidden="true">›</span></button></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <div class="card__head"><h2>Ayuda y soporte</h2></div>
+    <ul class="list">
+      <li><button type="button" class="row-btn" data-ask="Hola">Chatear con Boot <span aria-hidden="true">›</span></button></li>
+      <li><button type="button" class="row-btn" data-demo="Centro de ayuda">Centro de ayuda <span aria-hidden="true">›</span></button></li>
+      <li><button type="button" class="row-btn" data-demo="Llamar a banca por teléfono">Llamar a banca por teléfono <span aria-hidden="true">›</span></button></li>
+      <li><button type="button" class="row-btn" data-demo="Reportar un problema">Reportar un problema <span aria-hidden="true">›</span></button></li>
+    </ul>
+  </section>
+
+  <button type="button" class="btn btn--danger" data-demo="Cerrar sesión">Cerrar sesión</button>
+  <p class="legal">Concepto para discusión · datos ficticios · no es un producto oficial. v1.0</p>
+</main>
+
+<%- include('partials/foot') %>

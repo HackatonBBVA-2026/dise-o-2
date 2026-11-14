@@ -1,0 +1,43 @@
+<%# Burbuja flotante + hoja de chat de Boot. Se incluye en las 3 pestañas. %>
+<% if (typeof saludo !== 'undefined' && saludo) { %>
+  <div class="boot-greeting" id="bootGreeting" role="status">
+    <button class="boot-greeting__close" type="button" aria-label="Cerrar aviso" data-close-greeting>×</button>
+    <strong>¡Hola, <%= usuario.nombre %>! Soy Boot.</strong>
+    <span><%= saludo %></span>
+  </div>
+<% } %>
+
+<button class="boot-fab" type="button" id="bootFab" aria-label="Abrir chat con Boot" aria-controls="bootSheet" aria-expanded="false" <%- (typeof saludo !== 'undefined' && saludo) ? 'data-ask="¿Y el cobro duplicado?"' : '' %>>
+  <%- include('boot-avatar') %>
+  <% if (typeof saludo !== 'undefined' && saludo) { %><span class="boot-fab__badge" aria-hidden="true">1</span><% } %>
+</button>
+
+<div class="boot-sheet" id="bootSheet" role="dialog" aria-modal="true" aria-labelledby="bootTitle" hidden>
+  <header class="boot-sheet__head">
+    <span class="boot-sheet__avatar"><%- include('boot-avatar') %></span>
+    <div>
+      <h2 id="bootTitle">Boot</h2>
+      <p>Tu asistente con IA · en línea</p>
+    </div>
+    <button type="button" class="icon-btn icon-btn--light" data-close-boot aria-label="Cerrar chat">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </header>
+
+  <div class="boot-sheet__log" id="bootLog" aria-live="polite"></div>
+
+  <div class="boot-sheet__chips" id="bootChips">
+    <button type="button" class="chip">¿Llego a fin de mes?</button>
+    <button type="button" class="chip">¿Puedo gastar S/ 200 en unas zapatillas?</button>
+    <button type="button" class="chip">Mis suscripciones</button>
+  </div>
+
+  <form class="boot-sheet__form" id="bootForm" autocomplete="off">
+    <label class="sr-only" for="bootInput">Escribe tu pregunta</label>
+    <input id="bootInput" type="text" placeholder="Pregúntale a Boot…" maxlength="300">
+    <button type="submit" aria-label="Enviar">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 20.5 21 12 3 3.5 3 10l12 2-12 2z"/></svg>
+    </button>
+  </form>
+  <p class="boot-sheet__legal">Boot da información educativa y simulaciones, no asesoría. La decisión es tuya.</p>
+</div>
