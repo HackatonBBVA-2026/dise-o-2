@@ -3,8 +3,13 @@
 // a partir de estos mismos números (nunca para calcularlos).
 import * as data from './data';
 import * as f from './finanzas';
-import { solesCorto as S } from './format';
+import { ESTADO_VACIO, clasificarTodos, pendientes, resumenNegocio } from './clasificacion';
+import { r2, solesCorto as S } from './format';
 import type { RespuestaBoot, Tono } from './types';
+
+// El servidor aún no conoce las reclasificaciones del usuario (viven en su navegador).
+// Con el backend, este estado vendrá de la base de datos.
+const negocioActual = () => resumenNegocio(clasificarTodos(ESTADO_VACIO));
 
 const normalizar = (t: string) => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
@@ -65,6 +70,60 @@ const intenciones: Intencion[] = [
           ? `Es muy ajustado. Con 18 meses la cuota baja a ~${S(Math.round(p.cuota18))}. Es una simulación, no una oferta.`
           : 'Entra en tu margen. Es una simulación, no una oferta.',
         chips: CHIPS_BASE,
+      };
+    },
+  },
+  // ---- Negocio ----
+  {
+    test: (t) => /repon|stock|mercader/.test(t),
+    run: (t) => {
+      const n = negocioActual();
+      const monto = extraerMonto(t) ?? n.reposicion?.montoPromedio ?? 500;
+      // Lo que repone la plata es la ganancia, no las ventas brutas.
+      const gananciaDia = n.resultado / data.hoy;
+      const alcanza = monto <= n.resultado;
+      const falta = r2(monto - n.resultado);
+      return {
+        texto: [
+          alcanza
+            ? `Sí. La bodega ganó ${S(n.resultado)} este mes y puede cubrir la compra sin tocar tu plata personal.`
+            : `La bodega ganó ${S(n.resultado)} este mes: le faltarían ${S(falta)} para cubrir esta compra.`,
+        ],
+        tabla: [
+          { label: 'Reposición', valor: S(monto) },
+          { label: 'Resultado del negocio en nov', valor: S(n.resultado) },
+          { label: 'Ganancia promedio por día', valor: S(Math.round(gananciaDia)) },
+          alcanza
+            ? { label: 'Proyección personal al 30', valor: `${S(Math.round(f.proyeccionFinDeMes().saldo))} (sin cambio)`, tono: 'verde' }
+            : gananciaDia > 0
+              ? { label: 'Lo cubres con la ganancia en', valor: `~${Math.ceil(falta / gananciaDia)} días`, tono: 'amarillo' }
+              : { label: 'El negocio está en pérdida', valor: 'Revisa antes de comprar', tono: 'rojo' },
+        ],
+        nota: n.reposicion
+          ? `Sueles reponer cada ~${n.reposicion.cada} días; la próxima compra sería alrededor del ${n.reposicion.proxima}. Regístrala como gasto del negocio para que no afecte tu mes personal.`
+          : 'Regístrala como gasto del negocio para que no afecte tu mes personal.',
+        chips: ['¿Cuánto gané este mes en el negocio?', '¿Llego a fin de mes?'],
+      };
+    },
+  },
+  {
+    test: (t) => /gane|ganancia|ganando|margen|negocio|bodega|vend/.test(t),
+    run: () => {
+      const n = negocioActual();
+      const pend = pendientes(clasificarTodos(ESTADO_VACIO)).length;
+      return {
+        texto: [`En noviembre la bodega vendió ${S(n.ventas)}. Después de la mercadería y los demás gastos, quedan ${S(n.resultado)}.`],
+        tabla: [
+          { label: 'Ventas', valor: S(n.ventas), tono: 'verde' },
+          { label: 'Mercadería', valor: S(-n.mercaderia) },
+          { label: 'Otros gastos (flete, insumos…)', valor: S(-n.otros) },
+          { label: 'Resultado', valor: S(n.resultado), tono: n.estado.nivel },
+          { label: 'Margen bruto', valor: `${n.margenBruto}%` },
+        ],
+        nota: pend
+          ? `Ojo: hay ${pend} movimientos sin clasificar (por ejemplo, Makro Mayorista). Si son del negocio, el resultado baja. Clasifícalos en Avisos.`
+          : 'Todos tus movimientos están clasificados.',
+        chips: ['¿Puedo reponer stock por S/ 500?', '¿Llego a fin de mes?'],
       };
     },
   },

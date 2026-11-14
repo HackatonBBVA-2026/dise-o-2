@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BootAvatar } from './BootAvatar';
+import { useClasificacion } from './Clasificacion';
 import { IconCampana, IconInicio, IconPerfil, IconTransferir } from './icons';
 
 const TABS = [
@@ -14,8 +15,11 @@ const TABS = [
 ] as const;
 
 /** Barra inferior: 5 pestañas, Boot al centro y elevado. */
-export function Nav({ avisosCount }: { avisosCount: number }) {
+export function Nav({ alertasCount }: { alertasCount: number }) {
   const pathname = usePathname();
+  const { pendientes } = useClasificacion();
+  // Avisos de Boot + un aviso más si hay movimientos por clasificar.
+  const avisosCount = alertasCount + (pendientes.length ? 1 : 0);
 
   return (
     <nav className="nav" aria-label="Navegación principal">

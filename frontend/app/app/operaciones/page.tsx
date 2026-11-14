@@ -17,7 +17,6 @@ export default function OperacionesPage() {
         </div>
       </header>
       <OperacionesView
-        movimientos={r.movimientos}
         duplicados={r.duplicados.map((d) => d.comercio)}
         cuentas={cuentas}
         tipoCambio={tipoCambio}

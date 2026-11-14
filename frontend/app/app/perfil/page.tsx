@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { Ajustes } from '@/components/Ajustes';
+import { ReglasNegocio } from '@/components/ReglasNegocio';
 import { IconChevron } from '@/components/icons';
-import { usuario } from '@/lib/data';
+import { negocio, usuario } from '@/lib/data';
 
 export const metadata = { title: 'Perfil' };
 
@@ -37,6 +38,19 @@ export default function PerfilPage() {
             <li><span className="rows__name">Celular</span><span className="muted mono">{usuario.telefono}</span></li>
             <Fila demo="Editar datos personales">Datos personales</Fila>
           </ul>
+        </section>
+
+        <section className="panel" aria-labelledby="negocioTitle">
+          <header className="panel__head"><h2 id="negocioTitle">Mi negocio</h2></header>
+          <ul className="rows">
+            <li><span className="rows__name">Nombre</span><span className="muted">{negocio.nombre}</span></li>
+            <li><span className="rows__name">RUC</span><span className="muted mono">{negocio.rucEnmascarado}</span></li>
+            <li><span className="rows__name">Rubro</span><span className="muted">{negocio.rubro}</span></li>
+            <li><span className="rows__name">Régimen tributario<small>Boot lo usa para avisos de comprobantes</small></span><span className="muted">{negocio.regimen}</span></li>
+          </ul>
+          <header className="panel__head panel__head--sub"><h2>Reglas automáticas</h2></header>
+          <p className="hint">Cada gasto en estos comercios se clasifica solo.</p>
+          <ReglasNegocio />
         </section>
 
         <section className="panel" aria-labelledby="ajustesTitle">

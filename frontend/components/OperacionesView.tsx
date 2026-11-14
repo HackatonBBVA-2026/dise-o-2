@@ -7,7 +7,10 @@ import { useApp } from './Providers';
 import { IconDolar, IconLista, IconQR, IconTransferir } from './icons';
 import { soles } from '@/lib/format';
 import { preguntarABoot } from '@/lib/links';
-import type { Cuenta, Movimiento, TipoCambio } from '@/lib/types';
+import { enVista } from '@/lib/clasificacion';
+import type { Cuenta, TipoCambio } from '@/lib/types';
+import { AmbitoChip } from './AmbitoChip';
+import { useClasificacion } from './Clasificacion';
 
 const PANELES = [
   { id: 'movimientos', label: 'Movimientos', Icon: IconLista },
@@ -20,13 +23,12 @@ type PanelId = (typeof PANELES)[number]['id'];
 const esPanel = (h: string): h is PanelId => PANELES.some((p) => p.id === h);
 
 interface Props {
-  movimientos: Movimiento[];
   duplicados: string[];
   cuentas: Cuenta[];
   tipoCambio: TipoCambio;
 }
 
-export function OperacionesView({ movimientos, duplicados, cuentas, tipoCambio }: Props) {
+export function OperacionesView({ duplicados, cuentas, tipoCambio }: Props) {
   const [panel, setPanel] = useState<PanelId>('movimientos');
 
   // El panel se puede abrir directo con la URL, p. ej. /app/operaciones#transferir
@@ -66,7 +68,7 @@ export function OperacionesView({ movimientos, duplicados, cuentas, tipoCambio }
         ))}
       </div>
 
-      {panel === 'movimientos' && <Movimientos movimientos={movimientos} duplicados={duplicados} />}
+      {panel === 'movimientos' && <Movimientos duplicados={duplicados} />}
       {panel === 'transferir' && <Transferir cuentas={cuentas} />}
       {panel === 'qr' && <PagosQR />}
       {panel === 'cambio' && <Cambio tipoCambio={tipoCambio} />}
@@ -74,16 +76,26 @@ export function OperacionesView({ movimientos, duplicados, cuentas, tipoCambio }
   );
 }
 
-/* ---------- Movimientos: búsqueda + filtro ---------- */
-function Movimientos({ movimientos, duplicados }: { movimientos: Movimiento[]; duplicados: string[] }) {
+/* ---------- Movimientos: búsqueda + filtros + ámbito editable ---------- */
+const FILTROS_AMBITO = [
+  ['todo', 'Todo'],
+  ['personal', 'Personal'],
+  ['negocio', 'Negocio'],
+  ['sin', 'Sin clasificar'],
+] as const;
+
+function Movimientos({ duplicados }: { duplicados: string[] }) {
+  const { movimientos } = useClasificacion();
   const [q, setQ] = useState('');
   const [filtro, setFiltro] = useState<'todos' | 'in' | 'out'>('todos');
+  const [ambito, setAmbito] = useState<(typeof FILTROS_AMBITO)[number][0]>('todo');
   const dup = useMemo(() => new Set(duplicados), [duplicados]);
+  const sinClasificar = movimientos.filter((m) => m.efectivo === null).length;
 
   const visibles = movimientos.filter((m) => {
     const tipo = m.monto > 0 ? 'in' : 'out';
     const texto = `${m.descripcion} ${m.categoria}`.toLowerCase();
-    return (filtro === 'todos' || filtro === tipo) && texto.includes(q.trim().toLowerCase());
+    return (filtro === 'todos' || filtro === tipo) && enVista(m, ambito) && texto.includes(q.trim().toLowerCase());
   });
 
   return (
@@ -95,7 +107,7 @@ function Movimientos({ movimientos, duplicados }: { movimientos: Movimiento[]; d
       <div className="filters">
         <label className="sr-only" htmlFor="buscarMov">Buscar movimiento</label>
         <input className="input" id="buscarMov" type="search" placeholder="Buscar comercio o categoría" value={q} onChange={(e) => setQ(e.target.value)} />
-        <div className="seg" role="group" aria-label="Filtrar">
+        <div className="seg" role="group" aria-label="Filtrar por tipo">
           {([['todos', 'Todos'], ['in', 'Ingresos'], ['out', 'Gastos']] as const).map(([id, label]) => (
             <button key={id} type="button" className={`seg__btn${filtro === id ? ' is-active' : ''}`} aria-pressed={filtro === id} onClick={() => setFiltro(id)}>
               {label}
@@ -103,10 +115,17 @@ function Movimientos({ movimientos, duplicados }: { movimientos: Movimiento[]; d
           ))}
         </div>
       </div>
+      <div className="chips-filtro" role="group" aria-label="Filtrar por ámbito">
+        {FILTROS_AMBITO.map(([id, label]) => (
+          <button key={id} type="button" className={`chip${ambito === id ? ' is-active' : ''}`} aria-pressed={ambito === id} onClick={() => setAmbito(id)}>
+            {label}{id === 'sin' && sinClasificar > 0 && <span className="chip__count">{sinClasificar}</span>}
+          </button>
+        ))}
+      </div>
       {visibles.length > 0 ? (
-        <ul className="rows">
-          {visibles.map((m, i) => (
-            <li key={`${m.dia}-${m.descripcion}-${i}`}>
+        <ul className="rows rows--mov">
+          {visibles.map((m) => (
+            <li key={m.id}>
               <span className="date"><b>{m.dia}</b>nov</span>
               <span className="rows__name">
                 {m.descripcion}
@@ -114,14 +133,16 @@ function Movimientos({ movimientos, duplicados }: { movimientos: Movimiento[]; d
                   {m.categoria}
                   {dup.has(m.descripcion) && <> · <em className="tag tag--warn">posible duplicado</em></>}
                 </small>
+                <AmbitoChip m={m} />
               </span>
               <Money className={m.monto > 0 ? 'pos' : undefined}>{m.monto > 0 ? '+' : ''}{soles(m.monto)}</Money>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="hint">Ningún movimiento coincide con tu búsqueda.</p>
+        <p className="hint">Ningún movimiento coincide con estos filtros.</p>
       )}
+      <p className="hint">Toca la etiqueta de un movimiento para cambiar si es personal o del negocio.</p>
     </section>
   );
 }

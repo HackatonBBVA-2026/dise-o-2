@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BandejaClasificar } from '@/components/BandejaClasificar';
 import { Money } from '@/components/Money';
 import { iconoAlerta } from '@/components/icons';
 import { seguridad } from '@/lib/data';
@@ -16,12 +17,14 @@ export default function AvisosPage() {
     <>
       <header className="pagehead">
         <div>
-          <p className="pagehead__eyebrow">{r.alertas.length} por revisar</p>
+          <p className="pagehead__eyebrow">Noviembre</p>
           <h1>Avisos</h1>
         </div>
       </header>
 
       <div className="grid">
+        <BandejaClasificar />
+
         <section className="panel" aria-labelledby="bootAvisos" data-avisos="">
           <header className="panel__head">
             <h2 id="bootAvisos">Boot revisó tu mes</h2>

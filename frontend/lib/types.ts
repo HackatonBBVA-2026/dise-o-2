@@ -42,11 +42,36 @@ export interface Suscripcion {
   monto: number;
 }
 
+/** A quién pertenece un movimiento. 'dividido' reparte el monto según pctNegocio. */
+export type Ambito = 'personal' | 'negocio' | 'dividido';
+export type Vista = 'personal' | 'negocio' | 'todo';
+
 export interface Movimiento {
+  id: string;
   dia: number;
-  descripcion: string;
+  descripcion: string; // también es el nombre del comercio para las reglas
   categoria: string;
   monto: number;
+  /** Ámbito registrado. Si clasificadoPor es 'boot' con confianza baja, es solo una sugerencia. */
+  ambito: Ambito;
+  pctNegocio?: number;
+  clasificadoPor: 'usuario' | 'regla' | 'boot';
+  confianza?: number; // 0–1, solo cuando clasificó Boot
+  /** Movimiento que no está en el resumen personal base (llegó después y aún no se clasificó). */
+  pendienteInicial?: boolean;
+}
+
+export interface ReglaComercio {
+  comercio: string;
+  ambito: Exclude<Ambito, 'dividido'>;
+  creadaPor: 'usuario' | 'boot';
+}
+
+export interface Negocio {
+  nombre: string;
+  rucEnmascarado: string;
+  rubro: string;
+  regimen: 'NRUS' | 'RER' | 'RMT' | 'General';
 }
 
 export interface EventoSeguridad {

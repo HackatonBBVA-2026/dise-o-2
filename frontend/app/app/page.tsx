@@ -1,16 +1,15 @@
 import Link from 'next/link';
-import { BootAvatar } from '@/components/BootAvatar';
-import { Money, PrivacyToggle } from '@/components/Money';
-import { IconBuscar, IconChevron, IconDolar, IconLista, IconOjo, IconQR, IconTransferir } from '@/components/icons';
-import { tarjeta, usuario } from '@/lib/data';
+import { AvisosLink } from '@/components/AvisosLink';
+import { InicioPaneles, InicioSaldo } from '@/components/InicioFinanzas';
+import { Money } from '@/components/Money';
+import { IconBuscar, IconDolar, IconLista, IconQR, IconTransferir } from '@/components/icons';
+import { negocio, tarjeta, usuario } from '@/lib/data';
 import { getResumen } from '@/lib/finanzas';
 import { soles } from '@/lib/format';
 import { preguntarABoot } from '@/lib/links';
 
 export const metadata = { title: 'Inicio' };
 export const dynamic = 'force-dynamic'; // el saludo depende de la hora
-
-const COLORES = ['var(--cat-1)', 'var(--cat-2)', 'var(--cat-3)', 'var(--cat-4)', 'var(--cat-5)'];
 
 const ACCESOS = [
   { href: '/app/operaciones#transferir', label: 'Transferir', Icon: IconTransferir },
@@ -21,17 +20,14 @@ const ACCESOS = [
 
 const PREGUNTAS = [
   { q: '¿Puedo gastar S/ 200 en unas zapatillas?', label: '¿Puedo gastar S/ 200 en unas zapatillas?' },
-  { q: '¿Me alcanza para un préstamo de S/ 3,000?', label: '¿Me alcanza para un préstamo de S/ 3,000?' },
-  { q: 'Fondo de emergencia', label: '¿Cuánto debería tener de fondo de emergencia?' },
+  { q: '¿Cuánto gané este mes en el negocio?', label: '¿Cuánto gané este mes en la bodega?' },
+  { q: '¿Puedo reponer stock por S/ 500?', label: '¿Puedo reponer stock por S/ 500?' },
 ];
 
 export default function InicioPage() {
   const r = getResumen();
   const h = new Date().getHours();
   const saludo = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
-  const pos = (d: number) => `${(((d - 1) / (r.cierreMes - 1)) * 100).toFixed(2)}%`;
-  const colorCat = (alerta: boolean | undefined, i: number) => (alerta ? 'var(--cat-alerta)' : COLORES[i % COLORES.length]);
-  const [entero, decimales] = soles(r.disponible).replace('S/ ', '').split('.');
 
   return (
     <>
@@ -71,44 +67,14 @@ export default function InicioPage() {
           </div>
         </figure>
 
-        {/* Saldo: tocar para ocultar */}
-        <section className="balance" aria-labelledby="saldoTitle">
-          <PrivacyToggle className="balance__toggle">
-            <span className="eyebrow" id="saldoTitle">Saldo disponible <IconOjo size={14} /></span>
-            <Money className="balance__amount">
-              <span className="cur">S/</span>{entero}<span className="dec">.{decimales}</span>
-            </Money>
-            <span className="sr-only">Toca para ocultar o mostrar tus saldos</span>
-          </PrivacyToggle>
-
-          <div className="balance__proj">
-            <div>
-              <span className="eyebrow">Proyección al {r.cierreMes} nov</span>
-              <strong><Money className="gold">{soles(Math.round(r.proyeccion.saldo))}</Money></strong>
-            </div>
-            <span className={`status status--${r.semaforo.nivel}`}>{r.semaforo.texto}</span>
-          </div>
-
-          <div
-            className="month"
-            role="img"
-            aria-label={`Día ${r.hoy} de ${r.cierreMes}. Cobros pendientes los días ${r.proximosCobros.map((c) => c.dia).join(', ')}.`}
-          >
-            <div className="month__track">
-              <span className="month__done" style={{ width: pos(r.hoy) }} />
-              {r.proximosCobros.map((c) => (
-                <span key={c.nombre} className="month__tick" style={{ left: pos(c.dia) }} title={`${c.nombre} · día ${c.dia}`} />
-              ))}
-              <span className="month__today" style={{ left: pos(r.hoy) }} />
-            </div>
-            <div className="month__labels" aria-hidden="true">
-              <span style={{ left: 0 }}>01</span>
-              <span className="is-today" style={{ left: pos(r.hoy) }}>Hoy</span>
-              {r.proximosCobros.map((c) => <span key={c.nombre} style={{ left: pos(c.dia) }}>{c.dia}</span>)}
-              <span style={{ left: '100%' }}>{r.cierreMes}</span>
-            </div>
-          </div>
-        </section>
+        {/* Selector Personal · Negocio · Todo + saldo y proyección */}
+        <InicioSaldo
+          disponible={r.disponible}
+          hoy={r.hoy}
+          cierreMes={r.cierreMes}
+          proximosCobros={r.proximosCobros}
+          nombreNegocio={negocio.nombre}
+        />
 
         {/* Accesos rápidos a Operaciones */}
         <nav className="quick span-2" aria-label="Accesos rápidos">
@@ -120,54 +86,10 @@ export default function InicioPage() {
           ))}
         </nav>
 
-        {/* Acceso a Avisos (la lista completa vive en su pestaña) */}
-        {r.alertas.length > 0 && (
-          <Link className="alert-link span-2" href="/app/avisos" data-avisos="">
-            <span className="alert-link__mark"><BootAvatar /></span>
-            <span className="alert-link__text">
-              <strong>Boot encontró {r.alertas.length} aviso{r.alertas.length > 1 ? 's' : ''}</strong>
-              <small>{r.alertas.map((a) => a.corto).join(' · ')}</small>
-            </span>
-            <IconChevron size={18} stroke={1.8} />
-          </Link>
-        )}
+        <AvisosLink cortos={r.alertas.map((a) => a.corto)} />
 
-        {/* Flujo del mes */}
-        <section className="panel" aria-labelledby="mesTitle">
-          <header className="panel__head">
-            <h2 id="mesTitle">Noviembre</h2>
-            <Link className="link" href="/app/operaciones#movimientos">Movimientos</Link>
-          </header>
-          <dl className="ledger">
-            <div><dt>Ingresos</dt><dd><Money className="pos">+{soles(r.ingresos)}</Money></dd></div>
-            <div><dt>Gastos</dt><dd><Money>{soles(-r.gastos)}</Money></dd></div>
-            <div className="ledger__total"><dt>Te sobra</dt><dd><Money>{soles(r.neto)}</Money></dd></div>
-          </dl>
-          <div className="ratio" aria-hidden="true"><span style={{ width: `${r.pctGasto}%` }} /></div>
-          <p className="hint">Gastaste {r.pctGasto} de cada 100 soles que ingresaron.</p>
-        </section>
-
-        {/* Gasto por categoría */}
-        <section className="panel" aria-labelledby="catTitle">
-          <header className="panel__head"><h2 id="catTitle">¿En qué se va tu plata?</h2></header>
-          <div className="stack" aria-hidden="true">
-            {r.categorias.map((c, i) => (
-              <span key={c.nombre} style={{ width: `${c.pct}%`, background: colorCat(c.alerta, i) }} />
-            ))}
-          </div>
-          <ul className="legend">
-            {r.categorias.map((c, i) => (
-              <li key={c.nombre}>
-                <span className="swatch" style={{ background: colorCat(c.alerta, i) }} />
-                <span className="legend__name">
-                  {c.nombre}{c.alerta && <> <em className="tag tag--warn">revisar</em></>}
-                </span>
-                <span className="legend__pct">{Math.round(c.pct)}%</span>
-                <Money>{soles(c.monto)}</Money>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* Resumen del mes y categorías según la vista */}
+        <InicioPaneles nombreNegocio={negocio.nombre} />
 
         {/* Próximos cobros + cuentas */}
         <section className="panel" aria-labelledby="cobrosTitle">
@@ -196,9 +118,9 @@ export default function InicioPage() {
         </section>
 
         {/* Acceso directo a Boot */}
-        <section className="panel span-2" aria-labelledby="askTitle">
+        <section className="panel" aria-labelledby="askTitle">
           <header className="panel__head"><h2 id="askTitle">Antes de gastar, pregúntale a Boot</h2></header>
-          <p className="hint">Boot hace la cuenta con tus movimientos y te dice cómo quedarías el {r.cierreMes}.</p>
+          <p className="hint">Boot hace la cuenta con tus movimientos y separa lo personal de lo del negocio.</p>
           <div className="asks">
             {PREGUNTAS.map((p) => (
               <Link key={p.q} className="ask" href={preguntarABoot(p.q)}>{p.label}</Link>

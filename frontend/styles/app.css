@@ -27,12 +27,17 @@
   --peligro-bg: #FEF2F2;
   --punto: #E5484D;
 
+  /* Ámbitos: personal en gris, negocio en negro, sin clasificar en naranja */
+  --negocio: #0B0B0C;
+  --personal-bg: #F4F4F5;
+
   /* Categorías: escala de grises + aviso */
   --cat-1: #0B0B0C;
   --cat-2: #52525B;
   --cat-3: #A1A1AA;
   --cat-4: #D4D4D8;
   --cat-5: #E4E4E7;
+  --cat-6: #F4F4F5;
   --cat-alerta: #F97316;
 
   --f-ui: var(--font-inter), 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -174,7 +179,7 @@ ul { list-style: none; padding: 0; }
 .balance__proj > div { display: grid; gap: 4px; }
 .balance__proj strong { font-size: 22px; font-weight: 500; letter-spacing: -.01em; }
 
-.status {
+.status { white-space: nowrap; flex: none;
   display: inline-flex; align-items: center; gap: 7px;
   font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
   padding: 6px 10px; border-radius: 999px;
@@ -515,6 +520,90 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
   background: var(--principal); color: var(--sobre-principal);
   padding: 12px 18px; border-radius: 999px; font-size: 13px;
 }
+
+
+/* ============ Personal · Negocio ============ */
+/* Selector de vista en Inicio */
+.vista {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  background: var(--superficie-2); border-radius: 999px; padding: 3px;
+}
+.vista__btn {
+  border: 0; background: none; padding: 9px 12px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 500; color: var(--texto-2);
+}
+.vista__btn.is-active { background: var(--principal); color: var(--sobre-principal); font-weight: 600; }
+
+/* Aviso de movimientos sin clasificar bajo la proyección */
+.pending-note {
+  display: block; font-size: 12.5px; color: var(--aviso);
+  padding: 9px 12px; border-radius: 10px; background: var(--aviso-bg);
+}
+.pending-note u { text-underline-offset: 2px; font-weight: 600; }
+
+/* Línea de reposición (vista Negocio) */
+.month__tick--lleno { background: var(--principal); border-color: var(--principal); }
+.month__tick--estimado { background: var(--bg); border: 1.5px dashed var(--principal); width: 9px; height: 9px; }
+.month__labels .is-next { color: var(--texto); font-weight: 600; }
+
+/* Etiqueta de ámbito en cada movimiento */
+.ambito { position: relative; justify-self: start; margin-top: 4px; }
+.ambito-chip {
+  border: 1px solid transparent; border-radius: 999px; padding: 2px 9px;
+  font-size: 11px; font-weight: 600; letter-spacing: .02em; line-height: 1.5;
+}
+.ambito-chip::after { content: ' ▾'; font-size: 9px; opacity: .6; }
+.ambito-chip--personal { background: var(--personal-bg); color: var(--texto-2); }
+.ambito-chip--negocio { background: var(--negocio); color: var(--sobre-principal); }
+.ambito-chip--dividido { background: var(--superficie); color: var(--texto); border-color: var(--linea-fuerte); }
+.ambito-chip--sin { background: var(--aviso-bg); color: var(--aviso); border-color: rgba(194, 65, 12, .25); }
+.ambito-chip:hover { border-color: var(--linea-fuerte); }
+
+.ambito-menu {
+  position: absolute; z-index: 30; top: calc(100% + 6px); left: 0;
+  display: grid; min-width: 240px; padding: 6px;
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: 14px;
+  box-shadow: 0 12px 32px -8px rgba(11, 11, 12, .22);
+}
+.ambito-menu__item {
+  text-align: left; border: 0; background: none; padding: 9px 10px; border-radius: 9px;
+  font-size: 13.5px; color: var(--texto);
+}
+.ambito-menu__item:hover:not(:disabled) { background: var(--superficie-2); }
+.ambito-menu__item[aria-checked="true"] { font-weight: 600; }
+.ambito-menu__item[aria-checked="true"]::after { content: ' ✓'; }
+.ambito-menu__item:disabled { color: var(--texto-3); cursor: not-allowed; }
+.ambito-menu__recordar, .bandeja__recordar {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 12.5px; color: var(--texto-2); padding: 9px 10px 4px;
+}
+.ambito-menu__recordar { border-top: 1px solid var(--linea); margin-top: 4px; }
+.ambito-menu__recordar input, .bandeja__recordar input { accent-color: var(--principal); margin-top: 2px; }
+
+.rows--mov > li { align-items: flex-start; }
+.rows--mov > li > .money { padding-top: 2px; }
+
+/* Filtro por ámbito */
+.chips-filtro { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip.is-active { background: var(--principal); border-color: var(--principal); color: var(--sobre-principal); }
+.chip__count {
+  display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 6px; padding: 0 5px;
+  border-radius: 999px; background: var(--aviso); color: var(--blanco, #fff); font-size: 10.5px; font-weight: 600;
+}
+
+/* Bandeja Por clasificar */
+.bandeja { display: grid; }
+.bandeja__item { display: grid; gap: 8px; padding-block: 14px; border-top: 1px solid var(--linea); }
+.bandeja__item:first-child { border-top: 0; padding-top: 0; }
+.bandeja__item:last-child { padding-bottom: 0; }
+.bandeja__top { display: flex; align-items: center; gap: 14px; }
+.bandeja__top .money { font-weight: 500; }
+.bandeja__sugerencia { font-size: 12.5px; color: var(--texto-2); padding-left: 52px; }
+.bandeja__acciones { display: flex; gap: 6px; flex-wrap: wrap; padding-left: 52px; }
+.bandeja__acciones .btn-sm:disabled { opacity: .45; cursor: not-allowed; }
+.bandeja__recordar { padding: 0 0 0 52px; }
+
+.link--btn { border: 0; background: none; padding: 0; justify-self: start; cursor: pointer; }
 
 /* ============ Preferencias ============ */
 .sin-avisos [data-avisos], .sin-avisos .nav__dot { display: none !important; }
