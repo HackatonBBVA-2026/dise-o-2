@@ -65,7 +65,7 @@
         <label for="tCuenta">Desde</label>
         <select class="input" id="tCuenta" name="cuentaId">
           <% cuentas.forEach(c => { %>
-            <option value="<%= c.id %>"><%= c.tipo %> •••• <%= c.numero %> · <%= soles(c.saldo) %></option>
+            <option value="<%= c.id %>">Ahorros •••• <%= c.numero %></option>
           <% }) %>
         </select>
       </div>

@@ -1,15 +1,20 @@
-// Chat de Boot: abre la hoja, envía preguntas a /api/boot y pinta la respuesta.
+// Boot como pestaña: cualquier [data-ask] lleva a /app/boot?q=…;
+// en esa pantalla se envía la pregunta a /api/boot y se pinta la respuesta.
 (function () {
-  const fab = document.getElementById('bootFab');
-  const sheet = document.getElementById('bootSheet');
+  // En cualquier pantalla: los botones "Revisar" / preguntas abren la pestaña Boot.
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-ask]');
+    if (!b) return;
+    location.href = '/app/boot?q=' + encodeURIComponent(b.dataset.ask);
+  });
+
+  const page = document.getElementById('bootPage');
+  if (!page) return;
+
   const log = document.getElementById('bootLog');
   const chips = document.getElementById('bootChips');
   const form = document.getElementById('bootForm');
   const input = document.getElementById('bootInput');
-  const greeting = document.getElementById('bootGreeting');
-  const scrim = document.getElementById('bootScrim');
-  scrim.addEventListener('click', () => cerrar());
-  let ultimoFoco = null;
 
   function el(tag, cls, text) {
     const n = document.createElement(tag);
@@ -18,31 +23,7 @@
     return n;
   }
 
-  function abrir(pregunta) {
-    ultimoFoco = document.activeElement;
-    sheet.hidden = false;
-    scrim.hidden = false;
-    fab.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    if (greeting) greeting.remove();
-    const badge = fab.querySelector('.boot-fab__badge');
-    if (badge) badge.remove();
-    fab.removeAttribute('data-ask');
-
-    if (!log.children.length && !pregunta) {
-      pintarBot({ texto: ['Hola, soy Boot. Pregúntame antes de gastar y hago la cuenta con tus movimientos.'] });
-    }
-    if (pregunta) enviar(pregunta);
-    else input.focus();
-  }
-
-  function cerrar() {
-    sheet.hidden = true;
-    scrim.hidden = true;
-    fab.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    if (ultimoFoco) ultimoFoco.focus();
-  }
+  function bajar() { log.scrollTop = log.scrollHeight; }
 
   function pintarUsuario(texto) {
     log.appendChild(el('div', 'msg msg--user', texto));
@@ -70,8 +51,11 @@
     log.appendChild(m);
 
     if (r.chips) {
-      chips.replaceChildren(...r.chips.map((c) => el('button', 'chip', c)));
-      chips.querySelectorAll('button').forEach((b) => (b.type = 'button'));
+      chips.replaceChildren(...r.chips.map((c) => {
+        const b = el('button', 'chip', c);
+        b.type = 'button';
+        return b;
+      }));
     }
   }
 
@@ -81,7 +65,7 @@
     pintarUsuario(texto);
     const typing = el('div', 'msg msg--bot msg--typing', 'Boot está calculando…');
     log.appendChild(typing);
-    log.scrollTop = log.scrollHeight;
+    bajar();
     try {
       const res = await fetch('/api/boot', {
         method: 'POST',
@@ -95,13 +79,8 @@
       typing.remove();
       pintarBot({ texto: ['No pude conectarme. Inténtalo de nuevo en un momento.'] });
     }
-    log.scrollTop = log.scrollHeight;
+    bajar();
   }
-
-  // Eventos
-  fab.addEventListener('click', () => abrir(fab.dataset.ask));
-  sheet.querySelector('[data-close-boot]').addEventListener('click', cerrar);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden) cerrar(); });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -114,12 +93,11 @@
     if (b) enviar(b.textContent);
   });
 
-  // Cualquier botón con data-ask en la página abre Boot con esa pregunta
-  document.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-ask]');
-    if (b && b !== fab) abrir(b.dataset.ask);
-    if (e.target.closest('[data-close-greeting]') && greeting) greeting.remove();
-  });
-
-  window.Boot = { abrir };
+  // Mensaje inicial y, si vino una pregunta desde otra pantalla, se envía.
+  pintarBot({ texto: ['Hola, soy Boot. Pregúntame antes de gastar y hago la cuenta con tus movimientos.'] });
+  const q = new URLSearchParams(location.search).get('q');
+  if (q) {
+    history.replaceState(null, '', location.pathname);
+    enviar(q);
+  }
 })();

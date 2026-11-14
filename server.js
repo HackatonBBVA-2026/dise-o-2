@@ -18,6 +18,12 @@ app.locals.soles = (n) => {
   return (n < 0 ? '- ' : '') + 'S/ ' + abs;
 };
 
+// Avisos pendientes: alimentan el punto de la pestaña Avisos en todas las vistas.
+app.use((req, res, next) => {
+  res.locals.avisosCount = getResumen().alertas.length;
+  next();
+});
+
 /* ---------- Vitrina: modelo de teléfono con la app dentro ---------- */
 app.get('/', (req, res) => {
   res.render('dispositivo');
@@ -25,7 +31,16 @@ app.get('/', (req, res) => {
 
 /* ---------- App: pestañas (exactamente 3) ---------- */
 app.get('/app', (req, res) => {
-  res.render('inicio', { tab: 'inicio', titulo: 'Inicio', r: getResumen(), usuario: data.usuario });
+  const h = new Date().getHours();
+  const saludoHora = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+  res.render('inicio', {
+    tab: 'inicio',
+    titulo: 'Inicio',
+    r: getResumen(),
+    usuario: data.usuario,
+    tarjeta: data.tarjeta,
+    saludoHora,
+  });
 });
 
 app.get('/app/operaciones', (req, res) => {
@@ -36,6 +51,14 @@ app.get('/app/operaciones', (req, res) => {
     cuentas: data.cuentas,
     tipoCambio: data.tipoCambio,
   });
+});
+
+app.get('/app/boot', (req, res) => {
+  res.render('asistente', { tab: 'boot', titulo: 'Boot', usuario: data.usuario });
+});
+
+app.get('/app/avisos', (req, res) => {
+  res.render('avisos', { tab: 'avisos', titulo: 'Avisos', r: getResumen(), seguridad: data.seguridad });
 });
 
 app.get('/app/perfil', (req, res) => {

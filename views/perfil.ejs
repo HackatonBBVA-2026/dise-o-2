@@ -3,7 +3,7 @@
 <header class="pagehead pagehead--profile">
   <span class="avatar" aria-hidden="true"><%= usuario.nombre[0] %><%= usuario.apellido[0] %></span>
   <div>
-    <p class="pagehead__eyebrow">Cliente desde <%= usuario.clienteDesde %></p>
+    <p class="pagehead__eyebrow"><span class="gold"><%= usuario.nivel %></span> · Cliente desde <%= usuario.clienteDesde %></p>
     <h1><%= usuario.nombre %> <%= usuario.apellido %></h1>
   </div>
 </header>
@@ -22,11 +22,11 @@
     <header class="panel__head"><h2 id="ajustesTitle">Ajustes</h2></header>
     <ul class="rows">
       <li>
-        <label class="rows__name" for="optSaldos">Ocultar saldos<small>Difumina los montos en pantalla</small></label>
+        <label class="rows__name" for="optSaldos">Ocultar saldos<small>Muestra puntos en lugar de montos</small></label>
         <input type="checkbox" class="switch" id="optSaldos" data-pref="ocultarSaldos">
       </li>
       <li>
-        <label class="rows__name" for="optAvisos">Avisos de Boot en Inicio<small>Cobros duplicados y fin de mes</small></label>
+        <label class="rows__name" for="optAvisos">Alertas de Boot<small>Punto en la pestaña Avisos e Inicio</small></label>
         <input type="checkbox" class="switch" id="optAvisos" data-pref="avisosBoot" checked>
       </li>
       <li>
@@ -48,7 +48,7 @@
   <section class="panel" aria-labelledby="ayudaTitle">
     <header class="panel__head"><h2 id="ayudaTitle">Ayuda</h2></header>
     <ul class="rows">
-      <li><button type="button" class="row-btn" data-ask="Hola">Escribirle a Boot<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
+      <li><a class="row-btn" href="/app/boot">Escribirle a Boot<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
       <li><button type="button" class="row-btn" data-demo="Centro de ayuda">Centro de ayuda<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>
       <li><span class="rows__name">Banca por teléfono<small>Lunes a domingo, 24 horas</small></span><span class="mono">(01) 555-0100</span></li>
       <li><button type="button" class="row-btn" data-demo="Reportar un problema">Reportar un problema<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>

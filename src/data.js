@@ -6,7 +6,10 @@ module.exports = {
     email: 'ana.t****@correo.pe',
     telefono: '+51 9** *** 482',
     clienteDesde: 2021,
+    nivel: 'Black Tier',
   },
+
+  tarjeta: { tipo: 'Débito', ultimos: '4821', vence: '09/29', titular: 'ANA TORRES' },
 
   hoy: 14, // día actual del mes
   cierreMes: 30,
@@ -49,6 +52,11 @@ module.exports = {
     { dia: 5, descripcion: 'STREAMFLIX', categoria: 'Suscripciones', monto: -30 },
     { dia: 3, descripcion: 'Alquiler', categoria: 'Vivienda', monto: -450 },
     { dia: 1, descripcion: 'Sueldo', categoria: 'Ingreso', monto: 1650 },
+  ],
+
+  seguridad: [
+    { titulo: 'Nuevo inicio de sesión', detalle: 'Chrome en Windows · Lima', cuando: 'Hoy, 09:12' },
+    { titulo: 'Clave de internet actualizada', detalle: 'Desde la app', cuando: '2 nov' },
   ],
 
   tipoCambio: { compra: 3.72, venta: 3.76 },

@@ -69,7 +69,7 @@
   // Antes de transferir, Boot simula si alcanza
   form.querySelector('[data-ask-monto]').addEventListener('click', () => {
     const monto = Number(form.monto.value) || 200;
-    window.Boot.abrir(`¿Me alcanza si gasto S/ ${monto}?`);
+    location.href = "/app/boot?q=" + encodeURIComponent(`¿Me alcanza si gasto S/ ${monto}?`);
   });
 
   /* ---- Tipo de cambio ---- */

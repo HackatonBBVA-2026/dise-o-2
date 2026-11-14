@@ -9,9 +9,24 @@
     try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)); } catch { /* modo privado */ }
   }
 
+  // Modo privado: reemplaza cada monto por puntos y lo restaura al volver a tocar.
+  function enmascarar(ocultar) {
+    document.querySelectorAll('.money').forEach((el) => {
+      if (ocultar && el.dataset.v === undefined) {
+        el.dataset.v = el.innerHTML;
+        el.textContent = 'S/ ••••••';
+      } else if (!ocultar && el.dataset.v !== undefined) {
+        el.innerHTML = el.dataset.v;
+        delete el.dataset.v;
+      }
+    });
+    document.querySelectorAll('[data-toggle-saldos]').forEach((b) => b.setAttribute('aria-pressed', String(ocultar)));
+  }
+
   function aplicarPrefs(p) {
     document.body.classList.toggle('ocultar-saldos', !!p.ocultarSaldos);
     document.body.classList.toggle('sin-avisos', p.avisosBoot === false);
+    enmascarar(!!p.ocultarSaldos);
   }
 
   const prefs = leerPrefs();
