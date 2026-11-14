@@ -1,26 +1,29 @@
-<%# Burbuja flotante + hoja de chat de Boot. Se incluye en las 3 pestañas. %>
-<% if (typeof saludo !== 'undefined' && saludo) { %>
+<%# Burbuja flotante + panel de chat de Boot. Presente en las 3 pestañas. %>
+<% const conSaludo = typeof saludo !== 'undefined' && saludo; %>
+<% if (conSaludo) { %>
   <div class="boot-greeting" id="bootGreeting" role="status">
-    <button class="boot-greeting__close" type="button" aria-label="Cerrar aviso" data-close-greeting>×</button>
-    <strong>¡Hola, <%= usuario.nombre %>! Soy Boot.</strong>
-    <span><%= saludo %></span>
+    <p><strong>Hola, <%= usuario.nombre %>.</strong> <%= saludo %></p>
+    <button class="boot-greeting__close" type="button" aria-label="Cerrar aviso" data-close-greeting>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
   </div>
 <% } %>
 
-<button class="boot-fab" type="button" id="bootFab" aria-label="Abrir chat con Boot" aria-controls="bootSheet" aria-expanded="false" <%- (typeof saludo !== 'undefined' && saludo) ? 'data-ask="¿Y el cobro duplicado?"' : '' %>>
+<button class="boot-fab" type="button" id="bootFab" aria-label="Abrir chat con Boot" aria-controls="bootSheet" aria-expanded="false" <%- conSaludo ? 'data-ask="¿Y el cobro duplicado?"' : '' %>>
   <%- include('boot-avatar') %>
-  <% if (typeof saludo !== 'undefined' && saludo) { %><span class="boot-fab__badge" aria-hidden="true">1</span><% } %>
+  <% if (conSaludo) { %><span class="boot-fab__badge" aria-hidden="true"></span><% } %>
 </button>
 
-<div class="boot-sheet" id="bootSheet" role="dialog" aria-modal="true" aria-labelledby="bootTitle" hidden>
+<div class="boot-scrim" id="bootScrim" hidden></div>
+<aside class="boot-sheet" id="bootSheet" role="dialog" aria-modal="true" aria-labelledby="bootTitle" hidden>
   <header class="boot-sheet__head">
     <span class="boot-sheet__avatar"><%- include('boot-avatar') %></span>
     <div>
       <h2 id="bootTitle">Boot</h2>
-      <p>Tu asistente con IA · en línea</p>
+      <p><span class="live-dot" aria-hidden="true"></span>Asistente con IA</p>
     </div>
-    <button type="button" class="icon-btn icon-btn--light" data-close-boot aria-label="Cerrar chat">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    <button type="button" class="icon-btn" data-close-boot aria-label="Cerrar chat">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
   </header>
 
@@ -34,10 +37,10 @@
 
   <form class="boot-sheet__form" id="bootForm" autocomplete="off">
     <label class="sr-only" for="bootInput">Escribe tu pregunta</label>
-    <input id="bootInput" type="text" placeholder="Pregúntale a Boot…" maxlength="300">
+    <input id="bootInput" type="text" placeholder="Pregúntale a Boot" maxlength="300">
     <button type="submit" aria-label="Enviar">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 20.5 21 12 3 3.5 3 10l12 2-12 2z"/></svg>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
   </form>
-  <p class="boot-sheet__legal">Boot da información educativa y simulaciones, no asesoría. La decisión es tuya.</p>
-</div>
+  <p class="boot-sheet__legal">Boot da información y simulaciones, no asesoría. La decisión es tuya.</p>
+</aside>

@@ -7,6 +7,8 @@
   const form = document.getElementById('bootForm');
   const input = document.getElementById('bootInput');
   const greeting = document.getElementById('bootGreeting');
+  const scrim = document.getElementById('bootScrim');
+  scrim.addEventListener('click', () => cerrar());
   let ultimoFoco = null;
 
   function el(tag, cls, text) {
@@ -19,6 +21,7 @@
   function abrir(pregunta) {
     ultimoFoco = document.activeElement;
     sheet.hidden = false;
+    scrim.hidden = false;
     fab.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     if (greeting) greeting.remove();
@@ -27,7 +30,7 @@
     fab.removeAttribute('data-ask');
 
     if (!log.children.length && !pregunta) {
-      pintarBot({ texto: ['¡Hola! Soy Boot. ¿En qué te ayudo hoy?'] });
+      pintarBot({ texto: ['Hola, soy Boot. Pregúntame antes de gastar y hago la cuenta con tus movimientos.'] });
     }
     if (pregunta) enviar(pregunta);
     else input.focus();
@@ -35,6 +38,7 @@
 
   function cerrar() {
     sheet.hidden = true;
+    scrim.hidden = true;
     fab.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
     if (ultimoFoco) ultimoFoco.focus();

@@ -66,7 +66,6 @@ function getResumen() {
   const proy = proyeccionFinDeMes();
   const sem = semaforo(proy.saldo);
   const duplicados = detectarDuplicados();
-  const maxCat = Math.max(...data.categorias.map((c) => c.monto));
 
   const alertas = [];
   if (sem.nivel !== 'verde') {
@@ -90,12 +89,15 @@ function getResumen() {
     disponible: disponible(),
     ingresos: data.ingresosMes,
     gastos: data.gastosMes,
+    neto: r2(data.ingresosMes - data.gastosMes),
     pctGasto: Math.min(100, Math.round((data.gastosMes / data.ingresosMes) * 100)),
     proyeccion: proy,
     semaforo: sem,
+    hoy: data.hoy,
     cierreMes: data.cierreMes,
     cuentas: data.cuentas,
-    categorias: data.categorias.map((c) => ({ ...c, pct: Math.round((c.monto / maxCat) * 100) })),
+    // pct = participación en el gasto total del mes (suma 100)
+    categorias: data.categorias.map((c) => ({ ...c, pct: r2((c.monto / data.gastosMes) * 100) })),
     proximosCobros: data.proximosCobros.filter((c) => c.dia > data.hoy),
     movimientos: data.movimientos,
     duplicados,

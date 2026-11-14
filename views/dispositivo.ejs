@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Boot · prototipo móvil</title>
+  <script>
+    // En un celular real se abre la app directamente, sin el marco.
+    if (window.matchMedia('(max-width: 540px)').matches) location.replace('/app');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/device.css">
+</head>
+<body>
+  <main class="stage">
+    <div class="device-slot" id="deviceSlot">
+      <div class="device" id="device">
+        <span class="device__btn device__btn--action" aria-hidden="true"></span>
+        <span class="device__btn device__btn--vol-up" aria-hidden="true"></span>
+        <span class="device__btn device__btn--vol-down" aria-hidden="true"></span>
+        <span class="device__btn device__btn--power" aria-hidden="true"></span>
+
+        <div class="screen">
+          <div class="statusbar" aria-hidden="true">
+            <span class="statusbar__time" id="clock">9:41</span>
+            <span class="island"></span>
+            <span class="statusbar__icons">
+              <svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+              <span class="statusbar__net">5G</span>
+              <svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="17" height="9" rx="2"/><path d="M25 4.5v4c.8-.3 1.5-1 1.5-2s-.7-1.7-1.5-2z" opacity=".45"/></svg>
+            </span>
+          </div>
+          <iframe class="screen__app" id="appFrame" src="/app" title="Prototipo de la app Boot"></iframe>
+          <span class="home-indicator" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/device.js"></script>
+</body>
+</html>

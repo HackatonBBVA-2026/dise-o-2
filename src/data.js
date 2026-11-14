@@ -23,6 +23,7 @@ module.exports = {
     { nombre: 'Comida', monto: 380 },
     { nombre: 'Suscripciones', monto: 214, alerta: true },
     { nombre: 'Transporte', monto: 160 },
+    { nombre: 'Otros', monto: 138 },
   ],
 
   proximosCobros: [

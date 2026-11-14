@@ -24,7 +24,7 @@ const intenciones = [
     test: (t) => /duplicad|doble cobro|cobraron dos/.test(t),
     run: () => {
       const d = f.detectarDuplicados()[0];
-      if (!d) return { texto: ['No encontré cobros duplicados este mes. 👌'], chips: CHIPS_BASE };
+      if (!d) return { texto: ['No encontré cobros duplicados este mes.'], chips: CHIPS_BASE };
       const proy = f.proyeccionFinDeMes().saldo;
       return {
         texto: [

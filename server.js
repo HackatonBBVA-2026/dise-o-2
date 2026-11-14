@@ -18,12 +18,17 @@ app.locals.soles = (n) => {
   return (n < 0 ? '- ' : '') + 'S/ ' + abs;
 };
 
-/* ---------- Pestañas (exactamente 3) ---------- */
+/* ---------- Vitrina: modelo de teléfono con la app dentro ---------- */
 app.get('/', (req, res) => {
+  res.render('dispositivo');
+});
+
+/* ---------- App: pestañas (exactamente 3) ---------- */
+app.get('/app', (req, res) => {
   res.render('inicio', { tab: 'inicio', titulo: 'Inicio', r: getResumen(), usuario: data.usuario });
 });
 
-app.get('/operaciones', (req, res) => {
+app.get('/app/operaciones', (req, res) => {
   res.render('operaciones', {
     tab: 'operaciones',
     titulo: 'Operaciones',
@@ -33,7 +38,7 @@ app.get('/operaciones', (req, res) => {
   });
 });
 
-app.get('/perfil', (req, res) => {
+app.get('/app/perfil', (req, res) => {
   res.render('perfil', { tab: 'perfil', titulo: 'Perfil', usuario: data.usuario });
 });
 
