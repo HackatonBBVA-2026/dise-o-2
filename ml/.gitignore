@@ -1,0 +1,4 @@
+# Se regeneran con generar_dataset.py y entrenar.py (semilla fija)
+datos/movimientos.csv
+modelos/
+__pycache__/

@@ -1,0 +1,339 @@
+{
+  "dataset": {
+    "filas": 74121,
+    "usuarios": 150,
+    "corte_temporal": "2026-09-01"
+  },
+  "temporal": {
+    "ambito": {
+      "n_train": 29277,
+      "n_test": 14596,
+      "segundos_entrenamiento": 1.2,
+      "baseline_reglas": {
+        "f1_macro": 0.9277,
+        "accuracy": 0.9401
+      },
+      "modelo": {
+        "f1_macro": 0.9911,
+        "accuracy": 0.9931
+      },
+      "f1_por_clase": {
+        "negocio": {
+          "baseline": 0.958,
+          "modelo": 0.995,
+          "soporte": 10756
+        },
+        "personal": {
+          "baseline": 0.898,
+          "modelo": 0.987,
+          "soporte": 3840
+        }
+      },
+      "umbral_0.7_sin_politica": {
+        "cobertura": 0.9921,
+        "accuracy_cuando_decide": 0.9963
+      },
+      "umbral_0.7": {
+        "cobertura": 0.9716,
+        "accuracy_cuando_decide": 0.9976,
+        "va_a_por_clasificar": 0.0284
+      },
+      "matriz_confusion": {
+        "etiquetas": [
+          "negocio",
+          "personal"
+        ],
+        "valores": [
+          [
+            10711,
+            45
+          ],
+          [
+            56,
+            3784
+          ]
+        ]
+      }
+    },
+    "categoria": {
+      "n_train": 49484,
+      "n_test": 24637,
+      "segundos_entrenamiento": 16.0,
+      "baseline_reglas": {
+        "f1_macro": 0.8427,
+        "accuracy": 0.9428
+      },
+      "modelo": {
+        "f1_macro": 0.9809,
+        "accuracy": 0.9905
+      },
+      "f1_por_clase": {
+        "Alquiler local": {
+          "baseline": 0.968,
+          "modelo": 0.976,
+          "soporte": 64
+        },
+        "Comida": {
+          "baseline": 0.973,
+          "modelo": 0.987,
+          "soporte": 5714
+        },
+        "Educacion": {
+          "baseline": 0.992,
+          "modelo": 0.992,
+          "soporte": 199
+        },
+        "Entretenimiento": {
+          "baseline": 0.983,
+          "modelo": 0.99,
+          "soporte": 1205
+        },
+        "Flete": {
+          "baseline": 0.993,
+          "modelo": 0.995,
+          "soporte": 205
+        },
+        "Ingreso": {
+          "baseline": 0.99,
+          "modelo": 1.0,
+          "soporte": 306
+        },
+        "Insumos": {
+          "baseline": 0.989,
+          "modelo": 0.989,
+          "soporte": 272
+        },
+        "Mercaderia": {
+          "baseline": 0.915,
+          "modelo": 0.983,
+          "soporte": 572
+        },
+        "Pago a ayudante": {
+          "baseline": 0.0,
+          "modelo": 0.988,
+          "soporte": 279
+        },
+        "Publicidad": {
+          "baseline": 0.953,
+          "modelo": 0.977,
+          "soporte": 67
+        },
+        "Salud": {
+          "baseline": 0.987,
+          "modelo": 0.995,
+          "soporte": 282
+        },
+        "Servicios hogar": {
+          "baseline": 0.906,
+          "modelo": 0.962,
+          "soporte": 748
+        },
+        "Servicios negocio": {
+          "baseline": 0.632,
+          "modelo": 0.881,
+          "soporte": 240
+        },
+        "Suscripciones": {
+          "baseline": 1.0,
+          "modelo": 1.0,
+          "soporte": 383
+        },
+        "Transferencias": {
+          "baseline": 0.821,
+          "modelo": 0.981,
+          "soporte": 754
+        },
+        "Transporte": {
+          "baseline": 0.98,
+          "modelo": 0.988,
+          "soporte": 4142
+        },
+        "Ventas": {
+          "baseline": 0.98,
+          "modelo": 1.0,
+          "soporte": 9057
+        },
+        "Vivienda": {
+          "baseline": 0.95,
+          "modelo": 0.972,
+          "soporte": 148
+        }
+      },
+      "umbral_0.7_sin_politica": {
+        "cobertura": 0.9858,
+        "accuracy_cuando_decide": 0.9982
+      },
+      "umbral_0.7": {
+        "cobertura": 0.976,
+        "accuracy_cuando_decide": 0.9986,
+        "va_a_por_clasificar": 0.024
+      }
+    }
+  },
+  "usuarios_nuevos": {
+    "ambito": {
+      "n_train": 23065,
+      "n_test": 3159,
+      "segundos_entrenamiento": 0.8,
+      "baseline_reglas": {
+        "f1_macro": 0.9355,
+        "accuracy": 0.9471
+      },
+      "modelo": {
+        "f1_macro": 0.9914,
+        "accuracy": 0.9934
+      },
+      "f1_por_clase": {
+        "negocio": {
+          "baseline": 0.963,
+          "modelo": 0.996,
+          "soporte": 2334
+        },
+        "personal": {
+          "baseline": 0.908,
+          "modelo": 0.987,
+          "soporte": 825
+        }
+      },
+      "umbral_0.7_sin_politica": {
+        "cobertura": 0.993,
+        "accuracy_cuando_decide": 0.9949
+      },
+      "umbral_0.7": {
+        "cobertura": 0.9718,
+        "accuracy_cuando_decide": 0.9958,
+        "va_a_por_clasificar": 0.0282
+      },
+      "matriz_confusion": {
+        "etiquetas": [
+          "negocio",
+          "personal"
+        ],
+        "valores": [
+          [
+            2323,
+            11
+          ],
+          [
+            10,
+            815
+          ]
+        ]
+      }
+    },
+    "categoria": {
+      "n_train": 37644,
+      "n_test": 5927,
+      "segundos_entrenamiento": 10.9,
+      "baseline_reglas": {
+        "f1_macro": 0.8449,
+        "accuracy": 0.949
+      },
+      "modelo": {
+        "f1_macro": 0.982,
+        "accuracy": 0.9919
+      },
+      "f1_por_clase": {
+        "Alquiler local": {
+          "baseline": 1.0,
+          "modelo": 1.0,
+          "soporte": 10
+        },
+        "Comida": {
+          "baseline": 0.974,
+          "modelo": 0.99,
+          "soporte": 1473
+        },
+        "Educacion": {
+          "baseline": 1.0,
+          "modelo": 1.0,
+          "soporte": 53
+        },
+        "Entretenimiento": {
+          "baseline": 0.986,
+          "modelo": 0.993,
+          "soporte": 295
+        },
+        "Flete": {
+          "baseline": 0.988,
+          "modelo": 0.988,
+          "soporte": 43
+        },
+        "Ingreso": {
+          "baseline": 0.994,
+          "modelo": 1.0,
+          "soporte": 82
+        },
+        "Insumos": {
+          "baseline": 1.0,
+          "modelo": 1.0,
+          "soporte": 44
+        },
+        "Mercaderia": {
+          "baseline": 0.928,
+          "modelo": 0.991,
+          "soporte": 111
+        },
+        "Pago a ayudante": {
+          "baseline": 0.0,
+          "modelo": 1.0,
+          "soporte": 27
+        },
+        "Publicidad": {
+          "baseline": 0.909,
+          "modelo": 0.957,
+          "soporte": 12
+        },
+        "Salud": {
+          "baseline": 0.993,
+          "modelo": 0.993,
+          "soporte": 71
+        },
+        "Servicios hogar": {
+          "baseline": 0.908,
+          "modelo": 0.958,
+          "soporte": 189
+        },
+        "Servicios negocio": {
+          "baseline": 0.556,
+          "modelo": 0.843,
+          "soporte": 52
+        },
+        "Suscripciones": {
+          "baseline": 1.0,
+          "modelo": 1.0,
+          "soporte": 91
+        },
+        "Transferencias": {
+          "baseline": 0.918,
+          "modelo": 0.986,
+          "soporte": 211
+        },
+        "Transporte": {
+          "baseline": 0.981,
+          "modelo": 0.991,
+          "soporte": 1092
+        },
+        "Ventas": {
+          "baseline": 0.977,
+          "modelo": 1.0,
+          "soporte": 2035
+        },
+        "Vivienda": {
+          "baseline": 0.941,
+          "modelo": 0.986,
+          "soporte": 36
+        }
+      },
+      "umbral_0.7_sin_politica": {
+        "cobertura": 0.9865,
+        "accuracy_cuando_decide": 0.9985
+      },
+      "umbral_0.7": {
+        "cobertura": 0.9772,
+        "accuracy_cuando_decide": 0.9984,
+        "va_a_por_clasificar": 0.0228
+      }
+    }
+  }
+}

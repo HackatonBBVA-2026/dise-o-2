@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import { RegistrarSW } from '@/components/RegistrarSW';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -11,6 +12,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: { default: 'Boot', template: '%s · Boot' },
   description: 'Concepto de app de finanzas personales con asistente de IA. Datos ficticios.',
+  // PWA: se instala como app en el celular.
+  manifest: '/manifest.webmanifest',
+  icons: { icon: '/icons/favicon-48.png', apple: '/icons/apple-touch-icon.png' },
+  appleWebApp: { capable: true, title: 'Mío', statusBarStyle: 'default' },
 };
 
 export const viewport: Viewport = {
@@ -30,7 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: enDispositivo }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <RegistrarSW />
+      </body>
     </html>
   );
 }

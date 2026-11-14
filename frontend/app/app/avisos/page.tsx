@@ -6,11 +6,16 @@ import { seguridad } from '@/lib/data';
 import { getResumen } from '@/lib/finanzas';
 import { soles } from '@/lib/format';
 import { preguntarABoot } from '@/lib/links';
+import { sesionActual } from '@/lib/sesion-servidor';
+import { alertasDe } from '@/lib/alertas';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = { title: 'Avisos' };
 
-export default function AvisosPage() {
-  const r = getResumen();
+export default async function AvisosPage() {
+  const { perfil } = await sesionActual();
+  const r = { ...getResumen(), alertas: alertasDe(perfil) };
   const Escudo = iconoAlerta.seguridad;
 
   return (
@@ -23,7 +28,7 @@ export default function AvisosPage() {
       </header>
 
       <div className="grid">
-        <BandejaClasificar />
+        {perfil === 'empresa' && <BandejaClasificar />}
 
         <section className="panel" aria-labelledby="bootAvisos" data-avisos="">
           <header className="panel__head">

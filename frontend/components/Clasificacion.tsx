@@ -12,6 +12,7 @@ import {
   type MovimientoClasificado,
 } from '@/lib/clasificacion';
 import type { Ambito, ReglaComercio, Vista } from '@/lib/types';
+import type { Perfil } from '@/lib/sesion';
 
 const KEY = 'boot.clasificacion';
 const KEY_VISTA = 'boot.vista';
@@ -22,6 +23,8 @@ interface Ctx {
   personal: ReturnType<typeof resumenPersonal>;
   negocio: ReturnType<typeof resumenNegocio>;
   reglas: ReglaComercio[];
+  /** Con DNI ('persona') la vista queda fija en personal; con RUC ('empresa') arranca en negocio. */
+  perfil: Perfil;
   vista: Vista;
   setVista: (v: Vista) => void;
   /** Marca un movimiento. Con `recordar`, crea una regla para todo ese comercio. */
@@ -42,9 +45,11 @@ export function useClasificacion() {
  * Estado de personal vs. negocio para toda la app.
  * Hoy se guarda en este navegador; con el backend, cada cambio será una llamada a la API.
  */
-export function ClasificacionProvider({ children }: { children: React.ReactNode }) {
+export function ClasificacionProvider({ children, perfil = 'persona' }: { children: React.ReactNode; perfil?: Perfil }) {
   const [estado, setEstado] = useState<EstadoClasificacion>(ESTADO_VACIO);
-  const [vista, setVistaState] = useState<Vista>('personal');
+  const [vistaGuardada, setVistaState] = useState<Vista>('negocio');
+  // Persona (DNI): solo ve lo personal. Empresa (RUC): ve su negocio y puede cambiar de vista.
+  const vista: Vista = perfil === 'persona' ? 'personal' : vistaGuardada;
 
   useEffect(() => {
     try {
@@ -111,13 +116,14 @@ export function ClasificacionProvider({ children }: { children: React.ReactNode 
       personal: resumenPersonal(movimientos),
       negocio: resumenNegocio(movimientos),
       reglas: reglasActivas(estado),
+      perfil,
       vista,
       setVista,
       clasificarMovimiento,
       eliminarRegla,
       restablecer,
     }),
-    [movimientos, estado, vista, setVista, clasificarMovimiento, eliminarRegla, restablecer]
+    [movimientos, estado, perfil, vista, setVista, clasificarMovimiento, eliminarRegla, restablecer]
   );
 
   return <ClasCtx.Provider value={valor}>{children}</ClasCtx.Provider>;

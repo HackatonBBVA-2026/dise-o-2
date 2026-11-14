@@ -2,29 +2,41 @@ import Link from 'next/link';
 import { AvisosLink } from '@/components/AvisosLink';
 import { InicioPaneles, InicioSaldo } from '@/components/InicioFinanzas';
 import { Money } from '@/components/Money';
-import { IconBuscar, IconDolar, IconLista, IconQR, IconTransferir } from '@/components/icons';
+import { IconBuscar, IconCampana, IconLista, IconMeta } from '@/components/icons';
 import { negocio, tarjeta, usuario } from '@/lib/data';
 import { getResumen } from '@/lib/finanzas';
 import { soles } from '@/lib/format';
 import { preguntarABoot } from '@/lib/links';
+import { sesionActual } from '@/lib/sesion-servidor';
+import { alertasDe } from '@/lib/alertas';
 
 export const metadata = { title: 'Inicio' };
 export const dynamic = 'force-dynamic'; // el saludo depende de la hora
 
 const ACCESOS = [
-  { href: '/app/operaciones#transferir', label: 'Transferir', Icon: IconTransferir },
-  { href: '/app/operaciones#qr', label: 'Pagar QR', Icon: IconQR },
-  { href: '/app/operaciones#cambio', label: 'T-Cambio', Icon: IconDolar },
-  { href: '/app/operaciones#movimientos', label: 'Movimientos', Icon: IconLista },
+  // App de gestión: consultar y planificar, no mover dinero.
+  { href: '/app/movimientos', label: 'Movimientos', Icon: IconLista },
+  { href: '/app/metas', label: 'Metas', Icon: IconMeta },
+  { href: '/app/avisos', label: 'Avisos', Icon: IconCampana },
+  { href: '/app/boot', label: 'Preguntar', Icon: IconBuscar },
 ];
 
-const PREGUNTAS = [
-  { q: '¿Puedo gastar S/ 200 en unas zapatillas?', label: '¿Puedo gastar S/ 200 en unas zapatillas?' },
-  { q: '¿Cuánto gané este mes en el negocio?', label: '¿Cuánto gané este mes en la bodega?' },
-  { q: '¿Puedo reponer stock por S/ 500?', label: '¿Puedo reponer stock por S/ 500?' },
-];
+const PREGUNTAS = {
+  persona: [
+    { q: '¿Puedo gastar S/ 200 en unas zapatillas?', label: '¿Puedo gastar S/ 200 en unas zapatillas?' },
+    { q: '¿Llego a fin de mes?', label: '¿Llego a fin de mes?' },
+    { q: 'Mis suscripciones', label: '¿Cuánto pago en suscripciones?' },
+  ],
+  empresa: [
+    { q: '¿Cuánto gané este mes en el negocio?', label: '¿Cuánto gané este mes en la bodega?' },
+    { q: '¿Puedo reponer stock por S/ 500?', label: '¿Puedo reponer stock por S/ 500?' },
+    { q: '¿Me alcanza para un préstamo de S/ 3,000?', label: '¿Me alcanza un préstamo de S/ 3,000 para el negocio?' },
+  ],
+};
 
-export default function InicioPage() {
+export default async function InicioPage() {
+  const { perfil } = await sesionActual();
+  const esEmpresa = perfil === 'empresa';
   const r = getResumen();
   const h = new Date().getHours();
   const saludo = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
@@ -35,11 +47,11 @@ export default function InicioPage() {
         <Link className="tier" href="/app/perfil" aria-label={`Ir a tu perfil ${usuario.nivel}`}>
           <span className="avatar avatar--sm">{usuario.nombre[0]}{usuario.apellido[0]}</span>
           <span className="tier__text">
-            <span className="eyebrow">{usuario.nivel}</span>
+            <span className="eyebrow">{esEmpresa ? `${negocio.nombre} · RUC` : usuario.nivel}</span>
             <span className="tier__hello">{saludo}, {usuario.nombre}</span>
           </span>
         </Link>
-        <Link className="icon-btn" href="/app/operaciones#movimientos" aria-label="Buscar movimientos">
+        <Link className="icon-btn" href="/app/movimientos" aria-label="Buscar movimientos">
           <IconBuscar size={20} stroke={1.6} />
         </Link>
       </header>
@@ -86,7 +98,7 @@ export default function InicioPage() {
           ))}
         </nav>
 
-        <AvisosLink cortos={r.alertas.map((a) => a.corto)} />
+        <AvisosLink cortos={alertasDe(perfil).map((a) => a.corto)} />
 
         {/* Resumen del mes y categorías según la vista */}
         <InicioPaneles nombreNegocio={negocio.nombre} />
@@ -120,9 +132,13 @@ export default function InicioPage() {
         {/* Acceso directo a Boot */}
         <section className="panel" aria-labelledby="askTitle">
           <header className="panel__head"><h2 id="askTitle">Antes de gastar, pregúntale a Boot</h2></header>
-          <p className="hint">Boot hace la cuenta con tus movimientos y separa lo personal de lo del negocio.</p>
+          <p className="hint">
+            {esEmpresa
+              ? 'Boot hace la cuenta con los movimientos de tu negocio y separa lo personal de lo del negocio.'
+              : 'Boot hace la cuenta con tus movimientos y te dice cómo llegas a fin de mes.'}
+          </p>
           <div className="asks">
-            {PREGUNTAS.map((p) => (
+            {PREGUNTAS[perfil].map((p) => (
               <Link key={p.q} className="ask" href={preguntarABoot(p.q)}>{p.label}</Link>
             ))}
           </div>

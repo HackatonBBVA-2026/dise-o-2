@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { Ajustes } from '@/components/Ajustes';
+import { CerrarSesion } from '@/components/CerrarSesion';
 import { ReglasNegocio } from '@/components/ReglasNegocio';
 import { IconChevron } from '@/components/icons';
 import { negocio, usuario } from '@/lib/data';
+import { sesionActual } from '@/lib/sesion-servidor';
 
 export const metadata = { title: 'Perfil' };
 
@@ -19,7 +21,9 @@ function Fila({ children, demo, href }: { children: React.ReactNode; demo?: stri
   );
 }
 
-export default function PerfilPage() {
+export default async function PerfilPage() {
+  const sesion = await sesionActual();
+  const esEmpresa = sesion.perfil === 'empresa';
   return (
     <>
       <header className="pagehead pagehead--profile">
@@ -34,12 +38,17 @@ export default function PerfilPage() {
         <section className="panel" aria-labelledby="cuentaTitle">
           <header className="panel__head"><h2 id="cuentaTitle">Mi cuenta</h2></header>
           <ul className="rows">
+            <li>
+              <span className="rows__name">Ingresaste con<small>{esEmpresa ? 'Perfil emprendedor o empresa' : 'Perfil persona'}</small></span>
+              <span className="muted mono">{esEmpresa ? 'RUC' : 'DNI'} {sesion.documento}</span>
+            </li>
             <li><span className="rows__name">Correo</span><span className="muted">{usuario.email}</span></li>
             <li><span className="rows__name">Celular</span><span className="muted mono">{usuario.telefono}</span></li>
             <Fila demo="Editar datos personales">Datos personales</Fila>
           </ul>
         </section>
 
+        {esEmpresa && (
         <section className="panel" aria-labelledby="negocioTitle">
           <header className="panel__head"><h2 id="negocioTitle">Mi negocio</h2></header>
           <ul className="rows">
@@ -52,6 +61,7 @@ export default function PerfilPage() {
           <p className="hint">Cada gasto en estos comercios se clasifica solo.</p>
           <ReglasNegocio />
         </section>
+        )}
 
         <section className="panel" aria-labelledby="ajustesTitle">
           <header className="panel__head"><h2 id="ajustesTitle">Ajustes</h2></header>
@@ -81,7 +91,7 @@ export default function PerfilPage() {
         </section>
 
         <div className="span-2 signout">
-          <button type="button" className="btn btn--danger" data-demo="Cerrar sesión">Cerrar sesión</button>
+          <CerrarSesion />
           <p className="hint">Concepto para discusión. Datos ficticios, no es un producto oficial. v2.0</p>
         </div>
       </div>

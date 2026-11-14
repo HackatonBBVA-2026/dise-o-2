@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BootAvatar } from './BootAvatar';
 import { IconFlecha } from './icons';
 import type { RespuestaBoot } from '@/lib/types';
+import type { Perfil } from '@/lib/sesion';
 
 type Mensaje =
   | { id: number; de: 'usuario'; texto: string }
@@ -14,12 +15,15 @@ const BIENVENIDA: RespuestaBoot = {
   texto: ['Hola, soy Boot. Pregúntame antes de gastar y hago la cuenta con tus movimientos.'],
 };
 
-const CHIPS_INICIALES = ['¿Llego a fin de mes?', '¿Puedo gastar S/ 200 en unas zapatillas?', '¿Y el cobro duplicado?', 'Mis suscripciones'];
+const CHIPS_INICIALES = {
+  persona: ['¿Llego a fin de mes?', '¿Puedo gastar S/ 200 en unas zapatillas?', '¿Qué ofertas puedo desbloquear?', 'Mis suscripciones'],
+  empresa: ['¿Cuánto gané este mes en el negocio?', '¿Puedo reponer stock por S/ 500?', '¿Llego a fin de mes?', '¿Qué ofertas puedo desbloquear?'],
+};
 
 /** Pestaña Boot: el cliente solo envía la pregunta y pinta la respuesta calculada en el servidor. */
-export function Chat({ preguntaInicial }: { preguntaInicial?: string }) {
+export function Chat({ preguntaInicial, perfil = 'persona' }: { preguntaInicial?: string; perfil?: Perfil }) {
   const [mensajes, setMensajes] = useState<Mensaje[]>([{ id: 0, de: 'boot', r: BIENVENIDA }]);
-  const [chips, setChips] = useState<string[]>(CHIPS_INICIALES);
+  const [chips, setChips] = useState<string[]>(CHIPS_INICIALES[perfil]);
   const [texto, setTexto] = useState('');
   const logRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(1);
@@ -122,6 +126,7 @@ function Respuesta({ r }: { r: RespuestaBoot }) {
         </table>
       )}
       {r.nota && <p>{r.nota}</p>}
+      {r.fuente && <p className="msg__fuente">{r.fuente === 'groq' ? 'IA · calculado con tus movimientos' : 'Respuesta rápida (sin IA)'}</p>}
     </div>
   );
 }

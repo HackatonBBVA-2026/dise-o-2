@@ -109,18 +109,3 @@ export function getResumen() {
 }
 
 export type Resumen = ReturnType<typeof getResumen>;
-
-export function validarTransferencia(body: { destino?: unknown; monto?: unknown; cuentaId?: unknown }) {
-  const cuenta = data.cuentas.find((c) => c.id === body.cuentaId);
-  const m = Number(body.monto);
-  if (!cuenta) return { ok: false as const, error: 'Selecciona una cuenta de origen.' };
-  if (!/^\d{10,20}$/.test(String(body.destino ?? '').replace(/[\s-]/g, '')))
-    return { ok: false as const, error: 'Ingresa un número de cuenta o CCI válido (10 a 20 dígitos).' };
-  if (!(m > 0)) return { ok: false as const, error: 'Ingresa un monto mayor a 0.' };
-  if (m > cuenta.saldo) return { ok: false as const, error: 'El monto supera tu saldo disponible.' };
-  return {
-    ok: true as const,
-    codigo: 'DEMO-' + Date.now().toString().slice(-6),
-    mensaje: `Simulación: transferencia de S/ ${m.toFixed(2)} registrada. No se movió dinero real.`,
-  };
-}

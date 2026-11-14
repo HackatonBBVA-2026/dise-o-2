@@ -80,10 +80,6 @@ export interface EventoSeguridad {
   cuando: string;
 }
 
-export interface TipoCambio {
-  compra: number;
-  venta: number;
-}
 
 export interface Alerta {
   tipo: TipoAlerta;
@@ -106,4 +102,6 @@ export interface RespuestaBoot {
   tabla?: { label: string; valor: string; tono?: Tono }[];
   nota?: string;
   chips?: string[];
+  /** Quién redactó: la IA (Groq) o el motor de reglas de respaldo. */
+  fuente?: 'groq' | 'reglas';
 }

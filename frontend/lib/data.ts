@@ -1,7 +1,8 @@
 // Datos 100% ficticios para el concepto. Reemplazar por la API real del banco.
 import type {
-  Usuario, Tarjeta, Cuenta, Categoria, Cobro, Suscripcion, Movimiento, EventoSeguridad, TipoCambio, Negocio, ReglaComercio,
+  Usuario, Tarjeta, Cuenta, Categoria, Cobro, Suscripcion, Movimiento, EventoSeguridad, Negocio, ReglaComercio,
 } from './types';
+import { memoria } from './memoria';
 
 export const usuario: Usuario = {
   nombre: 'Ana',
@@ -22,7 +23,8 @@ export const gastosMes = 1342;
 export const gastoDiarioEstimado = 47; // gasto variable promedio por día
 export const sobrantePromedio6m = 310; // lo que sobra en promedio al mes (últimos 6 meses)
 
-export const cuentas: Cuenta[] = [{ id: 'ah-4821', tipo: 'Cuenta de ahorros', numero: '4821', saldo: 1024.5 }];
+// En memoria compartida: separar ahorro (metas) descuenta del saldo y todas las pantallas lo ven.
+export const cuentas: Cuenta[] = memoria('cuentas', () => [{ id: 'ah-4821', tipo: 'Cuenta de ahorros', numero: '4821', saldo: 1024.5 }]);
 
 export const categorias: Categoria[] = [
   { nombre: 'Vivienda', monto: 450 },
@@ -77,7 +79,7 @@ export const movimientos: Movimiento[] = [
 
 export const negocio: Negocio = {
   nombre: 'Bodega Ana',
-  rucEnmascarado: '10•••••••21',
+  rucEnmascarado: '10•••••••24', // RUC de demo: 10456789124
   rubro: 'Bodega',
   regimen: 'NRUS',
 };
@@ -95,6 +97,5 @@ export const seguridad: EventoSeguridad[] = [
   { titulo: 'Clave de internet actualizada', detalle: 'Desde la app', cuando: '2 nov' },
 ];
 
-export const tipoCambio: TipoCambio = { compra: 3.72, venta: 3.76 };
 
 export const prestamoReferencial = { tea: 0.3 }; // TEA ficticia solo para simular

@@ -631,3 +631,40 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- Inicio de sesión (DNI → persona · RUC → negocio) ---------- */
+.login { min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; background: var(--fondo, #fff); }
+.login__card { width: 100%; max-width: 380px; display: grid; gap: 26px; }
+.login__brand { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.login__avatar { width: 64px; height: 64px; display: block; }
+.login__avatar svg { width: 100%; height: 100%; }
+.login__brand h1 { font-size: 32px; font-weight: 600; letter-spacing: -.03em; }
+.login__tipo { font-size: 12px; color: var(--texto-2); }
+.login__error { color: var(--peligro); font-size: 13px; }
+.login .btn { width: 100%; }
+.login .btn:disabled { opacity: .6; }
+.login__demo { display: grid; gap: 10px; padding-top: 18px; border-top: 1px solid var(--linea); }
+.login__demo-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Origen de la respuesta de Boot (IA o reglas) */
+.msg .msg__fuente { font-size: 11px; color: var(--texto-3); }
+
+/* ---------- Metas y ofertas ---------- */
+.metas { display: grid; gap: 16px; margin-block: 14px; }
+.meta { display: grid; gap: 7px; }
+.meta__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; }
+.meta__top small { color: var(--texto-3); font-weight: 400; }
+.meta__foot { font-size: 12px; color: var(--texto-2); }
+.meta__aporte { display: flex; gap: 8px; align-items: center; }
+.meta__aporte .input { padding: 9px 12px; font-size: 14px; }
+.form--inline { gap: 12px; padding-top: 14px; border-top: 1px solid var(--linea); }
+.ofertas { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-block: 12px; }
+.oferta { display: grid; gap: 6px; align-content: start; padding: 14px; border: 1px solid var(--linea); border-radius: 14px; background: var(--superficie); }
+.oferta strong { font-size: 14.5px; }
+.oferta small { color: var(--texto-2); font-size: 12px; }
+.oferta__tipo { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-3); }
+.oferta__beneficio { font-size: 13px; }
+.oferta .oferta__socio { color: var(--texto-3); }
+.oferta.is-on { border-color: var(--exito); }
+.oferta .tag, .oferta .btn-sm { justify-self: start; }
+.tag--ok { color: var(--exito); background: #F0FDF4; }

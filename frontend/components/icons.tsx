@@ -20,6 +20,9 @@ function Svg({ size = 24, stroke = 1.5, className, children }: P & { children: R
   );
 }
 
+export const IconMeta = (p: P) => (
+  <Svg {...p}><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r="1.2" fill="currentColor" /></Svg>
+);
 export const IconInicio = (p: P) => (
   <Svg {...p}><path d="M4 10.2 12 4l8 6.2V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z" /></Svg>
 );

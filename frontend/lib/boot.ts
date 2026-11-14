@@ -46,7 +46,7 @@ const intenciones: Intencion[] = [
     run: () => ({
       texto: ['Para reclamar un cobro duplicado:'],
       lista: [
-        'Entra a Operaciones › Movimientos y ubica ambos cargos.',
+        'Entra a Movimientos y ubica ambos cargos.',
         'Escríbele primero al comercio: suelen devolver en 3–5 días.',
         'Si no responde, presenta el reclamo al banco con la fecha y el monto.',
         'Guarda el número de reclamo para hacer seguimiento.',
@@ -128,11 +128,14 @@ const intenciones: Intencion[] = [
     },
   },
   {
-    test: (t) => /tarjeta/.test(t),
+    // Boot solo usa datos de la app: muestra la tarjeta y las cuentas, sin consejos externos.
+    test: (t) => /tarjeta|cuenta/.test(t),
     run: () => ({
-      texto: ['Antes de pedirla, revisa:'],
-      lista: ['Tu reporte de deudas en la SBS', 'La TCEA, no solo la tasa', 'Si cobra membresía', 'Fecha de corte y fecha de pago'],
-      nota: 'Tip: paga el total, no el mínimo.',
+      texto: ['Estas son tu tarjeta y tus cuentas en Mío:'],
+      tabla: [
+        { label: `Tarjeta ${data.tarjeta.tipo} •••• ${data.tarjeta.ultimos} · vence ${data.tarjeta.vence}`, valor: 'Activa' },
+        ...data.cuentas.map((c) => ({ label: `${c.tipo} •••• ${c.numero}`, valor: S(c.saldo) })),
+      ],
       chips: CHIPS_BASE,
     }),
   },

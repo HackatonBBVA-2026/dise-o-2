@@ -25,7 +25,7 @@ interface Props {
 
 /** Selector Personal · Negocio · Todo + saldo y proyección según la vista. */
 export function InicioSaldo({ disponible, hoy, cierreMes, proximosCobros, nombreNegocio }: Props) {
-  const { vista, setVista, personal, negocio, pendientes } = useClasificacion();
+  const { vista, setVista, personal, negocio, pendientes, perfil } = useClasificacion();
   const pos = (d: number) => `${Math.min(100, Math.max(0, ((d - 1) / (cierreMes - 1)) * 100)).toFixed(2)}%`;
   const [entero, decimales] = soles(disponible).replace('S/ ', '').split('.');
   const enNegocio = vista === 'negocio';
@@ -33,13 +33,16 @@ export function InicioSaldo({ disponible, hoy, cierreMes, proximosCobros, nombre
 
   return (
     <>
-      <div className="vista span-2" role="group" aria-label="Qué finanzas ver">
-        {VISTAS.map((v) => (
-          <button key={v.id} type="button" className={`vista__btn${vista === v.id ? ' is-active' : ''}`} aria-pressed={vista === v.id} onClick={() => setVista(v.id)}>
-            {v.label}
-          </button>
-        ))}
-      </div>
+      {/* Solo quien entra con RUC tiene negocio: la persona (DNI) no ve el selector. */}
+      {perfil === 'empresa' && (
+        <div className="vista span-2" role="group" aria-label="Qué finanzas ver">
+          {VISTAS.map((v) => (
+            <button key={v.id} type="button" className={`vista__btn${vista === v.id ? ' is-active' : ''}`} aria-pressed={vista === v.id} onClick={() => setVista(v.id)}>
+              {v.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <section className="balance" aria-labelledby="saldoTitle">
         <PrivacyToggle className="balance__toggle">
@@ -107,7 +110,7 @@ export function InicioSaldo({ disponible, hoy, cierreMes, proximosCobros, nombre
           </p>
         )}
 
-        {pendientes.length > 0 && (
+        {perfil === 'empresa' && pendientes.length > 0 && (
           <Link className="pending-note" href="/app/avisos">
             {pendientes.length} movimiento{pendientes.length > 1 ? 's' : ''} sin clasificar no se cuenta{pendientes.length > 1 ? 'n' : ''} aún · <u>Clasificar</u>
           </Link>
@@ -131,7 +134,7 @@ export function InicioPaneles({ nombreNegocio }: { nombreNegocio: string }) {
       <section className="panel" aria-labelledby="mesTitle">
         <header className="panel__head">
           <h2 id="mesTitle">{enNegocio ? `${nombreNegocio} · noviembre` : 'Noviembre'}</h2>
-          <Link className="link" href="/app/operaciones#movimientos">Movimientos</Link>
+          <Link className="link" href="/app/movimientos">Movimientos</Link>
         </header>
         {ledger ? (
           <>

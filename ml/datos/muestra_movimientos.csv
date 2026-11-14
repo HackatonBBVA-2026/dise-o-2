@@ -1,0 +1,401 @@
+id,usuario_id,perfil,rubro,fecha,descripcion,monto,medio,categoria,ambito
+M000107,E001,empresa,redes,2026-05-28,MAXIAHORRO 79,-105.92,tarjeta,Comida,personal
+M000116,E001,empresa,redes,2026-05-31,CHIFA DRAGON DORADO,-73.98,tarjeta,Comida,personal
+M000197,E001,empresa,redes,2026-06-20,GAMARRA TEXTIL 81,-873.72,tarjeta,Mercaderia,negocio
+M000392,E001,empresa,redes,2026-08-14,PAGO QR DE ANA S,83.91,qr,Ventas,negocio
+M000541,E001,empresa,redes,2026-09-23,DEPOSITO AGENTE 7WTV,645.69,deposito,Ventas,negocio
+M000596,E001,empresa,redes,2026-10-08,PAGO QR DE DIEGO A,31.51,qr,Ventas,negocio
+M000794,E002,empresa,taller,2026-06-01,TIENDA MODA URBANA,-69.62,tarjeta,Entretenimiento,personal
+M000949,E002,empresa,taller,2026-07-18,TAXIYA*VIAJE ELHQ,-17.56,qr,Transporte,personal
+M001146,E002,empresa,taller,2026-09-12,PAGO QR DE JORGE L,169.75,qr,Ventas,negocio
+M001410,E003,empresa,taller,2026-05-20,TELEMOVIL RECARGA,-30.83,debito,Servicios hogar,personal
+M001662,E003,empresa,taller,2026-07-27,ABONO VENTAS POS 949M,1905.96,transferencia,Ventas,negocio
+M001765,E003,empresa,taller,2026-08-24,MINIMARKET 24H,-10.74,tarjeta,Comida,personal
+M001943,E003,empresa,taller,2026-10-10,TIENDA MODA URBANA,-216.22,qr,Entretenimiento,personal
+M001948,E003,empresa,taller,2026-10-12,FERRETERIA EL MARTILLO,-133.64,tarjeta,Insumos,negocio
+M002056,E004,empresa,redes,2026-05-08,PAGO QR DE DIEGO A,48.95,qr,Ventas,negocio
+M002358,E004,empresa,redes,2026-07-22,PAGO QR DE CARLOS M,16.89,qr,Ventas,negocio
+M002577,E004,empresa,redes,2026-09-12,TRANSF A ROSA Q,-419.01,transferencia,Pago a ayudante,negocio
+M002574,E004,empresa,redes,2026-09-12,PAGO QR DE CARLOS M,50.03,qr,Ventas,negocio
+M002887,E005,empresa,redes,2026-05-30,PAGO QR DE VALERIA E,18.22,qr,Ventas,negocio
+M003120,E005,empresa,redes,2026-07-25,PAGO QR DE MARIA C,48.2,qr,Ventas,negocio
+M003318,E005,empresa,redes,2026-09-14,PAGO QR DE DIEGO A,29.66,qr,Ventas,negocio
+M004104,E006,empresa,comida,2026-09-15,PAGO QR DE ROSA Q,19.99,qr,Ventas,negocio
+M004160,E006,empresa,comida,2026-09-26,CINEMUNDO 95,-37.75,tarjeta,Entretenimiento,personal
+M004231,E006,empresa,comida,2026-10-13,PAGO QR DE PATRICIA O,42.75,qr,Ventas,negocio
+M004446,E007,empresa,bodega,2026-06-02,RAPIDOO*PEDIDO 6SZH,-59.37,transferencia,Comida,personal
+M004469,E007,empresa,bodega,2026-06-08,PAGO QR DE JUAN P,109.8,qr,Ventas,negocio
+M004497,E007,empresa,bodega,2026-06-13,PAGO QR DE LUIS F,121.28,qr,Ventas,negocio
+M004529,E007,empresa,bodega,2026-06-22,PAGO QR DE PATRICIA O,206.24,qr,Ventas,negocio
+M005255,E008,empresa,redes,2026-06-25,MOVIRIDE PE ROJJ,-6.19,tarjeta,Transporte,personal
+M005270,E008,empresa,redes,2026-06-29,MINIMARKET 24H,-21.33,tarjeta,Comida,personal
+M005627,E008,empresa,redes,2026-10-02,CINEMUNDO 61,-51.13,tarjeta,Entretenimiento,personal
+M005639,E008,empresa,redes,2026-10-06,PAGO QR DE PATRICIA O,170.1,qr,Ventas,negocio
+M005699,E008,empresa,redes,2026-10-21,MOVIRIDE PE 8628,-21.5,transferencia,Transporte,personal
+M005826,E009,empresa,taller,2026-05-25,PAGO QR DE VALERIA E,68.18,qr,Ventas,negocio
+M005925,E009,empresa,taller,2026-06-20,PAGO QR DE ELENA B,34.46,qr,Ventas,negocio
+M006189,E009,empresa,taller,2026-08-28,CLINICA SAN MARTIN,-265.92,transferencia,Salud,personal
+M006469,E010,empresa,redes,2026-05-13,PAGOQR DE LUIS F,59.8,qr,Ventas,negocio
+M006632,E010,empresa,redes,2026-06-26,PAGO QR DE DIEGO A,235.02,qr,Ventas,negocio
+M006861,E010,empresa,redes,2026-08-23,ENERLIMA RECIBO PVU7,-117.7,debito,Servicios hogar,personal
+M006908,E010,empresa,redes,2026-09-04,PAGO QR DE CARLOS M,340.3,qr,Ventas,negocio
+M007241,E011,empresa,bodega,2026-06-05,PAGO QR DE LUCIA R,195.39,qr,Ventas,negocio
+M007300,E011,empresa,bodega,2026-06-22,PAGO QR DE RAUL N,45.79,qr,Ventas,negocio
+M007524,E011,empresa,bodega,2026-08-18,PAGO QR DE PEDRO H,173.39,qr,Ventas,negocio
+M008354,E012,empresa,redes,2026-09-13,RAPIDOO*PEDIDO GQ9X,-42.22,qr,Comida,personal
+M008424,E012,empresa,redes,2026-10-03,PAGO QR DE RAUL N,212.58,qr,Ventas,negocio
+M008449,E012,empresa,redes,2026-10-09,PAGO QR DE DIEGO A,278.54,qr,Ventas,negocio
+M008522,E012,empresa,redes,2026-10-31,PANADERIA SAN JOSE,-7.43,tarjeta,Comida,personal
+M008556,E013,empresa,taller,2026-05-11,PAGO QR DE JORGE L,24.09,qr,Ventas,negocio
+M008736,E013,empresa,taller,2026-07-01,PAGO QR DE ROSA Q,27.38,qr,Ventas,negocio
+M008763,E013,empresa,taller,2026-07-10,PAGO QR DE ROSA Q,38.09,qr,Ventas,negocio
+M008805,E013,empresa,taller,2026-07-24,PAGO QR DE JUAN P,62.81,qr,Ventas,negocio
+M009110,E013,empresa,taller,2026-10-20,PAGO QR DE MARIA C,21.44,qr,Ventas,negocio
+M009180,E014,empresa,taller,2026-05-09,PAGO QR DE CARMEN V,106.91,qr,Ventas,negocio
+M009191,E014,empresa,taller,2026-05-12,FERRETERIA EL MARTILLO,-41.8,tarjeta,Insumos,negocio
+M009196,E014,empresa,taller,2026-05-14,PAGO QR DE PATRICIA O,213.0,qr,Ventas,negocio
+M009331,E014,empresa,taller,2026-06-19,PAGO QR DE MARIA C,194.15,qr,Ventas,negocio
+M009495,E014,empresa,taller,2026-07-31,PAGO QR DE SOFIA G,156.03,qr,Ventas,negocio
+M009980,E015,empresa,comida,2026-06-01,DESCARTABLES LIMA,-165.24,transferencia,Insumos,negocio
+M010246,E015,empresa,comida,2026-08-02,PAGO QR DE DIEGO A,47.05,qr,Ventas,negocio
+M010346,E015,empresa,comida,2026-08-23,DEPOSITO AGENTE AZRP,734.97,deposito,Ventas,negocio
+M010490,E015,empresa,comida,2026-09-25,AVICOLA SAN FERNANDO,-364.99,tarjeta,Mercaderia,negocio
+M010570,E015,empresa,comida,2026-10-14,PAGO QR DE ANA S,25.64,qr,Ventas,negocio
+M010591,E015,empresa,comida,2026-10-17,MINIMARKET 24H,-36.06,tarjeta,Comida,personal
+M010748,E016,empresa,comida,2026-05-22,PAGO QR DE MARIA C,35.67,qr,Ventas,negocio
+M010870,E016,empresa,comida,2026-06-20,TIENDA MODA URBANA,-132.79,tarjeta,Entretenimiento,personal
+M010881,E016,empresa,comida,2026-06-23,PAGO QR DE RAUL N,62.9,qr,Ventas,negocio
+M011063,E016,empresa,comida,2026-08-07,PAGO QR DE LUCIA R,51.74,qr,Ventas,negocio
+M011410,E016,empresa,comida,2026-10-18,MEGAMAYORISTA 44,-514.07,qr,Mercaderia,negocio
+M011476,E017,empresa,redes,2026-05-05,PAGO QR DE CARMEN V,35.48,qr,Ventas,negocio
+M011992,E017,empresa,redes,2026-09-11,PAGO QR DE JORGE L,122.91,qr,Ventas,negocio
+M012120,E017,empresa,redes,2026-10-17,PAGO QR DE PEDRO H,172.65,qr,Ventas,negocio
+M012472,E018,empresa,redes,2026-07-10,TRANSPORTES RAPIDO,-57.58,transferencia,Flete,negocio
+M012549,E018,empresa,redes,2026-07-29,PAGO QR DE PATRICIA O,73.34,qr,Ventas,negocio
+M012751,E018,empresa,redes,2026-09-16,MINIMARKET 24H,-26.34,transferencia,Comida,personal
+M013123,E019,empresa,redes,2026-06-13,PAGO QR DE JORGE L,144.7,qr,Ventas,negocio
+M013243,E019,empresa,redes,2026-07-14,PAGO QR DE LUCIA R,243.86,qr,Ventas,negocio
+M013414,E019,empresa,redes,2026-08-26,GAMARRA TEXTIL 99,-619.31,transferencia,Mercaderia,negocio
+M013430,E019,empresa,redes,2026-08-31,PAGO QR D JORGE L,129.8,qr,Ventas,negocio
+M013809,E020,empresa,redes,2026-06-05,JUEGOSONLINE*Z4LW,-13.05,transferencia,Entretenimiento,personal
+M014460,E021,empresa,comida,2026-05-25,POLLERIA EL BRASERO,-75.64,transferencia,Comida,personal
+M014755,E021,empresa,comida,2026-07-28,PAGO QR DE RAUL N,91.96,qr,Ventas,negocio
+M014800,E021,empresa,comida,2026-08-08,GRIFO VIAPLUS 21,-158.8,qr,Transporte,personal
+M014939,E021,empresa,comida,2026-09-09,PAGO QR,178.86,qr,Ventas,negocio
+M015070,E021,empresa,comida,2026-10-04,PAGO QR DE PATRICIA O,142.21,qr,Ventas,negocio
+M015170,E021,empresa,comida,2026-10-27,PAGO QR DE ANA S,232.75,qr,Ventas,negocio
+M015340,E022,empresa,bodega,2026-06-11,TELEMOVIL RECARGA,-22.21,debito,Servicios hogar,personal
+M015938,E023,empresa,taller,2026-05-25,PAG QR DE CARMEN V,103.28,qr,Ventas,negocio
+M016445,E023,empresa,taller,2026-10-08,REPUESTOS EL PISTON,-348.92,qr,Mercaderia,negocio
+M016521,E023,empresa,taller,2026-10-28,PAGO QR DE RAUL N,48.31,qr,Ventas,negocio
+M016711,E024,empresa,taller,2026-06-09,COMIDAYA*NAMS,-67.34,transferencia,Comida,personal
+M016800,E024,empresa,taller,2026-07-01,PAGO QR DE ROSA Q,45.55,qr,Ventas,negocio
+M016895,E024,empresa,taller,2026-07-25,TRANSF A LUIS F,-345.25,transferencia,Pago a ayudante,negocio
+M017184,E024,empresa,taller,2026-10-08,PAGO QR DE JOSE D,69.49,qr,Ventas,negocio
+M017266,E024,empresa,taller,2026-10-26,PAGO QR DE ROSA Q,17.25,qr,Ventas,negocio
+M017465,E025,empresa,redes,2026-06-14,MINIMARKET 24H,-23.09,qr,Comida,personal
+M017898,E025,empresa,redes,2026-10-05,PAGO QR DE MIGUEL T,13.99,qr,Ventas,negocio
+M018194,E026,empresa,comida,2026-06-10,PAGO QR DE CARLOS M,109.69,qr,Ventas,negocio
+M018254,E026,empresa,comida,2026-06-22,PAGO QR DE RAUL N,139.33,qr,Ventas,negocio
+M018406,E026,empresa,comida,2026-07-25,PAGO QR DE VALERIA E,102.22,qr,Ventas,negocio
+M018412,E026,empresa,comida,2026-07-27,PGO QR DE ELENA B,98.14,qr,Ventas,negocio
+M018429,E026,empresa,comida,2026-07-31,DEPOSITO AGENTE FYMB,902.86,deposito,Ventas,negocio
+M018715,E026,empresa,comida,2026-10-06,PAGO QR DE LUIS F,131.73,qr,Ventas,negocio
+M018796,E026,empresa,comida,2026-10-24,MAXIAHORRO 92,-91.12,qr,Comida,personal
+M018814,E026,empresa,comida,2026-10-27,MEGAMAYORISTA 31,-540.49,qr,Mercaderia,negocio
+M018893,E027,empresa,taller,2026-05-14,PAGO QR DE CARLOS M,42.84,qr,Ventas,negocio
+M018981,E027,empresa,taller,2026-06-04,PAGO QR DE ELENA B,26.14,qr,Ventas,negocio
+M019746,E028,empresa,redes,2026-06-15,PAGO QR DE ELENA B,104.87,qr,Ventas,negocio
+M020227,E028,empresa,redes,2026-10-10,PAGO QR DE SOFIA G,130.57,qr,Ventas,negocio
+M020267,E028,empresa,redes,2026-10-21,PAGO QR DE SOFIA G,72.97,qr,Ventas,negocio
+M020279,E028,empresa,redes,2026-10-23,IMPORTADORA LIMA CENTRO,-1329.38,tarjeta,Mercaderia,negocio
+M020302,E028,empresa,redes,2026-10-28,PAGO QR DE JUAN P,82.53,qr,Ventas,negocio
+M020364,E029,empresa,bodega,2026-05-14,PANADERIA SAN JOSE,-11.12,tarjeta,Comida,personal
+M020423,E029,empresa,bodega,2026-05-27,JUEGOSONLINE*NGUR,-55.4,tarjeta,Entretenimiento,personal
+M020518,E029,empresa,bodega,2026-06-23,NUBE+ STORAGE,-24.9,tarjeta,Suscripciones,personal
+M020655,E029,empresa,bodega,2026-07-28,MOVIRIDE PE 8M9I,-11.21,tarjeta,Transporte,personal
+M020652,E029,empresa,bodega,2026-07-28,PAGO QR DE ELENA B,25.39,qr,Ventas,negocio
+M020691,E029,empresa,bodega,2026-08-07,PAGO QR DE LUIS F,84.77,qr,Ventas,negocio
+M020740,E029,empresa,bodega,2026-08-20,NUBE+ STORAGE,-24.9,tarjeta,Suscripciones,personal
+M021055,E030,empresa,bodega,2026-05-06,PAGO QR DE SOFIA G,176.22,qr,Ventas,negocio
+M021138,E030,empresa,bodega,2026-05-27,PAGO QR DE CARMEN V,90.74,qr,Ventas,negocio
+M021174,E030,empresa,bodega,2026-06-05,PAGO QR DE ROSA Q,317.78,qr,Ventas,negocio
+M021332,E030,empresa,bodega,2026-07-15,PAGO QR DE RAUL N,169.19,qr,Ventas,negocio
+M021424,E030,empresa,bodega,2026-08-06,MINIMARKET 24H,-17.07,tarjeta,Comida,personal
+M021666,E030,empresa,bodega,2026-10-05,PAGO QR DE VALERIA E,112.68,qr,Ventas,negocio
+M021674,E030,empresa,bodega,2026-10-08,PAGO QR DE JOSE D,90.83,qr,Ventas,negocio
+M021785,E031,empresa,comida,2026-05-02,JUEGOSONLINE*D1T3,-20.26,tarjeta,Entretenimiento,personal
+M021892,E031,empresa,comida,2026-05-27,PAGO QR DE JORGE L,114.86,qr,Ventas,negocio
+M021966,E031,empresa,comida,2026-06-13,TRANSF A LUCIA R,-295.23,transferencia,Pago a ayudante,negocio
+M022049,E031,empresa,comida,2026-07-02,DEPOSITO AGENTE BG6K,689.68,deposito,Ventas,negocio
+M022207,E031,empresa,comida,2026-08-09,PAGO QR DE LUCIA R,116.96,qr,Ventas,negocio
+M022318,E031,empresa,comida,2026-09-01,GAS DOMICILIO JA67,-51.64,qr,Insumos,negocio
+M022368,E031,empresa,comida,2026-09-14,PAGO QR DE ROSA Q,73.26,qr,Ventas,negocio
+M022424,E031,empresa,comida,2026-09-24,PAGO QR DE CARMEN V,97.03,qr,Ventas,negocio
+M022705,E032,empresa,taller,2026-05-30,TRANSF A LUIS F,-423.97,transferencia,Pago a ayudante,negocio
+M022865,E032,empresa,taller,2026-07-10,PAGO QR DE JOSE D,104.52,qr,Ventas,negocio
+M023059,E032,empresa,taller,2026-09-03,REPUESTOS EL PISTON,-427.16,qr,Mercaderia,negocio
+M023702,E033,empresa,redes,2026-08-25,PAGO QR DE RAUL N,229.82,qr,Ventas,negocio
+M023842,E033,empresa,redes,2026-09-29,PAGO QR DE ROSA Q,148.02,qr,Ventas,negocio
+M024132,E034,empresa,bodega,2026-06-09,RECARGA TARJETA BUS,-20.56,qr,Transporte,personal
+M024635,E034,empresa,bodega,2026-10-09,PAGO QR DE JORGE L,61.34,qr,Ventas,negocio
+M024664,E034,empresa,bodega,2026-10-17,PAG QR DE JOSE D,33.38,qr,Ventas,negocio
+M024851,E035,empresa,taller,2026-06-04,PAGO QR DE PATRICIA O,37.97,qr,Ventas,negocio
+M024953,E035,empresa,taller,2026-06-27,TRANSF A JOSE D,-347.33,transferencia,Pago a ayudante,negocio
+M024990,E035,empresa,taller,2026-07-06,PAGO QR DE MARIA C,32.48,qr,Ventas,negocio
+M025080,E035,empresa,taller,2026-07-28,PAGO QR DE ROSA Q,55.59,qr,Ventas,negocio
+M025254,E035,empresa,taller,2026-09-08,PAGO QR DE JUAN P,24.1,qr,Ventas,negocio
+M025263,E035,empresa,taller,2026-09-11,PAGO QR DE LUIS F,42.19,qr,Ventas,negocio
+M025439,E035,empresa,taller,2026-10-26,PAGO QR DE RAUL N,34.29,qr,Ventas,negocio
+M025716,E036,empresa,comida,2026-06-26,RECARGA TARJETA BUS,-47.96,tarjeta,Transporte,personal
+M025760,E036,empresa,comida,2026-07-08,PAGO QR DE VALERIA E,50.07,qr,Ventas,negocio
+M025763,E036,empresa,comida,2026-07-08,PAGO QR DE ANA S,39.68,qr,Ventas,negocio
+M025772,E036,empresa,comida,2026-07-11,PAGO QR DE ELENA B,38.88,qr,Ventas,negocio
+M026170,E036,empresa,comida,2026-10-16,PAGO QR DE MIGUEL T,36.52,qr,Ventas,negocio
+M026200,E036,empresa,comida,2026-10-25,PAGO R DE PEDRO H,30.04,qr,Ventas,negocio
+M026234,E036,empresa,comida,2026-10-31,AVICOLA SAN FERNANDO,-372.28,tarjeta,Mercaderia,negocio
+M026364,E037,empresa,comida,2026-05-31,PAGO QR DE PEDRO H,32.78,qr,Ventas,negocio
+M026510,E037,empresa,comida,2026-07-04,PAGO QR DE RAUL N,57.99,qr,Ventas,negocio
+M026530,E037,empresa,comida,2026-07-07,PAGO QR DE RAUL N,70.62,qr,Ventas,negocio
+M026803,E037,empresa,comida,2026-09-12,MEGAMAYORISTA 45,-81.74,tarjeta,Comida,personal
+M027177,E038,empresa,comida,2026-06-11,PAGO QR DE PEDRO H,193.96,qr,Ventas,negocio
+M027317,E038,empresa,comida,2026-07-13,PAGO QR DE JOSE D,225.53,qr,Ventas,negocio
+M027391,E038,empresa,comida,2026-07-29,TRANSPORTES RAPIDO,-62.08,tarjeta,Flete,negocio
+M027611,E038,empresa,comida,2026-09-16,PAGO QR DE CARMEN V,60.04,qr,Ventas,negocio
+M027810,E038,empresa,comida,2026-10-29,PAGO QR DE PATRICIA O,154.24,qr,Ventas,negocio
+M028286,E039,empresa,comida,2026-08-19,PAGO QR DE ANA S,264.76,qr,Ventas,negocio
+M028297,E039,empresa,comida,2026-08-21,INSTITUTO CIBERTEC PENSION,-419.22,transferencia,Educacion,personal
+M028293,E039,empresa,comida,2026-08-21,PAGO QR DE VALERIA E,155.5,qr,Ventas,negocio
+M028467,E039,empresa,comida,2026-10-03,PAGO QR DE CARMEN V,96.14,qr,Ventas,negocio
+M028488,E039,empresa,comida,2026-10-09,PAGO QR DE LUIS F,158.33,qr,Ventas,negocio
+M028674,E040,empresa,redes,2026-05-21,PAGO QR DE PATRICIA O,34.77,qr,Ventas,negocio
+M028685,E040,empresa,redes,2026-05-23,PAGO QR DE CARLOS M,52.58,qr,Ventas,negocio
+M028810,E040,empresa,redes,2026-06-20,POLLERIA EL BRASERO,-46.43,qr,Comida,personal
+M028899,E040,empresa,redes,2026-07-13,PAG QR DE JUAN P,25.38,qr,Ventas,negocio
+M029044,E040,empresa,redes,2026-08-22,PAGO QR DE MARIA C,32.91,qr,Ventas,negocio
+M029114,E040,empresa,redes,2026-09-11,POLLERIA EL BRASERO,-83.02,tarjeta,Comida,personal
+M029187,E040,empresa,redes,2026-10-02,PAGO QR DE ROSA Q,56.57,qr,Ventas,negocio
+M029888,E041,empresa,redes,2026-10-02,PAGO QR DE CARLOS M,64.64,qr,Ventas,negocio
+M030328,E042,empresa,taller,2026-07-23,PAGO QR DE ELENA B,49.04,qr,Ventas,negocio
+M030397,E042,empresa,taller,2026-08-11,PAGO QR DE VALERIA E,161.69,qr,Ventas,negocio
+M030858,E043,empresa,taller,2026-06-06,MOVIRIDE PE B0ZZ,-28.26,transferencia,Transporte,personal
+M031215,E043,empresa,taller,2026-09-01,PAGO QR DE DIEGO A,35.85,qr,Ventas,negocio
+M031271,E043,empresa,taller,2026-09-15,PAGO QR DE RAUL N,22.26,qr,Ventas,negocio
+M031474,E044,empresa,bodega,2026-05-05,MEGAMAYORISTA 42,-96.12,tarjeta,Comida,personal
+M031496,E044,empresa,bodega,2026-05-11,EMPAQUES DEL NORTE,-41.1,tarjeta,Insumos,negocio
+M031559,E044,empresa,bodega,2026-05-25,PAGO QR,386.8,transferencia,Ventas,negocio
+M031868,E044,empresa,bodega,2026-08-10,ABONO VENTAS POS M3A2,453.96,transferencia,Ventas,negocio
+M032258,E045,empresa,redes,2026-05-13,STREAMFLIX.COM,-37.5,tarjeta,Suscripciones,personal
+M032340,E045,empresa,redes,2026-06-03,ALQUILER DPTO JUN,-973.57,transferencia,Vivienda,personal
+M032382,E045,empresa,redes,2026-06-13,PAGO QR DE MIGUEL T,266.46,qr,Ventas,negocio
+M032488,E045,empresa,redes,2026-07-08,PAGO QR DE SOFIA G,128.76,qr,Ventas,negocio
+M032499,E045,empresa,redes,2026-07-11,PAGO QR DE JUAN P,229.75,qr,Ventas,negocio
+M032716,E045,empresa,redes,2026-08-29,TRANSF A RAUL N,-433.59,transferencia,Pago a ayudante,negocio
+M032786,E045,empresa,redes,2026-09-17,COMIDAYA*FBQ7,-54.97,tarjeta,Comida,personal
+M032815,E045,empresa,redes,2026-09-28,PAGO QR DE MIGUEL T,107.36,qr,Ventas,negocio
+M032867,E045,empresa,redes,2026-10-14,AGUALIMA RECIBO YRKT,-57.63,debito,Servicios hogar,personal
+M032924,E045,empresa,redes,2026-10-30,PAGO QR DE ANA S,101.77,qr,Ventas,negocio
+M033054,E046,empresa,taller,2026-06-01,RECARGA TARJETA BUS,-26.12,transferencia,Transporte,personal
+M033163,E046,empresa,taller,2026-06-27,TRANSF A LUCIA R,-442.88,transferencia,Pago a ayudante,negocio
+M033248,E046,empresa,taller,2026-07-17,PAGO QR DE SOFIA G,103.01,qr,Ventas,negocio
+M033312,E046,empresa,taller,2026-08-04,MAXIAHORRO 9,-153.17,qr,Comida,personal
+M033411,E046,empresa,taller,2026-08-31,PAGO QR DE VALERIA E,132.28,qr,Ventas,negocio
+M033869,E047,empresa,redes,2026-06-27,PAGO QR DE ROSA Q,49.45,qr,Ventas,negocio
+M034014,E047,empresa,redes,2026-08-04,DEPOSITO AGENTE 01A7,559.3,deposito,Ventas,negocio
+M034065,E047,empresa,redes,2026-08-17,PAGO QR DE SOFIA G,62.07,qr,Ventas,negocio
+M034393,E048,empresa,redes,2026-05-10,AGUALIMA RECIBO JGMB,-31.01,debito,Servicios hogar,personal
+M034697,E048,empresa,redes,2026-07-30,MINIMARKET 24H,-41.06,tarjeta,Comida,personal
+M034855,E048,empresa,redes,2026-09-10,PAGO QR DE LUIS F,178.47,qr,Ventas,negocio
+M034920,E048,empresa,redes,2026-09-25,PAGO QR DE PATRICIA O,137.53,qr,Ventas,negocio
+M035188,E049,empresa,taller,2026-06-04,LUBRICANTES DEL SUR,-94.97,qr,Mercaderia,negocio
+M035232,E049,empresa,taller,2026-06-13,PAGO QR DE ELENA B,101.14,qr,Ventas,negocio
+M035316,E049,empresa,taller,2026-07-04,PAGO QR DE CARMEN V,42.36,qr,Ventas,negocio
+M035388,E049,empresa,taller,2026-07-18,PAGO QR DE DIEGO A,62.27,qr,Ventas,negocio
+M035549,E049,empresa,taller,2026-08-26,COURIER EXPRESS VWWS,-19.53,transferencia,Flete,negocio
+M035593,E049,empresa,taller,2026-09-05,PAGO QR DE ROSA Q,72.3,qr,Ventas,negocio
+M035607,E049,empresa,taller,2026-09-08,PAGO QR DE LUCIA R,42.53,qr,Ventas,negocio
+M035622,E049,empresa,taller,2026-09-12,TRANSF A JORGE L,-280.99,transferencia,Pago a ayudante,negocio
+M035951,E050,empresa,taller,2026-05-30,DEPOSITO AGENTE Y55Q,1383.98,deposito,Ventas,negocio
+M036489,E050,empresa,taller,2026-10-19,ABONO VENTAS POS DXXN,887.32,transferencia,Ventas,negocio
+M036589,E051,empresa,comida,2026-05-09,RAPIDOO*PEDIDO FCDS,-39.7,transferencia,Comida,personal
+M037043,E051,empresa,comida,2026-08-26,PAGO QR DE PEDRO H,86.98,qr,Ventas,negocio
+M037207,E051,empresa,comida,2026-10-05,PAGO QR DE CARLOS M,248.0,qr,Ventas,negocio
+M037700,E052,empresa,taller,2026-08-08,DEPOSITO AGENTE 9B2R,1008.87,deposito,Ventas,negocio
+M037721,E052,empresa,taller,2026-08-14,PAGO QR DE CARMEN V,128.86,qr,Ventas,negocio
+M037750,E052,empresa,taller,2026-08-24,PAGO QR DE LUIS F,115.45,qr,Ventas,negocio
+M038137,E053,empresa,redes,2026-06-11,PAGO QR DE ROSA Q,15.32,qr,Ventas,negocio
+M038333,E053,empresa,redes,2026-07-28,COMIDAYA*UUIX,-50.26,tarjeta,Comida,personal
+M038495,E053,empresa,redes,2026-09-12,PAGO QR DE JORGE L,79.09,qr,Ventas,negocio
+M038562,E053,empresa,redes,2026-09-29,PAGO QR DE ROSA Q,60.59,qr,Ventas,negocio
+M038840,E054,empresa,redes,2026-06-04,GRIFO VIAPLUS 13,-149.81,qr,Transporte,personal
+M039064,E054,empresa,redes,2026-08-02,TAXIYA*VIAJE Y4B8,-28.41,transferencia,Transporte,personal
+M039783,E055,empresa,comida,2026-07-24,RECARGA TARJETA BUS,-20.82,tarjeta,Transporte,personal
+M039790,E055,empresa,comida,2026-07-26,PAGO QR DE LUIS F,119.19,qr,Ventas,negocio
+M039929,E055,empresa,comida,2026-08-29,MINIMARKET 24H,-41.04,transferencia,Comida,personal
+M040691,E056,empresa,redes,2026-08-29,TRANSF A PATRICIA O,-251.05,transferencia,Pago a ayudante,negocio
+M041278,E057,empresa,redes,2026-07-22,PAGO QR DE LUIS F,44.66,qr,Ventas,negocio
+M041294,E057,empresa,redes,2026-07-25,TRANSF A JOSE D,-297.69,transferencia,Pago a ayudante,negocio
+M041627,E057,empresa,redes,2026-10-14,SOCIALADS*CAMPANA MUK6,-184.79,tarjeta,Publicidad,negocio
+M041764,E058,empresa,bodega,2026-05-14,TAXIYA*VIAJE U3OF,-33.94,transferencia,Transporte,personal
+M041834,E058,empresa,bodega,2026-06-01,PAGO QR DE RAUL N,62.81,qr,Ventas,negocio
+M041891,E058,empresa,bodega,2026-06-15,SUPERMERCADO PLAZA 43,-31.11,tarjeta,Comida,personal
+M042206,E058,empresa,bodega,2026-09-13,BOTICA SALUD+ 19,-27.68,qr,Salud,personal
+M042378,E058,empresa,bodega,2026-10-27,MINIMARKET 24H,-37.18,tarjeta,Comida,personal
+M042501,E059,empresa,comida,2026-05-26,CHIFA DRAGON DORADO,-36.91,tarjeta,Comida,personal
+M042831,E059,empresa,comida,2026-08-14,AVICOLA SAN FERNANDO,-333.89,tarjeta,Mercaderia,negocio
+M042872,E059,empresa,comida,2026-08-23,POLLERIA EL BRASERO,-69.56,transferencia,Comida,personal
+M042958,E059,empresa,comida,2026-09-13,MENU DONA LUCHA,-15.63,transferencia,Comida,personal
+M043094,E059,empresa,comida,2026-10-14,MENU DONA LUCHA,-15.08,transferencia,Comida,personal
+M043689,E060,empresa,bodega,2026-09-10,PAGO QR DE JORGE L,112.2,qr,Ventas,negocio
+M043778,E060,empresa,bodega,2026-10-04,MINIMARKET 24H,-41.43,transferencia,Comida,personal
+M043809,E060,empresa,bodega,2026-10-15,PAGO QR DE LUIS F,233.44,qr,Ventas,negocio
+M043962,P001,persona,,2026-06-20,GRIFO VIAPLUS 81,-51.7,qr,Transporte,personal
+M043976,P001,persona,,2026-06-30,MAXIAHORRO 83,-23.36,tarjeta,Comida,personal
+M044190,P002,persona,,2026-05-01,COMIDAYA*1BMQ,-46.77,qr,Comida,personal
+M044206,P002,persona,,2026-05-08,RECARGA TARJETA BUS,-18.39,tarjeta,Transporte,personal
+M044217,P002,persona,,2026-05-12,TRANSF A ANA S,-148.68,transferencia,Transferencias,personal
+M044401,P002,persona,,2026-08-17,TAXIYA*VIAJE KR1I,-14.87,transferencia,Transporte,personal
+M044470,P002,persona,,2026-09-26,MENU DONA LUCHA,-14.9,tarjeta,Comida,personal
+M044493,P002,persona,,2026-10-05,PANADERIA SAN JOSE,-16.97,transferencia,Comida,personal
+M045177,P005,persona,,2026-05-01,QR A LUIS F,-117.15,tarjeta,Transferencias,personal
+M045257,P005,persona,,2026-06-10,GRIFO VIAPLUS 56,-178.06,tarjeta,Transporte,personal
+M045279,P005,persona,,2026-06-21,RAPIDOO*PEDIDO T38C,-39.25,tarjeta,Comida,personal
+M045332,P005,persona,,2026-07-25,PANADERIA SAN JOSE,-16.5,tarjeta,Comida,personal
+M045396,P005,persona,,2026-09-03,GRIFO VIAPLUS 24,-169.52,tarjeta,Transporte,personal
+M045415,P005,persona,,2026-09-12,TIENDA MODA URBANA,-178.04,tarjeta,Entretenimiento,personal
+M045476,P005,persona,,2026-10-11,BOTICA SALUD+ 20,-25.66,tarjeta,Salud,personal
+M045477,P005,persona,,2026-10-12,MOVIRIDE PE YN8S,-23.76,transferencia,Transporte,personal
+M045715,P006,persona,,2026-08-21,MOVIRIDE PE RMOZ,-22.23,transferencia,Transporte,personal
+M045827,P006,persona,,2026-10-20,POLLERIA EL BRASERO,-67.94,tarjeta,Comida,personal
+M045852,P007,persona,,2026-05-03,COMIDAYA*V842,-56.44,tarjeta,Comida,personal
+M045862,P007,persona,,2026-05-07,COMIDAYA*OXKQ,-59.99,tarjeta,Comida,personal
+M046635,P009,persona,,2026-07-26,SUPERMERCADO PLAZA 56,-210.67,tarjeta,Comida,personal
+M046648,P009,persona,,2026-08-02,TIENDA MODA URBANA,-78.78,tarjeta,Entretenimiento,personal
+M046742,P009,persona,,2026-09-24,RECARGA TARJETA BUS,-48.34,tarjeta,Transporte,personal
+M047077,P010,persona,,2026-09-12,CHIFA DRAGON DORADO,-75.87,tarjeta,Comida,personal
+M047324,P011,persona,,2026-07-27,RAPIDOO*PEDIDO A204,-74.96,tarjeta,Comida,personal
+M047349,P011,persona,,2026-08-08,TIENDA MODA URBANA,-142.02,qr,Entretenimiento,personal
+M047593,P012,persona,,2026-06-29,MAXIAHORRO 57,-24.95,tarjeta,Comida,personal
+M047784,P012,persona,,2026-10-20,CINEMUNDO 96,-28.97,transferencia,Entretenimiento,personal
+M047857,P013,persona,,2026-05-24,RECARGA TARJETA BUS,-13.53,tarjeta,Transporte,personal
+M048017,P013,persona,,2026-08-14,GRIFO VIAPLUS 18,-97.01,qr,Transporte,personal
+M048040,P013,persona,,2026-08-26,TRANSF A JORGE L,-247.56,qr,Transferencias,personal
+M048082,P013,persona,,2026-09-23,AGUAIMA RECIBO 2X32,-35.8,debito,Servicios hogar,personal
+M048175,P014,persona,,2026-05-18,MAXIAHORRO 56,-158.19,tarjeta,Comida,personal
+M048221,P014,persona,,2026-06-13,MOVIRIDE PE G6RL,-8.46,tarjeta,Transporte,personal
+M048676,P015,persona,,2026-08-29,MINIMARKET 24H,-23.85,transferencia,Comida,personal
+M048804,P016,persona,,2026-05-12,STREAMFLIX.COM,-37.5,tarjeta,Suscripciones,personal
+M048844,P016,persona,,2026-06-02,RECARGA TARJETA BUS,-21.49,tarjeta,Transporte,personal
+M049059,P016,persona,,2026-09-24,MAXIAHORRO 9,-177.67,qr,Comida,personal
+M049567,P018,persona,,2026-06-26,POLLERIA EL BRASERO,-58.29,transferencia,Comida,personal
+M050205,P020,persona,,2026-06-13,RECARGA TARJETA BUS,-11.14,transferencia,Transporte,personal
+M050347,P020,persona,,2026-09-05,RAPIDOO*PEDIDO 47O7,-57.72,tarjeta,Comida,personal
+M050711,P021,persona,,2026-09-15,POLLERIA EL BRASERO,-36.73,tarjeta,Comida,personal
+M050759,P021,persona,,2026-10-12,NETLIM INTERNET HOGAR,-124.54,debito,Servicios hogar,personal
+M050781,P021,persona,,2026-10-25,COMIDAYA*1CYB,-34.49,transferencia,Comida,personal
+M050911,P022,persona,,2026-07-04,MAXIAHORRO 82,-39.38,tarjeta,Comida,personal
+M051014,P022,persona,,2026-08-27,MAXIAHORR 29,-123.16,tarjeta,Comida,personal
+M051067,P022,persona,,2026-09-21,MOVIRIDE PE FSEF,-7.42,transferencia,Transporte,personal
+M051469,P023,persona,,2026-10-22,GRIFO VIAPLUS 95,-168.09,tarjeta,Transporte,personal
+M052039,P025,persona,,2026-08-28,CHIFA DRAGON DORADO,-59.28,qr,Comida,personal
+M052194,P026,persona,,2026-05-16,PANADERIA SAN JOSE,-12.24,tarjeta,Comida,personal
+M052362,P026,persona,,2026-08-13,MAXIAHORRO 70,-171.16,transferencia,Comida,personal
+M052714,P027,persona,,2026-08-21,CINEMUNDO 80,-39.62,qr,Entretenimiento,personal
+M053035,P028,persona,,2026-08-09,MAXIAHORRO 54,-54.33,tarjeta,Comida,personal
+M053382,P029,persona,,2026-08-20,MOVIRIDE PE 72NC,-18.42,tarjeta,Transporte,personal
+M053438,P029,persona,,2026-09-20,CINEMUNDO 62,-30.13,tarjeta,Entretenimiento,personal
+M053506,P029,persona,,2026-10-24,CLINICA SAN MARTIN,-176.07,tarjeta,Salud,personal
+M053561,P030,persona,,2026-05-26,MENU DONA LUCHA,-13.32,qr,Comida,personal
+M053616,P030,persona,,2026-06-27,BOTICA SALUD+ 15,-65.74,qr,Salud,personal
+M053750,P030,persona,,2026-09-09,CHIFA DRAGON DORADO,-24.12,transferencia,Comida,personal
+M053991,P031,persona,,2026-07-10,CHIFA DRAGON DORADO,-49.55,qr,Comida,personal
+M054103,P031,persona,,2026-09-01,QR A CARMEN V,-83.05,qr,Transferencias,personal
+M054149,P031,persona,,2026-09-25,MAXIAHORRO 66,-132.17,tarjeta,Comida,personal
+M054151,P031,persona,,2026-09-26,GRIFO VIAPLUS 95,-134.7,tarjeta,Transporte,personal
+M054669,P033,persona,,2026-07-11,MOVIRIDE PE 0LAT,-13.01,qr,Transporte,personal
+M055193,P034,persona,,2026-10-22,GRIFO VIAPLUS 89,-139.31,tarjeta,Transporte,personal
+M055755,P036,persona,,2026-08-21,MOVIRIDE PE 0BIY,-19.62,tarjeta,Transporte,personal
+M055763,P036,persona,,2026-08-26,CHIFA DRAGON DORADO,-40.97,qr,Comida,personal
+M055767,P036,persona,,2026-08-28,PANADERIA SAN JOSE,-10.63,tarjeta,Comida,personal
+M055790,P036,persona,,2026-09-08,TAXIYA*VIAJE ITI5,-16.74,qr,Transporte,personal
+M055976,P037,persona,,2026-06-15,TRANSF,-117.25,debito,Servicios hogar,personal
+M056147,P037,persona,,2026-09-13,TAXIYA*VIAJE H5UP,-33.79,transferencia,Transporte,personal
+M056227,P037,persona,,2026-10-29,MINIMARKET 24H,-26.34,qr,Comida,personal
+M056375,P038,persona,,2026-07-25,RECARGA TARJETA BUS,-20.08,transferencia,Transporte,personal
+M056615,P039,persona,,2026-06-11,TAXIYA*VIAJE E8W1,-18.61,qr,Transporte,personal
+M057324,P041,persona,,2026-07-11,GIMNASIO FITZONE,-114.0,tarjeta,Suscripciones,personal
+M057630,P042,persona,,2026-06-22,TAXIYA*VIAJE VZP1,-9.07,qr,Transporte,personal
+M057923,P043,persona,,2026-05-28,CHIFA DRAGON DORADO,-70.83,qr,Comida,personal
+M058425,P044,persona,,2026-08-24,GRIFO VIAPLUS 51,-178.04,qr,Transporte,personal
+M058474,P044,persona,,2026-09-24,NUBE+ STORAGE,-24.9,tarjeta,Suscripciones,personal
+M058714,P045,persona,,2026-08-03,CHIFA DRAGON DORADO,-70.15,transferencia,Comida,personal
+M058727,P045,persona,,2026-08-12,GIMNASIO FITZONE,-114.0,tarjeta,Suscripciones,personal
+M058907,P046,persona,,2026-05-24,CINEMUNDO 20,-45.84,qr,Entretenimiento,personal
+M058976,P046,persona,,2026-07-04,INSTITUTO CIBERTEC PENSION,-499.59,transferencia,Educacion,personal
+M058984,P046,persona,,2026-07-09,MINIMARKET 24H,-36.61,tarjeta,Comida,personal
+M059361,P047,persona,,2026-07-25,RECARGA TARJETA BUS,-32.67,transferencia,Transporte,personal
+M059537,P047,persona,,2026-10-31,MOVIRIDE PE CG6W,-19.71,transferencia,Transporte,personal
+M059966,P049,persona,,2026-06-17,POLLERIA EL BRASERO,-46.29,tarjeta,Comida,personal
+M060265,P050,persona,,2026-06-04,COMIDAYA*QZY1,-51.82,tarjeta,Comida,personal
+M060673,P051,persona,,2026-06-30,POLLERIA EL BRASERO,-33.97,qr,Comida,personal
+M060791,P051,persona,,2026-08-30,RECARGA TARJETA BUS,-43.43,tarjeta,Transporte,personal
+M061482,P053,persona,,2026-08-19,MAXIAHORRO 35,-27.21,transferencia,Comida,personal
+M061501,P053,persona,,2026-08-30,CINEMUNDO 23,-39.64,tarjeta,Entretenimiento,personal
+M061590,P053,persona,,2026-10-15,TIENDA MODA URBANA,-181.36,qr,Entretenimiento,personal
+M061685,P054,persona,,2026-05-29,TAXIYA*VIAJE CMQE,-34.42,qr,Transporte,personal
+M061968,P054,persona,,2026-10-27,MOVIRIDE PE 0OXF,-7.41,tarjeta,Transporte,personal
+M062360,P056,persona,,2026-06-02,GRIFO VIAPLUS 86,-132.11,tarjeta,Transporte,personal
+M062468,P056,persona,,2026-07-30,MOVIRIDE PE 6T9R,-10.59,transferencia,Transporte,personal
+M062540,P056,persona,,2026-09-11,COMIDAYA*LSBS,-20.63,tarjeta,Comida,personal
+M062901,P057,persona,,2026-09-30,MAXIAHORRO 89,-45.98,tarjeta,Comida,personal
+M062957,P057,persona,,2026-10-29,CINEMUNDO 37,-52.54,qr,Entretenimiento,personal
+M063252,P058,persona,,2026-10-20,NETLIM INTERNET HOGAR,-104.94,debito,Servicios hogar,personal
+M063344,P059,persona,,2026-06-13,TAXIYA*VIAJE LJOJ,-31.68,transferencia,Transporte,personal
+M063607,P059,persona,,2026-10-30,ABONO PLANILLA 7IUQ SAC,881.98,transferencia,Ingreso,personal
+M063634,P060,persona,,2026-05-15,ABONO PLANILLA V6UC SAC,586.52,transferencia,Ingreso,personal
+M063810,P060,persona,,2026-08-22,JUEGOSONLINE*G235,-21.58,tarjeta,Entretenimiento,personal
+M064467,P062,persona,,2026-08-09,CINEMUNDO 69,-39.92,tarjeta,Entretenimiento,personal
+M065177,P064,persona,,2026-09-10,MAXIAHORRO 71,-75.26,qr,Comida,personal
+M065287,P065,persona,,2026-05-06,TAXIYA*VIAJE 9IFE,-12.6,qr,Transporte,personal
+M065789,P066,persona,,2026-07-31,PAGO QR,-37.35,tarjeta,Comida,personal
+M065892,P066,persona,,2026-09-23,GIMNASIO FITZONE,-114.0,tarjeta,Suscripciones,personal
+M065922,P066,persona,,2026-10-09,MOVIRIDE PE O98X,-17.23,qr,Transporte,personal
+M066951,P069,persona,,2026-09-26,SUPERMERCADO PLAZA 28,-129.84,tarjeta,Comida,personal
+M067148,P070,persona,,2026-07-05,MAXIAHORRO 28,-39.76,qr,Comida,personal
+M067584,P071,persona,,2026-09-01,CLINICA SAN MARTIN,-111.28,tarjeta,Salud,personal
+M067634,P071,persona,,2026-10-01,RAPIDOO*PEDIDO 4H9I,-26.07,qr,Comida,personal
+M067697,P072,persona,,2026-05-03,TIENDA MODA URBANA,-108.28,tarjeta,Entretenimiento,personal
+M067965,P072,persona,,2026-09-20,GRIFO VIAPLUS 4,-94.69,tarjeta,Transporte,personal
+M068016,P072,persona,,2026-10-14,TAXIYA*VIAJE Q8U4,-7.07,tarjeta,Transporte,personal
+M068350,P073,persona,,2026-09-26,MENU DONA LUCHA,-13.28,qr,Comida,personal
+M068457,P074,persona,,2026-05-21,MAXIAHORRO 12,-45.06,transferencia,Comida,personal
+M068715,P074,persona,,2026-10-12,COMIDAYA*QIGC,-51.94,tarjeta,Comida,personal
+M068901,P075,persona,,2026-07-21,STREAMFLIX.COM,-37.5,tarjeta,Suscripciones,personal
+M068982,P075,persona,,2026-09-04,BOTICA SALUD+ 88,-106.54,tarjeta,Salud,personal
+M069033,P075,persona,,2026-10-01,RAPIDOO*PEDIDO BQ54,-58.81,qr,Comida,personal
+M069120,P076,persona,,2026-05-15,TAXIYA*VIAJE SXWM,-32.82,tarjeta,Transporte,personal
+M069222,P076,persona,,2026-07-12,GRIFO VIAPLUS 69,-101.37,qr,Transporte,personal
+M069834,P078,persona,,2026-05-29,MOVIRIDE PE SP5N,-15.08,qr,Transporte,personal
+M069854,P078,persona,,2026-06-10,INSTITUTO CIBERTEC PENSION,-490.3,transferencia,Educacion,personal
+M070036,P078,persona,,2026-09-16,MENU DONA LUCHA,-17.33,transferencia,Comida,personal
+M070252,P079,persona,,2026-07-10,TELEMOVIL RECARGA,-27.83,debito,Servicios hogar,personal
+M070304,P079,persona,,2026-08-01,GRIFO VIAPLUS 5,-82.56,tarjeta,Transporte,personal
+M070415,P079,persona,,2026-09-30,TAXIYA*VIAJE LEDO,-15.36,tarjeta,Transporte,personal
+M070468,P079,persona,,2026-10-29,CINEMUNDO 93,-20.73,qr,Entretenimiento,personal
+M070481,P080,persona,,2026-05-04,RECARGA TARJETA BUS,-30.23,transferencia,Transporte,personal
+M070832,P081,persona,,2026-05-21,TAXIYA*VIAJE K6Z6,-9.27,tarjeta,Transporte,personal
+M070937,P081,persona,,2026-07-18,MAXIAHORRO 65,-158.62,transferencia,Comida,personal
+M071158,P082,persona,,2026-05-20,CINEMUNDO 63,-31.44,transferencia,Entretenimiento,personal
+M071373,P082,persona,,2026-09-18,JUEGOSONLINE*92UZ,-47.61,qr,Entretenimiento,personal
+M071411,P082,persona,,2026-10-12,MENU DONA LUCHA,-15.12,tarjeta,Comida,personal
+M071598,P083,persona,,2026-07-25,MAXIAHORRO 35,-153.85,transferencia,Comida,personal
+M071777,P083,persona,,2026-10-26,MOVIRIDE PE 8XMC,-8.55,tarjeta,Transporte,personal
+M071892,P084,persona,,2026-07-05,BOTICA SALUD+ 60,-21.36,transferencia,Salud,personal
+M072163,P085,persona,,2026-06-03,CHIFA DRAGON DORADO,-26.09,tarjeta,Comida,personal
+M072363,P085,persona,,2026-09-19,RECARGA TARJETA BUS,-21.85,tarjeta,Transporte,personal
+M072616,P086,persona,,2026-07-30,RAPIDOO*PEDIDO A9PN,-56.84,qr,Comida,personal
+M072696,P086,persona,,2026-09-05,CHIFA DRAGON DORADO,-71.61,qr,Comida,personal
+M072719,P086,persona,,2026-09-18,CHIFA DRAGON DORADO,-42.09,qr,Comida,personal
+M073978,P090,persona,,2026-08-14,PANADERIA SAN JOSE,-12.34,qr,Comida,personal
+M074003,P090,persona,,2026-08-26,GRIFO VIAPLUS 79,-122.21,tarjeta,Transporte,personal
+M074106,P090,persona,,2026-10-23,TELEMOVIL RECARGA,-49.76,debito,Servicios hogar,personal

@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BootAvatar } from './BootAvatar';
 import { useClasificacion } from './Clasificacion';
-import { IconCampana, IconInicio, IconPerfil, IconTransferir } from './icons';
+import { IconCampana, IconInicio, IconLista, IconPerfil } from './icons';
 
 const TABS = [
   { href: '/app', label: 'Inicio', Icon: IconInicio },
-  { href: '/app/operaciones', label: 'Operaciones', Icon: IconTransferir },
+  { href: '/app/movimientos', label: 'Movimientos', Icon: IconLista },
   { href: '/app/boot', label: 'Boot', centro: true },
   { href: '/app/avisos', label: 'Avisos', Icon: IconCampana, punto: true },
   { href: '/app/perfil', label: 'Perfil', Icon: IconPerfil },
@@ -17,9 +17,9 @@ const TABS = [
 /** Barra inferior: 5 pestañas, Boot al centro y elevado. */
 export function Nav({ alertasCount }: { alertasCount: number }) {
   const pathname = usePathname();
-  const { pendientes } = useClasificacion();
-  // Avisos de Boot + un aviso más si hay movimientos por clasificar.
-  const avisosCount = alertasCount + (pendientes.length ? 1 : 0);
+  const { pendientes, perfil } = useClasificacion();
+  // Avisos de Boot + un aviso más si hay movimientos por clasificar (solo con RUC).
+  const avisosCount = alertasCount + (perfil === 'empresa' && pendientes.length ? 1 : 0);
 
   return (
     <nav className="nav" aria-label="Navegación principal">
