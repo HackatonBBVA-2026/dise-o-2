@@ -1,15 +1,23 @@
 {
-  "name": "mio-boot-finanzas",
-  "version": "1.0.0",
+  "name": "boot-finanzas",
+  "version": "2.0.0",
   "description": "Concepto de app de finanzas personales con asistente IA (Boot). Datos ficticios.",
-  "main": "server.js",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.7.0"
   }
 }

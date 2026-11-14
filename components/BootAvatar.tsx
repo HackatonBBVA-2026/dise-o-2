@@ -1,0 +1,13 @@
+export function BootAvatar() {
+  return (
+    <svg className="boot-avatar" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="20" fill="#0B0B0C" />
+      <path d="M20 8v4" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="20" cy="7" r="1.7" fill="#FFFFFF" />
+      <rect x="11" y="12.5" width="18" height="15" rx="5.5" fill="none" stroke="#FFFFFF" strokeWidth="1.5" />
+      <circle cx="16.5" cy="19.5" r="1.6" fill="#FFFFFF" />
+      <circle cx="23.5" cy="19.5" r="1.6" fill="#FFFFFF" />
+      <path d="M17 23.4q3 1.9 6 0" stroke="#FFFFFF" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+    </svg>
+  );
+}
