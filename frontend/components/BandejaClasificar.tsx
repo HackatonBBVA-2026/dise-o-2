@@ -21,7 +21,7 @@ export function BandejaClasificar() {
         <p className="hint">Todo está clasificado. Tus resúmenes personal y del negocio ya cuentan cada movimiento.</p>
       ) : (
         <>
-          <p className="hint">Mío no está seguro de si estos gastos son tuyos o de la bodega. Mientras no los clasifiques, no cuentan en ningún resumen.</p>
+          <p className="hint">El modelo de IA de Mío no está seguro de si estos gastos son tuyos o de la bodega. Mientras no los clasifiques, no cuentan en ningún resumen.</p>
           <ul className="bandeja">
             {pendientes.map((m) => <ItemPendiente key={m.id} m={m} />)}
           </ul>
@@ -34,7 +34,10 @@ export function BandejaClasificar() {
 function ItemPendiente({ m }: { m: MovimientoClasificado }) {
   const { clasificarMovimiento } = useClasificacion();
   const [recordar, setRecordar] = useState(false);
-  const sugerencia = etiquetaAmbito({ efectivo: m.ambito, pct: m.ambito === 'dividido' ? m.pctNegocio ?? 50 : m.ambito === 'negocio' ? 100 : 0 });
+  // La sugerencia y la confianza vienen del modelo de ML.
+  const sug = m.ia?.ambito ?? m.ambito;
+  const sugerencia = etiquetaAmbito({ efectivo: sug, pct: sug === 'dividido' ? m.pctNegocio ?? 50 : sug === 'negocio' ? 100 : 0 });
+  const confianza = m.ia?.confianza ?? m.confianza ?? 0;
   const idRecordar = `recordar-${m.id}`;
 
   return (
@@ -45,8 +48,9 @@ function ItemPendiente({ m }: { m: MovimientoClasificado }) {
         <Money>{soles(m.monto)}</Money>
       </div>
       <p className="bandeja__sugerencia">
-        Mío sugiere <strong>{sugerencia}</strong> · {Math.round((m.confianza ?? 0) * 100)}% de confianza
+        Mío (IA) sugiere <strong>{sugerencia}</strong> · {Math.round(confianza * 100)}% de confianza
       </p>
+      {m.ia?.motivo && <p className="bandeja__motivo">Te pregunto porque: {m.ia.motivo.charAt(0).toLowerCase() + m.ia.motivo.slice(1)}</p>}
       <div className="bandeja__acciones">
         <button type="button" className="btn-sm" onClick={() => clasificarMovimiento(m.id, 'personal', { recordar })}>Personal</button>
         <button type="button" className="btn-sm" onClick={() => clasificarMovimiento(m.id, 'negocio', { recordar })}>Negocio</button>

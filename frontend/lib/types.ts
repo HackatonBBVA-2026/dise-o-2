@@ -49,6 +49,10 @@ export type Vista = 'personal' | 'negocio' | 'todo';
 export interface Movimiento {
   id: string;
   dia: number;
+  /** Texto tal como lo trae el banco (p. ej. "PAGO QR DE ROSA P"). Es lo que lee el modelo de ML. */
+  banco?: string;
+  /** Medio de pago: qr, tarjeta, transferencia, debito, deposito. */
+  medio?: string;
   descripcion: string; // también es el nombre del comercio para las reglas
   categoria: string;
   monto: number;

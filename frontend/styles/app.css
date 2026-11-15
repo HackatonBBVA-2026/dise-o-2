@@ -700,3 +700,7 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .push__estado::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--texto-3); }
 .push__estado.is-on { color: var(--texto); }
 .push__estado.is-on::before { background: #16A34A; }
+
+/* Modelo de ML: confianza en la etiqueta y motivo en "Por clasificar" */
+.ambito-chip__ia { font-weight: 500; opacity: .75; }
+.bandeja__motivo { font-size: 12.5px; color: var(--texto-2); margin-top: -2px; }

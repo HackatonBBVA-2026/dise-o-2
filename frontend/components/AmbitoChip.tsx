@@ -50,6 +50,7 @@ export function AmbitoChip({ m }: { m: MovimientoClasificado }) {
         onClick={() => setAbierto((a) => !a)}
       >
         {etiquetaAmbito(m)}
+        {m.origen === 'boot' && m.ia && <span className="ambito-chip__ia" title="Lo clasificó el modelo de IA de Mío"> · IA {Math.round(m.ia.confianza * 100)}%</span>}
       </button>
       {abierto && (
         <span className="ambito-menu" role="menu" aria-label={`Clasificar ${m.descripcion}`}>

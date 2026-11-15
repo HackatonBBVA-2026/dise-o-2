@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { cargarEstado } from './estado';
+import './ml/ia'; // registra el modelo de ML para clasificar en el servidor
 import { COOKIE_SESION, leerSesion, type Sesion } from './sesion';
 
 /**

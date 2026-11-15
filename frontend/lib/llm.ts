@@ -221,7 +221,7 @@ const HERRAMIENTAS: Herramienta[] = [
     description: 'Movimientos que aún no se sabe si son del negocio o personales.',
     parameters: sinParams,
     perfiles: ['empresa'],
-    run: () => ({ pendientes: pendientes(movs()).map(({ dia, descripcion, monto, ambito, confianza }) => ({ dia, descripcion, monto, sugerencia: ambito, confianza })) }),
+    run: () => ({ pendientes: pendientes(movs()).map(({ dia, descripcion, banco, monto, ambito, ia }) => ({ dia, descripcion, textoBanco: banco, monto, sugerenciaIA: ia?.ambito ?? ambito, confianza: ia?.confianza, motivo: ia?.motivo })) }),
   },
   // ---- Metas, ahorro y ofertas (cada perfil con las suyas) ----
   {

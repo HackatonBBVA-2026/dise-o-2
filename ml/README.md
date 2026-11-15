@@ -7,7 +7,14 @@ pip install -r ml/requirements.txt
 python ml/generar_dataset.py          # crea ml/datos/movimientos.csv (74,121 filas, ~1 s)
 python ml/entrenar.py                 # entrena, evalúa y escribe ml/resultados/ (~35 s)
 python -m unittest discover -s ml -v  # 9 pruebas
+python ml/exportar.py                 # exporta el modelo de ámbito a frontend/lib/ml/modelo-ambito.json
+node ml/verificar_ts.mjs              # comprueba que la app (TypeScript) da lo mismo que Python
 ```
+
+**El modelo ya corre dentro de la app.** `frontend/lib/ml/ambito.ts` repite el preprocesamiento de scikit-learn
+(TF-IDF de caracteres y palabras, monto, one-hot) y la regresión logística, sin Python; `frontend/lib/ml/ia.ts`
+lo aplica a cada movimiento usando el texto del banco. Verificado en 300 casos: diferencia máxima 6e-7 y 0 decisiones distintas.
+En la app, por prudencia, Mío además pregunta en transferencias a personas y en compras de S/ 200 o más en un comercio nuevo.
 
 ---
 

@@ -6,6 +6,16 @@ import { r2 } from './format';
 import { semaforo } from './finanzas';
 import type { Ambito, Movimiento, ReglaComercio, Vista } from './types';
 
+/** Lo que dijo el modelo de ML para un movimiento (lo calcula lib/ml/ia.ts en el servidor). */
+export interface PrediccionIA { ambito: 'negocio' | 'personal'; confianza: number; decide: boolean; motivo?: string }
+export type Predicciones = Record<string, PrediccionIA>;
+
+/** En el servidor, lib/ml/ia.ts se registra aquí; en el navegador no existe y las predicciones llegan por props. */
+export function prediccionesServidor(movs: Movimiento[]): Predicciones {
+  const ia = (globalThis as typeof globalThis & { __mioIA?: (m: Movimiento[]) => Predicciones }).__mioIA;
+  return ia ? ia(movs) : {};
+}
+
 /** Lo que el usuario cambió (hoy en localStorage; luego en el backend). */
 export interface EstadoClasificacion {
   overrides: Record<string, { ambito: Ambito; pctNegocio?: number }>;
@@ -24,6 +34,8 @@ export interface MovimientoClasificado extends Movimiento {
   efectivo: Ambito | null; // null = sin clasificar
   pct: number; // % que va a negocio (0, 100 o el de la división)
   origen: Origen;
+  /** Lo que dijo el modelo de ML (si hay texto del banco). */
+  ia?: PrediccionIA;
 }
 
 export function reglasActivas(e: EstadoClasificacion): ReglaComercio[] {
@@ -36,13 +48,23 @@ export function reglasActivas(e: EstadoClasificacion): ReglaComercio[] {
 
 const pctDe = (ambito: Ambito, pct?: number) => (ambito === 'negocio' ? 100 : ambito === 'personal' ? 0 : pct ?? 50);
 
-/** Prioridad: lo que marcó el usuario > regla por comercio > Boot (si está seguro) > sin clasificar. */
-export function clasificar(m: Movimiento, e: EstadoClasificacion): MovimientoClasificado {
+/** Prioridad: lo que marcó el usuario > regla por comercio > modelo de ML (si está seguro) > sin clasificar. */
+export function clasificar(m: Movimiento, e: EstadoClasificacion, pred: Predicciones = {}): MovimientoClasificado {
+  const ia = pred[m.id];
   const o = e.overrides[m.id];
-  if (o) return { ...m, efectivo: o.ambito, pct: pctDe(o.ambito, o.pctNegocio), origen: 'usuario' };
+  if (o) return { ...m, ia, efectivo: o.ambito, pct: pctDe(o.ambito, o.pctNegocio), origen: 'usuario' };
 
   const regla = reglasActivas(e).find((r) => r.comercio === m.descripcion);
-  if (regla) return { ...m, efectivo: regla.ambito, pct: pctDe(regla.ambito), origen: 'regla' };
+  if (regla) return { ...m, ia, efectivo: regla.ambito, pct: pctDe(regla.ambito), origen: 'regla' };
+
+  if (m.clasificadoPor === 'usuario') return { ...m, ia, efectivo: m.ambito, pct: pctDe(m.ambito, m.pctNegocio), origen: 'usuario' };
+
+  // Modelo de ML: decide solo si está seguro; si no, el movimiento va a "Por clasificar" con su sugerencia.
+  if (ia) {
+    return ia.decide
+      ? { ...m, ia, efectivo: ia.ambito, pct: pctDe(ia.ambito), origen: 'boot' }
+      : { ...m, ia, efectivo: null, pct: 0, origen: 'pendiente' };
+  }
 
   const dudoso = m.clasificadoPor === 'boot' && (m.confianza ?? 0) < UMBRAL_CONFIANZA;
   if (dudoso) return { ...m, efectivo: null, pct: 0, origen: 'pendiente' };
@@ -54,8 +76,11 @@ export function clasificar(m: Movimiento, e: EstadoClasificacion): MovimientoCla
  * Movimientos del mes + las operaciones hechas desde la app (lo más reciente primero).
  * En el servidor las operaciones salen de la memoria; en el navegador llegan por `extra` desde el layout.
  */
-export const clasificarTodos = (e: EstadoClasificacion, extra: Movimiento[] = operaciones()) =>
-  [...extra, ...data.movimientos].map((m) => clasificar(m, e));
+export function clasificarTodos(e: EstadoClasificacion, extra: Movimiento[] = operaciones(), pred?: Predicciones) {
+  const lista = [...extra, ...data.movimientos];
+  const p = pred ?? prediccionesServidor(lista);
+  return lista.map((m) => clasificar(m, e, p));
+}
 
 /** Parte del monto que corresponde a cada lado (0 si está sin clasificar). */
 function partes(m: MovimientoClasificado) {

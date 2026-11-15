@@ -75,6 +75,8 @@ export function realizarOperacion(body: Record<string, unknown>, perfil: Perfil)
   const mov: Movimiento = {
     id: `op-${numero}`,
     dia: data.hoy,
+    banco: `TRANSF A ${primerNombre(v.destino).toUpperCase().replace('.', '')}`,
+    medio: 'transferencia',
     descripcion: `${v.tipo === 'celular' ? 'Pago a celular' : 'Transferencia'} a ${primerNombre(v.destino)}`,
     categoria: v.ambito === 'negocio' ? (v.tipo === 'celular' ? 'Pago a ayudante' : 'Pago a proveedor') : 'Transferencias',
     monto: -v.monto,
@@ -113,11 +115,14 @@ export function recibirTransferencia(perfil: Perfil, monto = perfil === 'empresa
   const mov: Movimiento = {
     id: `in-${48213000 + lista.length * 7 + 13}`,
     dia: data.hoy,
+    banco: `PAGO QR DE ${primerNombre(c.nombre).toUpperCase().replace('.', '')}`,
+    medio: 'qr',
     descripcion: negocio ? `Pago de cliente · ${primerNombre(c.nombre)}` : `Transferencia de ${primerNombre(c.nombre)}`,
     categoria: negocio ? 'Ventas' : 'Ingreso',
     monto: r2(monto),
     ambito: negocio ? 'negocio' : 'personal',
-    clasificadoPor: 'usuario',
+    // Con RUC lo clasifica el modelo de ML a partir del texto del banco; con DNI todo es personal.
+    clasificadoPor: negocio ? 'boot' : 'usuario',
     pendienteInicial: true,
     operacion: true,
   };

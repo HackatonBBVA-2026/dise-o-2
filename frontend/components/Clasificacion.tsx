@@ -10,6 +10,7 @@ import {
   resumenPersonal,
   type EstadoClasificacion,
   type MovimientoClasificado,
+  type Predicciones,
 } from '@/lib/clasificacion';
 import type { Ambito, Movimiento, ReglaComercio, Vista } from '@/lib/types';
 import type { Perfil } from '@/lib/sesion';
@@ -50,6 +51,7 @@ export function ClasificacionProvider({
   perfil = 'persona',
   operaciones = [],
   saldo,
+  predicciones = {},
 }: {
   children: React.ReactNode;
   perfil?: Perfil;
@@ -57,6 +59,8 @@ export function ClasificacionProvider({
   operaciones?: Movimiento[];
   /** Saldo actual de la cuenta según el servidor (ya descuenta operaciones y ahorro). */
   saldo?: number;
+  /** Lo que dijo el modelo de ML para cada movimiento (corre en el servidor). */
+  predicciones?: Predicciones;
 }) {
   const [estado, setEstado] = useState<EstadoClasificacion>(ESTADO_VACIO);
   const [vistaGuardada, setVistaState] = useState<Vista>('negocio');
@@ -87,7 +91,7 @@ export function ClasificacionProvider({
     try { localStorage.setItem(KEY_VISTA, v); } catch { /* sin almacenamiento */ }
   }, []);
 
-  const movimientos = useMemo(() => clasificarTodos(estado, operaciones), [estado, operaciones]);
+  const movimientos = useMemo(() => clasificarTodos(estado, operaciones, predicciones), [estado, operaciones, predicciones]);
 
   const clasificarMovimiento = useCallback<Ctx['clasificarMovimiento']>(
     (id, ambito, opciones = {}) => {
