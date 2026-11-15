@@ -32,7 +32,7 @@ export default async function AvisosPage() {
 
         <section className="panel" aria-labelledby="bootAvisos" data-avisos="">
           <header className="panel__head">
-            <h2 id="bootAvisos">Boot revisó tu mes</h2>
+            <h2 id="bootAvisos">Mío revisó tu mes</h2>
             <span className="count">Nuevo</span>
           </header>
           <ul className="notices">

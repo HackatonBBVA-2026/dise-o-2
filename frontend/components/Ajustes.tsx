@@ -4,7 +4,7 @@ import { useApp } from './Providers';
 
 const OPCIONES = [
   { id: 'ocultarSaldos', label: 'Ocultar saldos', ayuda: 'Muestra puntos en lugar de montos' },
-  { id: 'avisosBoot', label: 'Alertas de Boot', ayuda: 'Punto en la pestaña Avisos e Inicio' },
+  { id: 'avisosBoot', label: 'Alertas de Mío', ayuda: 'Punto en la pestaña Avisos e Inicio' },
   { id: 'push', label: 'Notificaciones push', ayuda: 'Cada movimiento y cobro' },
 ] as const;
 

@@ -668,3 +668,35 @@ select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 .oferta.is-on { border-color: var(--exito); }
 .oferta .tag, .oferta .btn-sm { justify-self: start; }
 .tag--ok { color: var(--exito); background: #F0FDF4; }
+
+.login__logo { width: 72px; height: 72px; display: block; border-radius: 16px; }
+
+/* Transferir y pagar */
+.op-tipos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.op-tipo { display: grid; justify-items: start; gap: 4px; text-align: left; padding: 14px; border-radius: 16px; border: 1px solid var(--linea-fuerte); background: var(--superficie); color: var(--texto); }
+.op-tipo b { font-size: 14px; font-weight: 600; margin-top: 6px; }
+.op-tipo small { font-size: 12px; color: var(--texto-2); }
+.op-tipo.is-active { border-color: var(--principal); box-shadow: 0 0 0 2px var(--principal) inset; }
+.op-tipo.is-active .quick__icon { background: var(--principal); color: var(--sobre-principal); }
+.mio-revisa { font-size: 13px; line-height: 1.45; padding: 10px 12px; border-radius: 12px; background: var(--superficie-2); border-left: 4px solid var(--principal); }
+.mio-revisa--amarillo { border-left-color: #B45309; }
+.mio-revisa--rojo { border-left-color: var(--peligro); background: var(--peligro-bg); }
+.resumen-op { display: grid; gap: 10px; margin: 6px 0; }
+.resumen-op > div { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--linea); }
+.resumen-op dt { color: var(--texto-2); }
+.resumen-op dd { text-align: right; font-weight: 600; display: grid; }
+.resumen-op dd small { font-weight: 400; color: var(--texto-3); font-size: 12px; }
+.constancia { text-align: center; }
+.constancia .resumen-op, .constancia .form__actions { text-align: left; }
+.constancia__check { display: grid; place-items: center; width: 56px; height: 56px; margin: 6px auto 0; border-radius: 50%; background: var(--principal); color: var(--sobre-principal); font-size: 28px; }
+.constancia__titulo { font-size: 18px; font-weight: 600; }
+.constancia__monto { display: block; font-size: 34px; font-weight: 600; letter-spacing: -.02em; text-align: center; font-variant-numeric: tabular-nums; }
+.op-tipo .quick__icon { width: 40px; border-radius: 12px; }
+.op-tipo .quick__icon svg { width: 20px; height: 20px; }
+
+/* Notificaciones push */
+.push { display: grid; gap: 14px; }
+.push__estado { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--texto-2); }
+.push__estado::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--texto-3); }
+.push__estado.is-on { color: var(--texto); }
+.push__estado.is-on::before { background: #16A34A; }

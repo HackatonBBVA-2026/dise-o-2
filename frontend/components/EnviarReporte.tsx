@@ -33,7 +33,7 @@ export function EnviarReporte() {
 
   return (
     <form className="form form--inline" onSubmit={enviar} noValidate>
-      <p className="hint">Un resumen fácil de leer: cuánto te sobró, en qué se fue tu plata, cómo va tu ahorro y qué revisar.</p>
+      <p className="hint">Un correo corto con cómo te fue y qué revisar, y tu estado del mes en PDF adjunto con todos tus movimientos.</p>
       <div className="field">
         <label htmlFor="repCorreo">Enviar a</label>
         <input id="repCorreo" className="input" type="email" inputMode="email" autoComplete="email" placeholder="tu@correo.com" value={correo} onChange={(e) => setCorreo(e.target.value)} />
@@ -41,6 +41,7 @@ export function EnviarReporte() {
       {aviso && <p className="hint" role="status">{aviso}</p>}
       <button className="btn" type="submit" disabled={enviando}>{enviando ? 'Enviando…' : 'Enviar mi resumen del mes'}</button>
       <a className="btn btn--ghost" href="/app/reporte" target="_blank" rel="noopener">Ver cómo se ve el correo</a>
+      <a className="btn btn--ghost" href="/app/reporte/pdf" target="_blank" rel="noopener">Ver el PDF adjunto</a>
     </form>
   );
 }

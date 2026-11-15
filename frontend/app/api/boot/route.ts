@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { responder } from '@/lib/boot';
 import { iaActiva, responderConIA } from '@/lib/llm';
+import { guardarEstado } from '@/lib/estado';
 import { sesionActual } from '@/lib/sesion-servidor';
 
 const CHIPS = {
-  persona: ['¿Llego a fin de mes?', '¿Qué ofertas puedo desbloquear?', '¿Cómo va mi ahorro?'],
-  empresa: ['¿Cuánto gané este mes en el negocio?', '¿Puedo reponer stock por S/ 500?', '¿Qué ofertas puedo desbloquear?'],
+  persona: ['¿Llego a fin de mes?', '¿Tengo algún préstamo o tarjeta preaprobada?', '¿Cómo va mi ahorro?'],
+  empresa: ['¿Cuánto gané este mes en el negocio?', '¿Qué préstamo o tarjeta tengo para mi negocio?', '¿Puedo reponer stock por S/ 500?'],
 };
 
 // Boot: el código calcula y la IA (Groq) solo redacta, según el perfil de la sesión.
@@ -18,10 +19,11 @@ export async function POST(req: Request) {
   if (iaActiva() && mensaje.trim()) {
     try {
       const r = await responderConIA(mensaje, perfil);
+      await guardarEstado(); // Mío puede crear metas o separar ahorro
       return NextResponse.json({ ...r, chips: CHIPS[perfil] });
     } catch (e) {
       console.warn('[Boot] Groq no respondió, uso reglas:', (e as Error).message);
     }
   }
-  return NextResponse.json({ ...responder(mensaje), fuente: 'reglas' });
+  return NextResponse.json({ ...responder(mensaje, perfil), fuente: 'reglas' });
 }

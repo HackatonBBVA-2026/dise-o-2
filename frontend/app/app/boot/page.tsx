@@ -1,7 +1,7 @@
 import { Chat } from '@/components/Chat';
 import { sesionActual } from '@/lib/sesion-servidor';
 
-export const metadata = { title: 'Boot' };
+export const metadata = { title: 'Mío' };
 
 export default async function BootPage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
   const { q } = await searchParams;

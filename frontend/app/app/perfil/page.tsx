@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { Ajustes } from '@/components/Ajustes';
 import { CerrarSesion } from '@/components/CerrarSesion';
 import { EnviarReporte } from '@/components/EnviarReporte';
+import { Notificaciones } from '@/components/Notificaciones';
 import { ReglasNegocio } from '@/components/ReglasNegocio';
+import { ReiniciarDemo } from '@/components/ReiniciarDemo';
 import { IconChevron } from '@/components/icons';
 import { negocio, usuario } from '@/lib/data';
 import { sesionActual } from '@/lib/sesion-servidor';
@@ -56,13 +58,18 @@ export default async function PerfilPage() {
             <li><span className="rows__name">Nombre</span><span className="muted">{negocio.nombre}</span></li>
             <li><span className="rows__name">RUC</span><span className="muted mono">{negocio.rucEnmascarado}</span></li>
             <li><span className="rows__name">Rubro</span><span className="muted">{negocio.rubro}</span></li>
-            <li><span className="rows__name">Régimen tributario<small>Boot lo usa para avisos de comprobantes</small></span><span className="muted">{negocio.regimen}</span></li>
+            <li><span className="rows__name">Régimen tributario<small>Mío lo usa para avisos de comprobantes</small></span><span className="muted">{negocio.regimen}</span></li>
           </ul>
           <header className="panel__head panel__head--sub"><h2>Reglas automáticas</h2></header>
           <p className="hint">Cada gasto en estos comercios se clasifica solo.</p>
           <ReglasNegocio />
         </section>
         )}
+
+        <section className="panel" aria-labelledby="notifTitle">
+          <header className="panel__head"><h2 id="notifTitle">Notificaciones</h2><span className="count">Push en tu celular</span></header>
+          <Notificaciones esEmpresa={esEmpresa} />
+        </section>
 
         <section className="panel" aria-labelledby="reportesTitle">
           <header className="panel__head"><h2 id="reportesTitle">Reportes</h2><span className="count">Cierre del mes por correo</span></header>
@@ -86,7 +93,7 @@ export default async function PerfilPage() {
         <section className="panel" aria-labelledby="ayudaTitle">
           <header className="panel__head"><h2 id="ayudaTitle">Ayuda</h2></header>
           <ul className="rows">
-            <Fila href="/app/boot">Escribirle a Boot</Fila>
+            <Fila href="/app/boot">Escribirle a Mío</Fila>
             <Fila demo="Centro de ayuda">Centro de ayuda</Fila>
             <li>
               <span className="rows__name">Banca por teléfono<small>Lunes a domingo, 24 horas</small></span>
@@ -98,6 +105,7 @@ export default async function PerfilPage() {
 
         <div className="span-2 signout">
           <CerrarSesion />
+          <ReiniciarDemo />
           <p className="hint">Concepto para discusión. Datos ficticios, no es un producto oficial. v2.0</p>
         </div>
       </div>

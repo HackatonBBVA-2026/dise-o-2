@@ -1,4 +1,5 @@
-// Reporte de cierre del mes (correo), escrito para entenderse a la primera:
+// Reporte de cierre del mes. El CORREO es corto (cómo te fue y qué revisar); el DETALLE completo va en el PDF adjunto (lib/reporte-pdf.ts).
+// Escrito para entenderse a la primera:
 // frases simples, semáforo con palabras y consejos concretos. Los números salen del mismo
 // motor que usa la app y Boot. Persona (DNI): sus finanzas. Empresa (RUC): su negocio primero.
 import * as data from './data';
@@ -53,6 +54,9 @@ export function datosReporte(perfil: Perfil) {
     hoy: data.hoy,
     cierre: data.cierreMes,
     nombre: data.usuario.nombre,
+    apellido: data.usuario.apellido,
+    ruc: data.negocio.rucEnmascarado,
+    cuenta: `${data.cuentas[0].tipo} •••• ${data.cuentas[0].numero}`,
     negocioNombre: data.negocio.nombre,
     disponible: f.disponible(),
     proyeccion: { saldo: proy.saldo, semaforo: f.semaforo(proy.saldo) },
@@ -89,7 +93,7 @@ function resumen(d: DatosReporte) {
   const finDeMes =
     sem.nivel === 'verde' ? `🟢 <b>Vas bien.</b> Contando los cobros y gastos que aún faltan, el ${d.cierre} te quedarían unos ${S(fin)}.`
     : sem.nivel === 'amarillo' ? `🟡 <b>Llegas justo.</b> Contando los cobros y gastos que aún faltan, el ${d.cierre} te quedarían unos ${S(fin)}. Cuida los gastos chicos.`
-    : `🔴 <b>Ojo, no llegas.</b> Contando los cobros y gastos que aún faltan, el ${d.cierre} te faltarían unos ${S(-fin)}. Pregúntale a Boot antes de gastar.`;
+    : `🔴 <b>Ojo, no llegas.</b> Contando los cobros y gastos que aún faltan, el ${d.cierre} te faltarían unos ${S(-fin)}. Pregúntale a Mío antes de gastar.`;
   if (d.negocio) {
     const n = d.negocio;
     const gano = n.resultado >= 0
@@ -139,74 +143,37 @@ export function htmlReporte(d: DatosReporte) {
 
   // 2. En qué se fue la plata
   if (d.negocio) {
-    partes.push(bloque(titulo('¿En qué gastó tu negocio?') + d.negocio.categorias.slice(0, 4).map((c) => barra(c.nombre, c.monto, c.pct)).join('')));
+    partes.push(bloque(titulo('¿En qué gastó tu negocio?') + d.negocio.categorias.slice(0, 3).map((c) => barra(c.nombre, c.monto, c.pct)).join('')));
   } else {
-    partes.push(bloque(titulo('¿En qué se fue tu plata?') + d.personal.categorias.slice(0, 4).map((c) => barra(c.nombre, c.monto, c.pct)).join('') +
+    partes.push(bloque(titulo('¿En qué se fue tu plata?') + d.personal.categorias.slice(0, 3).map((c) => barra(c.nombre, c.monto, c.pct)).join('') +
       `<p style="margin:4px 0 0;font-size:14px;color:#6B7280;">Lo que más pesó fue ${esc(d.personal.categorias[0]?.nombre?.toLowerCase() ?? '')}.</p>`));
   }
 
-  // 3. Ahorro y ofertas
-  const ahorroTxt = d.ahorro.metas.map((m) =>
-    m.cumplida
-      ? `🎉 ¡Cumpliste tu meta <b>${esc(m.nombre)}</b>!`
-      : `Llevas <b>${S(m.ahorrado)}</b> para <b>${esc(m.nombre)}</b> (${m.pct}%). Si separas ${S(d.ahorro.ahorroSugeridoMensual)} al mes, llegas en unos ${meses(m.mesesEstimados)}.`
-  );
+  // 3. Lo más importante a revisar (máximo 3 cosas)
+  const tips = consejos(d).slice(0, 3);
   const sig = d.ofertas.find((o) => !o.desbloqueada);
-  const ya = d.ofertas.filter((o) => o.desbloqueada);
-  if (ya.length) ahorroTxt.push(`🎁 Ya tienes: ${esc(ya.map((o) => o.titulo).join(', '))}.`);
-  if (sig) ahorroTxt.push(`🎁 Te faltan <b>${S(sig.falta)}</b> de ahorro para desbloquear: ${esc(sig.titulo)} (${esc(sig.beneficio.toLowerCase())}).`);
-  partes.push(bloque(titulo('Tu ahorro') + ahorroTxt.map(parrafo).join('')));
-
-  // 4. Qué revisar
-  const tips = consejos(d);
+  if (tips.length < 3 && sig) tips.push(`🎁 Te faltan <b>${S(sig.falta)}</b> de ahorro para desbloquear: ${esc(sig.titulo)}.`);
   if (tips.length) {
-    partes.push(bloque(titulo('Esto vale la pena revisar') +
+    partes.push(bloque(titulo('Lo más importante') +
       `<ul style="margin:0;padding-left:20px;">${tips.map((t) => `<li style="margin:0 0 8px;font-size:16px;line-height:1.5;color:#2B2F38;">${t}</li>`).join('')}</ul>`));
   }
 
-  // 5. Detalle completo: cada ingreso y cada gasto, agrupados por categoría
-  const S2 = (n: number) => soles(n); // en el detalle, con céntimos (igual que en tu cuenta)
-  const celda = 'padding:7px 0;font-size:14px;border-bottom:1px solid #F0EDE5;';
-  const filaMov = (l: { dia: number; descripcion: string; monto: number; dividido?: boolean }) =>
-    `<tr><td style="${celda}color:#6B7280;width:56px;">${l.dia} nov</td><td style="${celda}color:#2B2F38;">${esc(l.descripcion)}${l.dividido ? ' <span style="color:#6B7280;">(tu parte)</span>' : ''}</td><td style="${celda}text-align:right;white-space:nowrap;color:${l.monto > 0 ? '#15803D' : '#14161B'};">${l.monto > 0 ? '+' : ''}${S2(l.monto)}</td></tr>`;
-  const filaTotal = (t: string, monto: string) =>
-    `<tr><td colspan="2" style="padding:9px 0;font-size:15px;font-weight:700;color:#14161B;">${esc(t)}</td><td style="padding:9px 0;font-size:15px;font-weight:700;text-align:right;white-space:nowrap;color:#14161B;">${monto}</td></tr>`;
-  const tablaMovs = (filas: string) => `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${filas}</table>`;
-  const subtitulo = (t: string) => `<p style="margin:16px 0 6px;font-size:15px;font-weight:700;color:#1F56D1;">${t}</p>`;
-  const seccionDetalle = (det: ReturnType<typeof detalle>, ingresosTitulo: string) =>
-    subtitulo(`${ingresosTitulo} · ${S2(det.totalIngresos)}`) +
-    (det.ingresos.length ? tablaMovs(det.ingresos.map(filaMov).join('')) : parrafo('No hubo ingresos.')) +
-    det.grupos.map((g) =>
-      subtitulo(`${esc(g.categoria)} · ${S2(-g.total)}`) + tablaMovs(g.items.map(filaMov).join(''))
-    ).join('') +
-    tablaMovs(filaTotal('Total de gastos', S2(-det.totalGastos)) + filaTotal('Diferencia (ingresos − gastos)', S2(r2(det.totalIngresos - det.totalGastos))));
-
-  let detalleHtml = titulo('Detalle completo del mes') +
-    `<p style="margin:0 0 6px;font-size:14px;color:#6B7280;">Todos tus movimientos del 1 al ${d.hoy} de ${esc(d.mes)}, agrupados para que los revises fácil.</p>`;
-  if (d.detalleNegocio) {
-    detalleHtml += `<p style="margin:14px 0 0;font-size:17px;font-weight:700;color:#14161B;">🏪 ${esc(d.negocioNombre)}</p>` + seccionDetalle(d.detalleNegocio, 'Ventas y cobros');
-    detalleHtml += `<p style="margin:22px 0 0;font-size:17px;font-weight:700;color:#14161B;">🏠 Tus gastos personales</p>`;
-  }
-  detalleHtml += seccionDetalle(d.detallePersonal, d.detalleNegocio ? 'Ingresos personales' : 'Tus ingresos');
-  if (d.sinClasificar.length) {
-    detalleHtml += subtitulo(`Sin clasificar (${d.sinClasificar.length})`) +
-      `<p style="margin:0 0 4px;font-size:14px;color:#C2410C;">Aún no sabemos si son del negocio o tuyos, por eso no están en las sumas de arriba.</p>` +
-      tablaMovs(d.sinClasificar.map(filaMov).join(''));
-  }
-  if (d.proximosCobros.length) {
-    detalleHtml += subtitulo('Cobros que vienen este mes') +
-      tablaMovs(d.proximosCobros.map((c) => filaMov({ dia: c.dia, descripcion: c.nombre, monto: -c.monto })).join(''));
-  }
-  partes.push(bloque(detalleHtml));
+  // 4. El detalle va en el PDF adjunto
+  const nMovs = d.detallePersonal.cantidad + (d.detalleNegocio?.cantidad ?? 0) + d.sinClasificar.length;
+  partes.push(bloque(
+    `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F1F0EB;border-radius:12px;"><tr>
+<td style="padding:14px 16px;font-size:24px;width:32px;vertical-align:top;">📎</td>
+<td style="padding:14px 16px 14px 0;font-size:15px;line-height:1.5;color:#2B2F38;"><b>Tu estado del mes va adjunto en PDF.</b><br>Ahí están tus ${nMovs} movimientos uno por uno, los gastos por categoría, los cobros que vienen y tu ahorro. Guárdalo o compártelo${d.negocio ? ' con tu contador' : ''}.</td>
+</tr></table>`));
 
   // 6. Cierre
-  partes.push(bloque(parrafo('¿Dudas? Abre Mío y pregúntale a Boot, por ejemplo: <i>«¿Llego a fin de mes?»</i> o <i>«¿Puedo gastar S/ 200?»</i>.')));
+  partes.push(bloque(parrafo('¿Dudas? Abre Numa y pregúntale a Mío, por ejemplo: <i>«¿Llego a fin de mes?»</i>.')));
 
   return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(asuntoReporte(d))}</title></head>
 <body style="margin:0;padding:24px 12px;background:#F6F5F1;font-family:Arial,Helvetica,sans-serif;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#FCFBF8;border:1px solid #ECE9E1;border-radius:16px;">
 <tr><td style="padding:24px 24px 8px;">
-<p style="margin:0;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#1F56D1;font-weight:700;">Mío · tu resumen del mes</p>
+<p style="margin:0;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#1F56D1;font-weight:700;">Numa · tu resumen del mes</p>
 <h1 style="margin:8px 0 6px;font-size:26px;line-height:1.25;color:#14161B;">Hola, ${esc(d.nombre)} 👋</h1>
 <p style="margin:0 0 8px;font-size:15px;color:#6B7280;">${d.negocio ? `Así le fue a ${esc(d.negocioNombre)} en ${esc(d.mes)}` : `Así va tu ${esc(d.mes)}`} (datos al día ${d.hoy}). Hoy tienes ${S(d.disponible)} disponibles.</p>
 </td></tr>
@@ -215,23 +182,12 @@ ${partes.join('\n')}
 </table></body></html>`;
 }
 
-/** Versión en texto plano, con las mismas frases (algunos correos la muestran en vez del HTML). */
+/** Versión en texto plano, igual de corta (algunos correos la muestran en vez del HTML). */
 export function textoReporte(d: DatosReporte) {
   const limpio = (t: string) => t.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
-  const l = [`Hola, ${d.nombre}.`, '', ...resumen(d).map(limpio), ''];
-  l.push(...d.ahorro.metas.map((m) => `Ahorro ${m.nombre}: ${S(m.ahorrado)} de ${S(m.objetivo)} (${m.pct}%).`));
-  const tips = consejos(d).map(limpio);
-  if (tips.length) l.push('', 'Esto vale la pena revisar:', ...tips.map((t) => `- ${t}`));
-  const lineasDetalle = (det: ReturnType<typeof detalle>, titulo: string) => [
-    '', `${titulo}: ${soles(det.totalIngresos)}`, ...det.ingresos.map((x) => `  ${x.dia} nov  ${x.descripcion}  +${soles(x.monto)}`),
-    ...det.grupos.flatMap((g) => [`${g.categoria}: ${soles(-g.total)}`, ...g.items.map((x) => `  ${x.dia} nov  ${x.descripcion}  ${soles(x.monto)}`)]),
-    `Total de gastos: ${soles(-det.totalGastos)}`,
-  ];
-  l.push('', 'DETALLE COMPLETO DEL MES');
-  if (d.detalleNegocio) l.push(...lineasDetalle(d.detalleNegocio, `${d.negocioNombre} · ventas y cobros`), '', 'TUS GASTOS PERSONALES');
-  l.push(...lineasDetalle(d.detallePersonal, d.detalleNegocio ? 'Ingresos personales' : 'Tus ingresos'));
-  if (d.sinClasificar.length) l.push('', 'Sin clasificar:', ...d.sinClasificar.map((x) => `  ${x.dia} nov  ${x.descripcion}  ${soles(x.monto)}`));
-  if (d.proximosCobros.length) l.push('', 'Cobros que vienen:', ...d.proximosCobros.map((c) => `  ${c.dia} nov  ${c.nombre}  ${soles(-c.monto)}`));
-  l.push('', '¿Dudas? Pregúntale a Boot en la app.', 'Datos ficticios · simulación, no asesoría.');
+  const l = [`Hola, ${d.nombre}.`, '', ...resumen(d).map(limpio)];
+  const tips = consejos(d).slice(0, 3).map(limpio);
+  if (tips.length) l.push('', 'Lo más importante:', ...tips.map((t) => `- ${t}`));
+  l.push('', 'Tu estado del mes va adjunto en PDF, con todos tus movimientos uno por uno.', '', '¿Dudas? Pregúntale a Mío en la app.', 'Datos ficticios · simulación, no asesoría.');
   return l.join('\n');
 }

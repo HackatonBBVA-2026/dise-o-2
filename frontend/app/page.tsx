@@ -1,13 +1,6 @@
-import '@/styles/device.css';
-import { Device } from '@/components/Device';
+import { redirect } from 'next/navigation';
 
-export const metadata = { title: 'Prototipo móvil' };
-
-/** Vitrina: el teléfono centrado con la app (/app) corriendo dentro. */
-export default function VitrinaPage() {
-  return (
-    <main className="stage">
-      <Device />
-    </main>
-  );
+/** La app siempre empieza en el inicio de sesión: con DNI (persona) o RUC (emprendedor o empresa). */
+export default function Raiz() {
+  redirect('/login');
 }

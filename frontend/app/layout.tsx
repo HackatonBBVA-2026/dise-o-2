@@ -10,12 +10,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: { default: 'Boot', template: '%s · Boot' },
+  title: { default: 'Numa', template: '%s · Numa' },
   description: 'Concepto de app de finanzas personales con asistente de IA. Datos ficticios.',
   // PWA: se instala como app en el celular.
   manifest: '/manifest.webmanifest',
   icons: { icon: '/icons/favicon-48.png', apple: '/icons/apple-touch-icon.png' },
-  appleWebApp: { capable: true, title: 'Mío', statusBarStyle: 'default' },
+  appleWebApp: { capable: true, title: 'Numa', statusBarStyle: 'default' },
 };
 
 export const viewport: Viewport = {

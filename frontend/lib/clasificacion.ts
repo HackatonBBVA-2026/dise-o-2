@@ -1,6 +1,7 @@
 // Personal vs. negocio. Funciones puras: hoy corren en el navegador con datos ficticios;
 // cuando exista el backend, este mismo cálculo se mueve allá y el frontend solo pinta.
 import * as data from './data';
+import { operaciones } from './operaciones';
 import { r2 } from './format';
 import { semaforo } from './finanzas';
 import type { Ambito, Movimiento, ReglaComercio, Vista } from './types';
@@ -49,7 +50,12 @@ export function clasificar(m: Movimiento, e: EstadoClasificacion): MovimientoCla
   return { ...m, efectivo: m.ambito, pct: pctDe(m.ambito, m.pctNegocio), origen: m.clasificadoPor === 'boot' ? 'boot' : 'usuario' };
 }
 
-export const clasificarTodos = (e: EstadoClasificacion) => data.movimientos.map((m) => clasificar(m, e));
+/**
+ * Movimientos del mes + las operaciones hechas desde la app (lo más reciente primero).
+ * En el servidor las operaciones salen de la memoria; en el navegador llegan por `extra` desde el layout.
+ */
+export const clasificarTodos = (e: EstadoClasificacion, extra: Movimiento[] = operaciones()) =>
+  [...extra, ...data.movimientos].map((m) => clasificar(m, e));
 
 /** Parte del monto que corresponde a cada lado (0 si está sin clasificar). */
 function partes(m: MovimientoClasificado) {
@@ -78,7 +84,7 @@ function conPct(cats: Map<string, number>, alertas: Set<string> = new Set()): Ca
  * Resumen personal: el resumen base del mes + los ajustes por reclasificar.
  * Si una compra de stock se marca como personal, el gasto personal sube y la proyección baja.
  */
-export function resumenPersonal(movs: MovimientoClasificado[]) {
+export function resumenPersonal(movs: MovimientoClasificado[], saldoActual = data.cuentas.reduce((a, c) => a + c.saldo, 0)) {
   let deltaIngresos = 0;
   let deltaGastos = 0;
   const cats = new Map(data.categorias.map((c) => [c.nombre, c.monto]));
@@ -96,8 +102,10 @@ export function resumenPersonal(movs: MovimientoClasificado[]) {
 
   const ingresos = r2(data.ingresosMes + deltaIngresos);
   const gastos = r2(data.gastosMes + deltaGastos);
+  // Las operaciones ya salieron del saldo y también suben el gasto (deltaGastos): se suman de vuelta para no restarlas dos veces.
+  const yaDescontado = movs.filter((m) => m.operacion).reduce((a, m) => a + partes(m).personal, 0);
   const proyeccionBase = r2(
-    data.cuentas.reduce((a, c) => a + c.saldo, 0) -
+    saldoActual - yaDescontado -
       data.proximosCobros.filter((c) => c.dia > data.hoy).reduce((a, c) => a + c.monto, 0) -
       data.gastoDiarioEstimado * (data.cierreMes - data.hoy)
   );

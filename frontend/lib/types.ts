@@ -59,6 +59,8 @@ export interface Movimiento {
   confianza?: number; // 0–1, solo cuando clasificó Boot
   /** Movimiento que no está en el resumen personal base (llegó después y aún no se clasificó). */
   pendienteInicial?: boolean;
+  /** Hecho desde la app (transferencia o pago a celular): ya está descontado del saldo de la cuenta. */
+  operacion?: boolean;
 }
 
 export interface ReglaComercio {

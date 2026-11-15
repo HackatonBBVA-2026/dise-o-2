@@ -1,0 +1,6 @@
+# Nunca subir claves ni compilados locales a Vercel
+.env
+.env.*
+!.env.example
+.next
+node_modules

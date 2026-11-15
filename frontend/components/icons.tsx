@@ -29,6 +29,9 @@ export const IconInicio = (p: P) => (
 export const IconTransferir = (p: P) => (
   <Svg {...p}><path d="M5 8h14m0 0-3.5-3.5M19 8l-3.5 3.5M19 16H5m0 0 3.5-3.5M5 16l3.5 3.5" /></Svg>
 );
+export const IconCelular = (p: P) => (
+  <Svg {...p}><rect x="7" y="3" width="10" height="18" rx="2.2" /><path d="M11 17.5h2" /></Svg>
+);
 export const IconCampana = (p: P) => (
   <Svg {...p}><path d="M6 10a6 6 0 0 1 12 0c0 5 2 6.5 2 6.5H4S6 15 6 10z" /><path d="M10 19.5a2 2 0 0 0 4 0" /></Svg>
 );

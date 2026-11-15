@@ -12,12 +12,12 @@ type Mensaje =
   | { id: number; de: 'escribiendo' };
 
 const BIENVENIDA: RespuestaBoot = {
-  texto: ['Hola, soy Boot. Pregúntame antes de gastar y hago la cuenta con tus movimientos.'],
+  texto: ['Hola, soy Mío. Pregúntame antes de gastar y hago la cuenta con tus movimientos.'],
 };
 
 const CHIPS_INICIALES = {
-  persona: ['¿Llego a fin de mes?', '¿Puedo gastar S/ 200 en unas zapatillas?', '¿Qué ofertas puedo desbloquear?', 'Mis suscripciones'],
-  empresa: ['¿Cuánto gané este mes en el negocio?', '¿Puedo reponer stock por S/ 500?', '¿Llego a fin de mes?', '¿Qué ofertas puedo desbloquear?'],
+  persona: ['¿Llego a fin de mes?', '¿Tengo algún préstamo o tarjeta preaprobada?', '¿Puedo gastar S/ 200 en unas zapatillas?', 'Mis suscripciones'],
+  empresa: ['¿Cuánto gané este mes en el negocio?', '¿Qué préstamo o tarjeta tengo para mi negocio?', '¿Puedo reponer stock por S/ 500?', '¿Llego a fin de mes?'],
 };
 
 /** Pestaña Boot: el cliente solo envía la pregunta y pinta la respuesta calculada en el servidor. */
@@ -67,7 +67,7 @@ export function Chat({ preguntaInicial, perfil = 'persona' }: { preguntaInicial?
       <header className="chat__head">
         <span className="chat__avatar"><BootAvatar /></span>
         <div>
-          <h1 id="bootTitle">Boot</h1>
+          <h1 id="bootTitle">Mío</h1>
           <p><span className="live-dot" aria-hidden="true" />Asistente con IA · en línea</p>
         </div>
       </header>
@@ -77,7 +77,7 @@ export function Chat({ preguntaInicial, perfil = 'persona' }: { preguntaInicial?
           m.de === 'usuario' ? (
             <div key={m.id} className="msg msg--user">{m.texto}</div>
           ) : m.de === 'escribiendo' ? (
-            <div key={m.id} className="msg msg--bot msg--typing">Boot está calculando…</div>
+            <div key={m.id} className="msg msg--bot msg--typing">Mío está calculando…</div>
           ) : (
             <Respuesta key={m.id} r={m.r} />
           )
@@ -100,7 +100,7 @@ export function Chat({ preguntaInicial, perfil = 'persona' }: { preguntaInicial?
         }}
       >
         <label className="sr-only" htmlFor="bootInput">Escribe tu pregunta</label>
-        <input id="bootInput" type="text" placeholder="Pregúntale a Boot" maxLength={300} value={texto} onChange={(e) => setTexto(e.target.value)} />
+        <input id="bootInput" type="text" placeholder="Pregúntale a Mío" maxLength={300} value={texto} onChange={(e) => setTexto(e.target.value)} />
         <button type="submit" aria-label="Enviar"><IconFlecha size={18} stroke={2} /></button>
       </form>
       <p className="chat__legal">Información y simulaciones, no asesoría. La decisión es tuya.</p>

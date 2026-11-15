@@ -11,7 +11,7 @@ export function Device() {
   useEffect(() => {
     // En un celular real se abre la app directamente, sin el marco.
     if (window.matchMedia('(max-width: 540px)').matches) {
-      location.replace('/app');
+      location.replace('/login');
       return;
     }
 
@@ -66,7 +66,7 @@ export function Device() {
               </svg>
             </span>
           </div>
-          <iframe className="screen__app" src="/app" title="Prototipo de la app Boot" />
+          <iframe className="screen__app" src="/login" title="Prototipo de la app Numa" />
           <span className="home-indicator" aria-hidden="true" />
         </div>
       </div>

@@ -17,7 +17,7 @@ export function ReglasNegocio() {
               <span className="rows__name">
                 {r.comercio}
                 <small>
-                  Siempre {r.ambito === 'negocio' ? 'negocio' : 'personal'} · {r.creadaPor === 'boot' ? 'la creó Boot' : 'la creaste tú'}
+                  Siempre {r.ambito === 'negocio' ? 'negocio' : 'personal'} · {r.creadaPor === 'boot' ? 'la creó Mío' : 'la creaste tú'}
                 </small>
               </span>
               <button type="button" className="btn-sm" onClick={() => eliminarRegla(r.comercio)} aria-label={`Borrar la regla de ${r.comercio}`}>

@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import { asuntoReporte, datosReporte, htmlReporte, textoReporte } from '@/lib/reporte';
+import { nombrePdf, pdfReporte } from '@/lib/reporte-pdf';
 import { sesionActual } from '@/lib/sesion-servidor';
 
-// POST { correo } → envía el cierre del mes por correo con Resend (https://resend.com).
+// POST { correo } → envía el cierre del mes por correo con Resend (https://resend.com):
+// el cuerpo es un resumen corto y el detalle completo va adjunto en PDF.
 // Sin RESEND_API_KEY no envía nada: responde en modo demo para que la app muestre la vista previa.
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
@@ -20,6 +22,7 @@ export async function POST(req: Request) {
       enviado: false,
       mensaje: 'Modo demo: el correo no se envió porque falta configurar RESEND_API_KEY. Mira la vista previa.',
       vistaPrevia: '/app/reporte',
+      pdf: '/app/reporte/pdf',
     });
   }
 
@@ -28,11 +31,12 @@ export async function POST(req: Request) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${clave}` },
       body: JSON.stringify({
-        from: process.env.REPORTE_REMITENTE || 'Mío <onboarding@resend.dev>',
+        from: process.env.REPORTE_REMITENTE || 'Numa <onboarding@resend.dev>',
         to: [correo],
         subject: asuntoReporte(d),
         html: htmlReporte(d),
         text: textoReporte(d),
+        attachments: [{ filename: nombrePdf(d), content: Buffer.from(await pdfReporte(d)).toString('base64') }],
       }),
       signal: AbortSignal.timeout(10000),
     });

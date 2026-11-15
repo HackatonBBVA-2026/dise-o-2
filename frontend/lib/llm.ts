@@ -7,6 +7,7 @@ import * as f from './finanzas';
 import { ESTADO_VACIO, clasificarTodos, enVista, pendientes, resumenNegocio, resumenPersonal } from './clasificacion';
 import * as metas from './metas';
 import * as ahorro from './ahorro';
+import { verProductos, type Producto } from './productos';
 import { r2, soles as S } from './format';
 import { memoria } from './memoria';
 import type { Perfil } from './sesion';
@@ -166,6 +167,20 @@ const HERRAMIENTAS: Herramienta[] = [
       { label: 'Usaría de tu margen', valor: `${r.usoMargen}%`, tono: r.usoMargen >= 80 ? 'rojo' : 'verde' },
     ],
   },
+  {
+    name: 'ver_productos_y_beneficios',
+    description:
+      'Préstamos, tarjetas de crédito y beneficios de Numa que el usuario tiene preaprobados o disponibles, con montos calculados con sus datos. Úsala cuando pregunte qué beneficios, préstamos, tarjetas o productos tiene o puede pedir.',
+    parameters: sinParams, // siempre la lista completa (un filtro opcional hacía que el modelo mandara null)
+    perfiles: AMBOS,
+    run: (perfil) => verProductos(perfil),
+    tabla: (r) =>
+      r.productos.map((p: Producto) => ({
+        label: p.nombre,
+        valor: p.estado === 'no por ahora' ? 'Aún no' : p.monto ? `${p.estado === 'preaprobado' ? 'Preaprobado' : 'Disponible'} · ${S(p.monto)}` : 'Desbloqueado',
+        tono: p.estado === 'no por ahora' ? '' : 'verde',
+      })),
+  },
   // ---- Solo emprendedor / empresa ----
   {
     name: 'ver_negocio',
@@ -211,7 +226,7 @@ const HERRAMIENTAS: Herramienta[] = [
   // ---- Metas, ahorro y ofertas (cada perfil con las suyas) ----
   {
     name: 'definir_meta_gasto',
-    description: 'Crea o actualiza un límite de gasto mensual para una categoría. Boot avisa al 80% y al superarlo.',
+    description: 'Crea o actualiza un límite de gasto mensual para una categoría. Mío avisa al 80% y al superarlo.',
     parameters: { type: 'object', properties: { categoria: { type: 'string' }, limite: { type: 'number' } }, required: ['categoria', 'limite'] },
     perfiles: AMBOS,
     run: (perfil, a) => metas.definirMeta(perfil, a.categoria, a.limite),
@@ -272,17 +287,20 @@ function instrucciones(perfil: Perfil) {
       ? `Hablas con ${data.usuario.nombre}, dueña del negocio ${data.negocio.nombre} (${data.negocio.rubro}, régimen ${data.negocio.regimen}). Entró con su RUC: prioriza las finanzas del negocio.`
       : `Hablas con ${data.usuario.nombre}. Entró con su DNI: habla solo de sus finanzas personales. Si pregunta por un negocio, ventas o RUC, dile que con DNI ve sus finanzas personales y que para su negocio debe ingresar con su RUC; no uses sus datos personales como si fueran de un negocio.`;
   return [
-    'Eres Boot, el asistente con IA de la app Mío.',
+    'Eres Mío, el asistente con IA de la app Numa.',
     quien,
     `Hoy es el día ${data.hoy} del mes y el mes cierra el día ${data.cierreMes}. Moneda: soles (S/).`,
     'Reglas:',
     '- NUNCA calcules ni inventes cifras. Para cualquier dato usa las herramientas y cita solo lo que devuelven.',
     '- Menciona solo los 1 o 2 números clave y explica qué significan. No hables de tablas, herramientas ni de cómo obtuviste los datos.',
     '- Responde en español de Perú, cercano y claro, en máximo 3 oraciones cortas. Sin markdown ni listas.',
-    '- SOLO respondes sobre los datos del usuario en esta app (cuentas, tarjetas, ingresos, movimientos, gastos, metas, ahorro, ofertas y simulaciones con esos datos).',
-    '- No das información externa ni conocimiento general (noticias, definiciones, trámites, otros bancos o productos del mercado). Si no se responde con las herramientas, di en una oración que solo puedes ayudar con sus cuentas de Mío y sugiere algo que sí puedes hacer.',
-    '- Las ofertas son solo las de ver_ofertas; no inventes otras. Separa ahorro solo si el usuario lo pide con un monto.',
-    '- Son simulaciones con sus datos, no asesoría financiera; la decisión es del usuario. Los préstamos son simulaciones con productos ficticios.',
+    '- Escribe los montos como en Perú: S/ 1,400 o S/ 95.79 (coma para miles, punto para decimales).',
+    '- No menciones comisiones, seguros, cargos ni condiciones que las herramientas no devuelvan.',
+    '- SOLO respondes sobre los datos del usuario en esta app (cuentas, tarjetas, ingresos, movimientos, gastos, metas, ahorro, ofertas, productos de Numa y simulaciones con esos datos).',
+    '- Si pregunta por beneficios, préstamos, tarjetas o productos que tiene o puede pedir, usa ver_productos_y_beneficios: menciona los preaprobados con su monto, por qué califica (con sus datos) y aclara que son productos ficticios sujetos a evaluación. Si menciona un monto concreto de préstamo (por ejemplo «¿y si pido S/ 1,000?»), usa SIEMPRE simular_prestamo con ese monto y di la cuota exacta que devuelve y si entra en lo preaprobado.',
+    '- No das información externa ni conocimiento general (noticias, definiciones, trámites, otros bancos o productos del mercado). Si no se responde con las herramientas, di en una oración que solo puedes ayudar con sus cuentas de Numa y sugiere algo que sí puedes hacer.',
+    '- Las ofertas y productos son solo los de ver_ofertas y ver_productos_y_beneficios; no inventes otros ni otras tasas. Separa ahorro solo si el usuario lo pide con un monto.',
+    '- Son simulaciones con sus datos, no asesoría financiera; la decisión es del usuario. Los préstamos y tarjetas son productos ficticios de la demo.',
   ].join('\n');
 }
 
@@ -330,8 +348,18 @@ function sinRepetir(texto: string) {
   return pegadas.length > 1 ? pegadas[0] : t;
 }
 
+/** Montos al formato peruano aunque el modelo escriba "S/ 1 000", "S/1200" o "S/ 95,79". */
+export function formatoSoles(t: string) {
+  const miles = (n: string) => n.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return t.replace(/S\/\s?((?:\d{1,3}(?:[ \u00a0\u202f.,]\d{3})+|\d+)(?:[.,]\d{1,2})?)(?!\d)/g, (_, num: string) => {
+    const dec = num.match(/[.,](\d{1,2})$/);
+    const entero = (dec ? num.slice(0, -dec[0].length) : num).replace(/[^\d]/g, '');
+    return `S/ ${miles(entero)}${dec ? '.' + dec[1].padEnd(2, '0') : ''}`;
+  });
+}
+
 function aParrafos(texto: string | null | undefined) {
-  const parrafos = sinRepetir(String(texto ?? ''))
+  const parrafos = sinRepetir(formatoSoles(String(texto ?? '')))
     .replace(/\*\*|__|`/g, '')
     .split(/\n\s*\n|\n(?=[-•]\s)/)
     .map((p) => sinRepetir(p.replace(/^[-•]\s*/, '')))

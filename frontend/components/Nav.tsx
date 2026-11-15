@@ -9,7 +9,7 @@ import { IconCampana, IconInicio, IconLista, IconPerfil } from './icons';
 const TABS = [
   { href: '/app', label: 'Inicio', Icon: IconInicio },
   { href: '/app/movimientos', label: 'Movimientos', Icon: IconLista },
-  { href: '/app/boot', label: 'Boot', centro: true },
+  { href: '/app/boot', label: 'Mío', centro: true },
   { href: '/app/avisos', label: 'Avisos', Icon: IconCampana, punto: true },
   { href: '/app/perfil', label: 'Perfil', Icon: IconPerfil },
 ] as const;

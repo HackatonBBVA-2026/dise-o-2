@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { AvisosLink } from '@/components/AvisosLink';
 import { InicioPaneles, InicioSaldo } from '@/components/InicioFinanzas';
 import { Money } from '@/components/Money';
-import { IconBuscar, IconCampana, IconLista, IconMeta } from '@/components/icons';
+import { IconBuscar, IconCelular, IconLista, IconMeta, IconTransferir } from '@/components/icons';
 import { negocio, tarjeta, usuario } from '@/lib/data';
 import { getResumen } from '@/lib/finanzas';
 import { soles } from '@/lib/format';
@@ -14,23 +14,23 @@ export const metadata = { title: 'Inicio' };
 export const dynamic = 'force-dynamic'; // el saludo depende de la hora
 
 const ACCESOS = [
-  // App de gestión: consultar y planificar, no mover dinero.
+  // Como una banca móvil: transferir y pagar a celular (simulado), además de gestionar.
+  { href: '/app/operar?tipo=cuenta', label: 'Transferir', Icon: IconTransferir },
+  { href: '/app/operar', label: 'Pagar a celular', Icon: IconCelular },
   { href: '/app/movimientos', label: 'Movimientos', Icon: IconLista },
   { href: '/app/metas', label: 'Metas', Icon: IconMeta },
-  { href: '/app/avisos', label: 'Avisos', Icon: IconCampana },
-  { href: '/app/boot', label: 'Preguntar', Icon: IconBuscar },
 ];
 
 const PREGUNTAS = {
   persona: [
     { q: '¿Puedo gastar S/ 200 en unas zapatillas?', label: '¿Puedo gastar S/ 200 en unas zapatillas?' },
     { q: '¿Llego a fin de mes?', label: '¿Llego a fin de mes?' },
-    { q: 'Mis suscripciones', label: '¿Cuánto pago en suscripciones?' },
+    { q: '¿Tengo algún préstamo o tarjeta preaprobada?', label: '¿Tengo algún préstamo o tarjeta preaprobada?' },
   ],
   empresa: [
     { q: '¿Cuánto gané este mes en el negocio?', label: '¿Cuánto gané este mes en la bodega?' },
     { q: '¿Puedo reponer stock por S/ 500?', label: '¿Puedo reponer stock por S/ 500?' },
-    { q: '¿Me alcanza para un préstamo de S/ 3,000?', label: '¿Me alcanza un préstamo de S/ 3,000 para el negocio?' },
+    { q: '¿Qué préstamo o tarjeta tengo para mi negocio?', label: '¿Qué préstamo o tarjeta tengo para mi negocio?' },
   ],
 };
 
@@ -60,7 +60,7 @@ export default async function InicioPage() {
         {/* Tarjeta virtual */}
         <figure className="card-v" aria-label={`Tarjeta de ${tarjeta.tipo.toLowerCase()} terminada en ${tarjeta.ultimos}`}>
           <div className="card-v__top">
-            <span className="card-v__brand">BOOT</span>
+            <span className="card-v__brand">NUMA</span>
             <span className="card-v__tier">BLACK<small>{tarjeta.tipo.toUpperCase()}</small></span>
           </div>
           <div className="card-v__mid" aria-hidden="true">
@@ -131,11 +131,11 @@ export default async function InicioPage() {
 
         {/* Acceso directo a Boot */}
         <section className="panel" aria-labelledby="askTitle">
-          <header className="panel__head"><h2 id="askTitle">Antes de gastar, pregúntale a Boot</h2></header>
+          <header className="panel__head"><h2 id="askTitle">Antes de gastar, pregúntale a Mío</h2></header>
           <p className="hint">
             {esEmpresa
-              ? 'Boot hace la cuenta con los movimientos de tu negocio y separa lo personal de lo del negocio.'
-              : 'Boot hace la cuenta con tus movimientos y te dice cómo llegas a fin de mes.'}
+              ? 'Mío hace la cuenta con los movimientos de tu negocio y separa lo personal de lo del negocio.'
+              : 'Mío hace la cuenta con tus movimientos y te dice cómo llegas a fin de mes.'}
           </p>
           <div className="asks">
             {PREGUNTAS[perfil].map((p) => (

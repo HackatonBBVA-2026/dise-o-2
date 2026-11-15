@@ -11,7 +11,7 @@ import {
   type EstadoClasificacion,
   type MovimientoClasificado,
 } from '@/lib/clasificacion';
-import type { Ambito, ReglaComercio, Vista } from '@/lib/types';
+import type { Ambito, Movimiento, ReglaComercio, Vista } from '@/lib/types';
 import type { Perfil } from '@/lib/sesion';
 
 const KEY = 'boot.clasificacion';
@@ -45,7 +45,19 @@ export function useClasificacion() {
  * Estado de personal vs. negocio para toda la app.
  * Hoy se guarda en este navegador; con el backend, cada cambio será una llamada a la API.
  */
-export function ClasificacionProvider({ children, perfil = 'persona' }: { children: React.ReactNode; perfil?: Perfil }) {
+export function ClasificacionProvider({
+  children,
+  perfil = 'persona',
+  operaciones = [],
+  saldo,
+}: {
+  children: React.ReactNode;
+  perfil?: Perfil;
+  /** Transferencias y pagos hechos desde la app (vienen del servidor). */
+  operaciones?: Movimiento[];
+  /** Saldo actual de la cuenta según el servidor (ya descuenta operaciones y ahorro). */
+  saldo?: number;
+}) {
   const [estado, setEstado] = useState<EstadoClasificacion>(ESTADO_VACIO);
   const [vistaGuardada, setVistaState] = useState<Vista>('negocio');
   // Persona (DNI): solo ve lo personal. Empresa (RUC): ve su negocio y puede cambiar de vista.
@@ -75,7 +87,7 @@ export function ClasificacionProvider({ children, perfil = 'persona' }: { childr
     try { localStorage.setItem(KEY_VISTA, v); } catch { /* sin almacenamiento */ }
   }, []);
 
-  const movimientos = useMemo(() => clasificarTodos(estado), [estado]);
+  const movimientos = useMemo(() => clasificarTodos(estado, operaciones), [estado, operaciones]);
 
   const clasificarMovimiento = useCallback<Ctx['clasificarMovimiento']>(
     (id, ambito, opciones = {}) => {
@@ -113,7 +125,7 @@ export function ClasificacionProvider({ children, perfil = 'persona' }: { childr
     () => ({
       movimientos,
       pendientes: filtrarPendientes(movimientos),
-      personal: resumenPersonal(movimientos),
+      personal: resumenPersonal(movimientos, saldo),
       negocio: resumenNegocio(movimientos),
       reglas: reglasActivas(estado),
       perfil,
@@ -123,7 +135,7 @@ export function ClasificacionProvider({ children, perfil = 'persona' }: { childr
       eliminarRegla,
       restablecer,
     }),
-    [movimientos, estado, perfil, vista, setVista, clasificarMovimiento, eliminarRegla, restablecer]
+    [movimientos, estado, perfil, vista, setVista, clasificarMovimiento, eliminarRegla, restablecer, saldo]
   );
 
   return <ClasCtx.Provider value={valor}>{children}</ClasCtx.Provider>;

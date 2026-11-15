@@ -21,7 +21,7 @@ export function BandejaClasificar() {
         <p className="hint">Todo está clasificado. Tus resúmenes personal y del negocio ya cuentan cada movimiento.</p>
       ) : (
         <>
-          <p className="hint">Boot no está seguro de si estos gastos son tuyos o de la bodega. Mientras no los clasifiques, no cuentan en ningún resumen.</p>
+          <p className="hint">Mío no está seguro de si estos gastos son tuyos o de la bodega. Mientras no los clasifiques, no cuentan en ningún resumen.</p>
           <ul className="bandeja">
             {pendientes.map((m) => <ItemPendiente key={m.id} m={m} />)}
           </ul>
@@ -45,7 +45,7 @@ function ItemPendiente({ m }: { m: MovimientoClasificado }) {
         <Money>{soles(m.monto)}</Money>
       </div>
       <p className="bandeja__sugerencia">
-        Boot sugiere <strong>{sugerencia}</strong> · {Math.round((m.confianza ?? 0) * 100)}% de confianza
+        Mío sugiere <strong>{sugerencia}</strong> · {Math.round((m.confianza ?? 0) * 100)}% de confianza
       </p>
       <div className="bandeja__acciones">
         <button type="button" className="btn-sm" onClick={() => clasificarMovimiento(m.id, 'personal', { recordar })}>Personal</button>

@@ -17,7 +17,7 @@ export function AvisosLink({ cortos }: { cortos: string[] }) {
     <Link className="alert-link span-2" href="/app/avisos" data-avisos="">
       <span className="alert-link__mark"><BootAvatar /></span>
       <span className="alert-link__text">
-        <strong>Boot encontró {total} aviso{total > 1 ? 's' : ''}</strong>
+        <strong>Mío encontró {total} aviso{total > 1 ? 's' : ''}</strong>
         <small>{partes.join(' · ')}</small>
       </span>
       <IconChevron size={18} stroke={1.8} />

@@ -5,6 +5,8 @@ import * as data from './data';
 import * as f from './finanzas';
 import { ESTADO_VACIO, clasificarTodos, pendientes, resumenNegocio } from './clasificacion';
 import { r2, solesCorto as S } from './format';
+import { verProductos } from './productos';
+import type { Perfil } from './sesion';
 import type { RespuestaBoot, Tono } from './types';
 
 // El servidor aún no conoce las reclasificaciones del usuario (viven en su navegador).
@@ -22,7 +24,7 @@ const CHIPS_BASE = ['¿Llego a fin de mes?', 'Mis suscripciones', 'Fondo de emer
 
 interface Intencion {
   test: (t: string) => boolean;
-  run: (t: string) => RespuestaBoot;
+  run: (t: string, perfil: Perfil) => RespuestaBoot;
 }
 
 const intenciones: Intencion[] = [
@@ -53,6 +55,31 @@ const intenciones: Intencion[] = [
       ],
       chips: ['¿Llego a fin de mes?'],
     }),
+  },
+  {
+    // "¿Tengo algún beneficio?", "¿Qué préstamos o tarjetas puedo pedir?" (sin un monto concreto)
+    test: (t) =>
+      /beneficio|preaprobad|productos?|me ofrec|tarjeta de credito|credito/.test(t) ||
+      (/prestamo|tarjeta/.test(t) && extraerMonto(t) === null && /tengo|hay|puedo|ofrec|acceder|califico|pedir|sacar/.test(t)),
+    run: (_t, perfil) => {
+      const r = verProductos(perfil);
+      const pre = r.productos.filter((p) => p.estado === 'preaprobado');
+      return {
+        texto: [
+          pre.length
+            ? `Sí: tienes ${pre.map((p) => `${p.nombre} por ${S(p.monto ?? 0)}`).join(' y ')} preaprobados. ${pre[0].porQue}`
+            : 'Por ahora no tienes productos preaprobados, pero puedes mejorar tu evaluación ahorrando cada mes.',
+          r.consejo,
+        ],
+        tabla: r.productos.map((p) => ({
+          label: p.nombre,
+          valor: p.estado === 'no por ahora' ? 'Aún no' : p.monto ? `${p.estado === 'preaprobado' ? 'Preaprobado' : 'Disponible'} · ${S(p.monto)}` : 'Desbloqueado',
+          tono: (p.estado === 'no por ahora' ? '' : 'verde') as Tono,
+        })),
+        nota: r.aviso,
+        chips: ['Simula un préstamo de S/ 1,000', '¿Llego a fin de mes?'],
+      };
+    },
   },
   {
     test: (t) => /prestamo/.test(t),
@@ -131,7 +158,7 @@ const intenciones: Intencion[] = [
     // Boot solo usa datos de la app: muestra la tarjeta y las cuentas, sin consejos externos.
     test: (t) => /tarjeta|cuenta/.test(t),
     run: () => ({
-      texto: ['Estas son tu tarjeta y tus cuentas en Mío:'],
+      texto: ['Estas son tu tarjeta y tus cuentas en Numa:'],
       tabla: [
         { label: `Tarjeta ${data.tarjeta.tipo} •••• ${data.tarjeta.ultimos} · vence ${data.tarjeta.vence}`, valor: 'Activa' },
         ...data.cuentas.map((c) => ({ label: `${c.tipo} •••• ${c.numero}`, valor: S(c.saldo) })),
@@ -209,10 +236,10 @@ const intenciones: Intencion[] = [
   },
 ];
 
-export function responder(mensaje: string): RespuestaBoot {
+export function responder(mensaje: string, perfil: Perfil = 'persona'): RespuestaBoot {
   const t = normalizar(mensaje);
   const intent = intenciones.find((i) => i.test(t));
-  if (intent) return intent.run(t);
+  if (intent) return intent.run(t, perfil);
   return {
     texto: [
       `Hola, ${data.usuario.nombre}. Puedo simular un gasto antes de que lo hagas, revisar tus cobros o decirte si llegas a fin de mes.`,

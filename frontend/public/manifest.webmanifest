@@ -1,10 +1,10 @@
 {
-  "name": "Mío · Finanzas con Boot",
-  "short_name": "Mío",
-  "description": "Tus finanzas personales o las de tu negocio con Boot, un asistente con IA. Concepto con datos ficticios.",
+  "name": "Numa · Finanzas con Mío",
+  "short_name": "Numa",
+  "description": "Tus finanzas personales o las de tu negocio con Mío, un asistente con IA. Concepto con datos ficticios.",
   "lang": "es-PE",
   "id": "/app",
-  "start_url": "/app",
+  "start_url": "/login",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
@@ -16,7 +16,7 @@
     { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Preguntarle a Boot", "url": "/app/boot", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Preguntarle a Mío", "url": "/app/boot", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
     { "name": "Metas", "url": "/app/metas", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }

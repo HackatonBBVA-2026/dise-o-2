@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { BootAvatar } from './BootAvatar';
 import { DEMO } from '@/lib/sesion';
 
 /** Inicio de sesión: con DNI entras como persona; con RUC, como emprendedor o empresa. */
@@ -49,9 +48,10 @@ export function LoginForm() {
   return (
     <div className="login__card">
       <div className="login__brand">
-        <span className="login__avatar"><BootAvatar /></span>
-        <h1>Mío</h1>
-        <p className="hint">Tus finanzas con Boot, tu asistente con IA.</p>
+        {/* eslint-disable-next-line @next/next/no-img-element -- logo estático pequeño */}
+        <img className="login__logo" src="/icons/numa-logo.png" alt="Logo de Numa" width={72} height={72} />
+        <h1>Numa</h1>
+        <p className="hint">Tus finanzas con Mío, tu asistente con IA.</p>
       </div>
 
       <form className="form" onSubmit={entrar} noValidate>
