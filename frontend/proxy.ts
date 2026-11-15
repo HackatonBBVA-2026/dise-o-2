@@ -20,5 +20,5 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // /api/sesion queda libre para poder iniciar y cerrar sesión.
-  matcher: ['/login', '/app/:path*', '/api/boot', '/api/metas'],
+  matcher: ['/login', '/app/:path*', '/api/boot', '/api/metas', '/api/reportes'],
 };

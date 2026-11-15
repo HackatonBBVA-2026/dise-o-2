@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Ajustes } from '@/components/Ajustes';
 import { CerrarSesion } from '@/components/CerrarSesion';
+import { EnviarReporte } from '@/components/EnviarReporte';
 import { ReglasNegocio } from '@/components/ReglasNegocio';
 import { IconChevron } from '@/components/icons';
 import { negocio, usuario } from '@/lib/data';
@@ -62,6 +63,11 @@ export default async function PerfilPage() {
           <ReglasNegocio />
         </section>
         )}
+
+        <section className="panel" aria-labelledby="reportesTitle">
+          <header className="panel__head"><h2 id="reportesTitle">Reportes</h2><span className="count">Cierre del mes por correo</span></header>
+          <EnviarReporte />
+        </section>
 
         <section className="panel" aria-labelledby="ajustesTitle">
           <header className="panel__head"><h2 id="ajustesTitle">Ajustes</h2></header>

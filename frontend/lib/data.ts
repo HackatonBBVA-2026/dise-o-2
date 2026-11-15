@@ -19,7 +19,7 @@ export const hoy = 14; // día actual del mes
 export const cierreMes = 30;
 
 export const ingresosMes = 1650;
-export const gastosMes = 1342;
+export const gastosMes = 1301.9; // = suma de los gastos personales de `movimientos`
 export const gastoDiarioEstimado = 47; // gasto variable promedio por día
 export const sobrantePromedio6m = 310; // lo que sobra en promedio al mes (últimos 6 meses)
 
@@ -29,7 +29,7 @@ export const cuentas: Cuenta[] = memoria('cuentas', () => [{ id: 'ah-4821', tipo
 export const categorias: Categoria[] = [
   { nombre: 'Vivienda', monto: 450 },
   { nombre: 'Comida', monto: 380 },
-  { nombre: 'Suscripciones', monto: 214, alerta: true },
+  { nombre: 'Suscripciones', monto: 173.9, alerta: true },
   { nombre: 'Transporte', monto: 160 },
   { nombre: 'Otros', monto: 138 },
 ];
@@ -66,14 +66,29 @@ export const movimientos: Movimiento[] = [
   { id: 'n-01', dia: 2, descripcion: 'Ventas QR · Bodega Ana', categoria: 'Ventas', monto: 320, ambito: 'negocio', clasificadoPor: 'regla' },
 
   // Personal
+  // Los movimientos personales suman exactamente los totales de `categorias` (el reporte por correo los lista uno por uno).
+  { id: 'p-23', dia: 13, descripcion: 'Chifa Dragón Dorado', categoria: 'Comida', monto: -39.5, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-09', dia: 13, descripcion: 'Supermercado Plaza', categoria: 'Comida', monto: -86.4, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-22', dia: 13, descripcion: 'Moviride', categoria: 'Transporte', monto: -14, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-08', dia: 12, descripcion: 'Transferencia a Luis R.', categoria: 'Otros', monto: -120, ambito: 'personal', clasificadoPor: 'usuario' },
+  { id: 'p-21', dia: 11, descripcion: 'Panadería San José', categoria: 'Comida', monto: -9.5, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-07', dia: 11, descripcion: 'Taxi app', categoria: 'Transporte', monto: -18.5, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-20', dia: 10, descripcion: 'MusiPlay', categoria: 'Suscripciones', monto: -24.9, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-06', dia: 10, descripcion: 'Pago QR · Café Central', categoria: 'Comida', monto: -14, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-19', dia: 9, descripcion: 'Maxiahorro', categoria: 'Comida', monto: -79.2, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-18', dia: 9, descripcion: 'Taxi app', categoria: 'Transporte', monto: -21, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-05', dia: 8, descripcion: 'STREAMFLIX', categoria: 'Suscripciones', monto: -30, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-17', dia: 7, descripcion: 'Rapidoo · Pedido', categoria: 'Comida', monto: -46.9, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-16', dia: 7, descripcion: 'Grifo ViaPlus', categoria: 'Transporte', monto: -60, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-04', dia: 6, descripcion: 'Gimnasio', categoria: 'Suscripciones', monto: -89, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-15', dia: 6, descripcion: 'Menú Doña Lucha', categoria: 'Comida', monto: -14, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-03', dia: 5, descripcion: 'STREAMFLIX', categoria: 'Suscripciones', monto: -30, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-14', dia: 5, descripcion: 'Recarga tarjeta bus', categoria: 'Transporte', monto: -30, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-13', dia: 4, descripcion: 'Pollería El Brasero', categoria: 'Comida', monto: -58, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-12', dia: 3, descripcion: 'Librería Central', categoria: 'Otros', monto: -18, ambito: 'personal', clasificadoPor: 'usuario' },
   { id: 'p-02', dia: 3, descripcion: 'Alquiler', categoria: 'Vivienda', monto: -450, ambito: 'personal', clasificadoPor: 'usuario' },
+  { id: 'p-11', dia: 2, descripcion: 'Minimarket 24H', categoria: 'Comida', monto: -32.5, ambito: 'personal', clasificadoPor: 'regla' },
+  { id: 'p-10', dia: 2, descripcion: 'Taxi app', categoria: 'Transporte', monto: -16.5, ambito: 'personal', clasificadoPor: 'regla' },
   { id: 'p-01', dia: 1, descripcion: 'Sueldo', categoria: 'Ingreso', monto: 1650, ambito: 'personal', clasificadoPor: 'usuario' },
 ];
 

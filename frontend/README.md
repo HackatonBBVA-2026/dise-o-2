@@ -40,6 +40,12 @@ Sin clave, o si Groq falla, se usa el motor de reglas (`lib/boot.ts`). Si el mod
 
 Metas de gasto por categoría (aviso al 80% y al superarla), metas de ahorro (separar dinero descuenta del saldo, simulado) y ofertas ficticias que se desbloquean al ahorrar: paquetes de viaje para personas, beneficios para negocios. Estado en memoria del servidor (`lib/memoria.ts`): se reinicia al reiniciar.
 
+## Reporte del mes por correo
+
+Perfil › Reportes: «Enviar mi resumen del mes» o «Ver cómo se ve el correo» (`/app/reporte`). El correo está escrito en lenguaje simple: cuánto vas a favor, si llegas a fin de mes (semáforo con palabras), en qué se fue la plata, cómo va el ahorro y qué revisar. Con RUC empieza por la ganancia del negocio. Los números salen de `lib/reporte.ts`, que usa el mismo motor que la app.
+
+El envío usa [Resend](https://resend.com): crea una clave y ponla en `RESEND_API_KEY` en `.env.local`. Sin clave, la app no envía nada y muestra la vista previa. Con el remitente de prueba `onboarding@resend.dev`, Resend solo entrega al correo de tu cuenta; para enviar a cualquiera hay que verificar un dominio.
+
 ## Instalar en el celular (PWA)
 
 `public/manifest.webmanifest` + `public/sw.js`: desde el celular, abre la app por HTTPS y elige "Instalar app" / "Agregar a inicio". Para probar desde el celular con `npm run dev`, usa un túnel (por ejemplo `cloudflared tunnel --url http://localhost:3000`); `next.config.ts` ya permite `*.trycloudflare.com`.
